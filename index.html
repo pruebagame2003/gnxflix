@@ -36,16 +36,16 @@
 
         /* Banner Principal con degradado */
         .banner {
-            height: 55vh;
-            background: linear-gradient(to bottom, rgba(20,20,20,0) 50%, #141414 100%), 
-                        url('https://image.tmdb.org/t/p/original/nLBRD7UPR6GjmWQp6ASAfCTaWKX.jpg') no-repeat center center;
+            height: 60vh;
+            background: linear-gradient(to bottom, rgba(20,20,20,0) 40%, #141414 100%), 
+                        url('https://image.tmdb.org/t/p/original/9n2tJB7wSB7wFAcbOUI56z7DbHQ.jpg') no-repeat center center;
             background-size: cover;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             padding: 0 4% 40px 4%;
         }
-        .banner h1 { font-size: 36px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .banner h1 { font-size: 42px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
 
         /* Filas y Contenedores */
         .content-row { margin: 30px 0 0 4%; }
@@ -61,9 +61,9 @@
 
         /* Tarjetas de Videos */
         .video-card {
-            min-width: 130px;
-            max-width: 130px;
-            height: 195px;
+            min-width: 140px;
+            max-width: 140px;
+            height: 210px;
             background-color: #222;
             border-radius: 6px;
             overflow: hidden;
@@ -74,7 +74,86 @@
         .video-card:hover { transform: scale(1.05); }
         .video-card img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Reproductor de Video Flotante (Capa Completa) */
+        /* --- VENTANA DE DETALLES (ESTILO NETFLIX) --- */
+        .details-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .details-container {
+            background-color: #181818;
+            width: 85%;
+            max-width: 800px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            border: 1px solid #282828;
+        }
+        .details-banner {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .details-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, #181818 5%, rgba(24,24,24,0) 100%);
+        }
+        .close-details {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: #fff; border: none;
+            width: 36px; height: 36px;
+            border-radius: 50%; font-size: 18px;
+            cursor: pointer; z-index: 10;
+        }
+        .details-content {
+            padding: 30px;
+            display: flex;
+            gap: 25px;
+        }
+        .details-poster {
+            min-width: 150px;
+            max-width: 150px;
+            height: 225px;
+            border-radius: 4px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-top: -80px;
+            z-index: 2;
+        }
+        .details-info { flex: 1; margin-top: -30px; }
+        .details-info h2 { font-size: 28px; margin: 0 0 10px 0; }
+        .details-info p { color: #cccccc; font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+        
+        /* Botones de acción */
+        .btn-group { display: flex; gap: 12px; }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-play { background-color: #ffffff; color: #000000; }
+        .btn-play:hover { background-color: #e6e6e6; }
+        .btn-trailer { background-color: #5a5a5a; color: #ffffff; }
+        .btn-trailer:hover { background-color: #444444; }
+
+        /* --- REPRODUCTORES FINALES --- */
         .player-modal {
             display: none;
             position: fixed;
@@ -85,15 +164,17 @@
             justify-content: center;
             align-items: center;
         }
-        video { width: 100%; max-height: 100%; outline: none; }
+        .player-modal iframe, .player-modal video {
+            width: 100%; height: 100%; border: none;
+        }
         .back-btn {
             position: absolute;
             top: 25px; left: 25px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             color: #fff; border: 1px solid #444;
             padding: 12px 20px; font-size: 14px;
             border-radius: 30px; font-weight: bold;
-            cursor: pointer; z-index: 10000;
+            cursor: pointer; z-index: 10005;
         }
     </style>
 </head>
@@ -107,60 +188,98 @@
         <h1>Mi Biblioteca Interactiva</h1>
     </div>
 
-    <!-- Sección 1: Películas Recomendadas -->
+    <!-- Catálogo Principal -->
     <div class="content-row">
-        <h2>Películas y Series</h2>
+        <h2>Películas Recomendadas</h2>
         <div class="cards-container">
-            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">
-                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=300" alt="Video 1">
+            
+            <!-- TARJETA DE MARIO BROS (CONFIGURADA CON DATOS) -->
+            <div class="video-card" onclick="openDetails(
+                'Super Mario Bros. La Película', 
+                'Mientras trabajan en el subsuelo para reparar una tubería principal, los fontaneros de Brooklyn, Mario y su hermano Luigi, son transportados por una tubería misteriosa a un nuevo mundo mágico. Cuando los hermanos se separan, Mario se embarca en una épica búsqueda para encontrar a Luigi.',
+                'https://image.tmdb.org/t/p/original/qNBA95vYp79X6N64u9vA0UeA08Y.jpg', 
+                'https://image.tmdb.org/t/p/original/9n2tJB7wSB7wFAcbOUI56z7DbHQ.jpg',
+                'https://www.youtube.com/embed/Cb4WV4-ie2M',
+                'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            )">
+                <img src="https://image.tmdb.org/t/p/original/qNBA95vYp79X6N64u9vA0UeA08Y.jpg" alt="Super Mario Bros">
             </div>
-            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')">
-                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300" alt="Video 2">
-            </div>
-            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')">
-                <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300" alt="Video 3">
+
+            <!-- Otras tarjetas vacías para ejemplo gráfico -->
+            <div class="video-card"><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300"></div>
+            <div class="video-card"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300"></div>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE DETALLES (ESTILO NETFLIX) -->
+    <div class="details-modal" id="detailsModal">
+        <div class="details-container">
+            <button class="close-details" onclick="closeDetails()">✕</button>
+            <div class="details-banner" id="modalBg"></div>
+            <div class="details-content">
+                <img src="" class="details-poster" id="modalPoster">
+                <div class="details-info">
+                    <h2 id="modalTitle">Título</h2>
+                    <p id="modalDescription">Descripción...</p>
+                    <div class="btn-group">
+                        <button class="btn btn-play" id="btnMovieAction">▶ Ver Película</button>
+                        <button class="btn btn-trailer" id="btnTrailerAction">🎬 Ver Tráiler</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Sección 2: Canales de TV Online / Directos -->
-    <div class="content-row">
-        <h2>Televisión en Vivo</h2>
-        <div class="cards-container">
-            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4')">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300" alt="TV 1">
-            </div>
-            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4')">
-                <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8edd86?q=80&w=300" alt="TV 2">
-            </div>
-        </div>
-    </div>
-
-    <!-- Ventana del Reproductor -->
+    <!-- PANTALLA FINAL DEL REPRODUCTOR (CINE COMPLETO) -->
     <div class="player-modal" id="playerModal">
-        <button class="back-btn" onclick="stopStream()">✕ Volver al Catálogo</button>
-        <video id="videoEngine" controls autoplay playsinline></video>
+        <button class="back-btn" onclick="closePlayer()">✕ Volver a Detalles</button>
+        <div style="width:100%; height:100%;" id="playerTarget"></div>
     </div>
 
     <script>
+        const detailsModal = document.getElementById('detailsModal');
         const playerModal = document.getElementById('playerModal');
-        const videoEngine = document.getElementById('videoEngine');
+        const playerTarget = document.getElementById('playerTarget');
 
-        function startStream(url) {
-            videoEngine.src = url;
-            playerModal.style.display = 'flex';
-            videoEngine.play();
+        let currentTrailerUrl = "";
+        let currentMovieUrl = "";
 
-            // Intento automático de pantalla completa horizontal en móviles
-            if (videoEngine.requestFullscreen) { videoEngine.requestFullscreen(); }
-            else if (videoEngine.webkitRequestFullscreen) { videoEngine.webkitRequestFullscreen(); }
+        // Función para abrir la ventana de descripción al estilo Netflix
+        function openDetails(title, desc, poster, backdrop, trailerUrl, movieUrl) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = desc;
+            document.getElementById('modalPoster').src = poster;
+            document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
+            
+            currentTrailerUrl = trailerUrl;
+            currentMovieUrl = movieUrl;
+
+            // Asignar funciones a los botones internos del modal
+            document.getElementById('btnTrailerAction').onclick = () => launchStream(currentTrailerUrl, true);
+            document.getElementById('btnMovieAction').onclick = () => launchStream(currentMovieUrl, false);
+
+            detailsModal.style.display = 'flex';
         }
 
-        function stopStream() {
-            videoEngine.pause();
-            videoEngine.src = "";
+        function closeDetails() {
+            detailsModal.style.display = 'none';
+        }
+
+        // Función inteligente para reproducir (detecta si es YouTube o MP4/Server)
+        function launchStream(url, isTrailer) {
+            if (isTrailer || url.includes('embed')) {
+                // Si es trailer de YouTube, crea un iframe incrustado flotante
+                playerTarget.innerHTML = `<iframe src="${url}?autoplay=1" allow="autoplay;監督; fullscreen" allowfullscreen></iframe>`;
+            } else {
+                // Si es un archivo de video directo .mp4 o lista streaming
+                playerTarget.innerHTML = `<video src="${url}" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
+            }
+            playerModal.style.display = 'flex';
+        }
+
+        function closePlayer() {
+            playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
-            if (document.exitFullscreen) { document.exitFullscreen(); }
         }
     </script>
 </body>
