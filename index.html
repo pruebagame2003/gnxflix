@@ -34,18 +34,70 @@
             letter-spacing: 1px;
         }
 
-        /* Banner Principal con degradado */
-        .banner {
+        /* CONTENEDOR NUEVO PARA EL CARRUSEL DEL BANNER */
+        .banner-container {
+            position: relative;
             height: 60vh;
-            background: linear-gradient(to bottom, rgba(20,20,20,0) 40%, #141414 100%), 
-                        url('https://image.tmdb.org/t/p/original/nLBRD7UPR6GjmWQp6ASAfCTaWKX.jpg') no-repeat center center;
+            width: 100%;
+            overflow: hidden;
+        }
+        .banner {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 0 4% 40px 4%;
+            padding: 0 4% 60px 4%;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
         }
-        .banner h1 { font-size: 42px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .banner.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        /* Degradado oscuro inferior integrado en cada banner */
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(20,20,20,0) 40%, #141414 100%);
+            z-index: -1;
+        }
+        .banner h1 { 
+            font-size: 42px; 
+            margin-bottom: 10px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
+            z-index: 3;
+        }
+
+        /* INDICADORES PREMIUM ESTILO FORTNITE / EPIC GAMES (PÍLDORAS) */
+        .carousel-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 4%;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        /* La píldora activa se estira dinámicamente */
+        .dot.active {
+            width: 35px;
+            background-color: #ffffff;
+            box-shadow: 0 0 8px rgba(255,255,255,0.6);
+        }
 
         /* Filas y Contenedores */
         .content-row { margin: 30px 0 0 4%; }
@@ -184,8 +236,32 @@
         <div class="logo">GNXFLIX</div>
     </header>
 
-    <div class="banner">
-        <h1>Mi Biblioteca Interactiva</h1>
+    <!-- BANNER ROTATIVO (4 FONDOS EN TOTAL) -->
+    <div class="banner-container">
+        <!-- Fondo 1: Super Mario Bros -->
+        <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg');">
+            <h1>Mi Biblioteca Interactiva</h1>
+        </div>
+        <!-- Fondo 2: Fortnite (Cambia esta URL por un Backdrop horizontal UHD tuyo) -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg');">
+            <h1>Universo Fortnite</h1>
+        </div>
+        <!-- Fondo 3: Estreno 3 (Cambia esta URL por otra horizontal UHD) -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg');">
+            <h1>Película Estreno 3</h1>
+        </div>
+        <!-- Fondo 4: Estreno 4 (Cambia esta URL por otra horizontal UHD) -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg');">
+            <h1>Película Estreno 4</h1>
+        </div>
+
+        <!-- INDICADORES EN FORMA DE PÍLDORA INTERACTIVA -->
+        <div class="carousel-dots">
+            <div class="dot active" onclick="changeBanner(0)"></div>
+            <div class="dot" onclick="changeBanner(1)"></div>
+            <div class="dot" onclick="changeBanner(2)"></div>
+            <div class="dot" onclick="changeBanner(3)"></div>
+        </div>
     </div>
 
     <!-- Catálogo Principal -->
@@ -193,7 +269,7 @@
         <h2>Películas Recomendadas</h2>
         <div class="cards-container">
             
-            <!-- TARJETA DE MARIO BROS (CONFIGURADA CON DATOS) -->
+            <!-- TARJETA 1: MARIO BROS (CONFIGURADA CON TUS ENLACES REALES) -->
             <div class="video-card" onclick="openDetails(
                 'Super Mario Bros. La Película', 
                 'Mientras trabajan en el subsuelo para reparar una tubería principal, los fontaneros de Brooklyn, Mario y su hermano Luigi, son transportados por una tubería misteriosa a un nuevo mundo mágico. Cuando los hermanos se separan, Mario se embarca en una épica búsqueda para encontrar a Luigi.',
@@ -205,9 +281,42 @@
                 <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Super Mario Bros">
             </div>
 
-            <!-- Otras tarjetas vacías para ejemplo gráfico -->
-            <div class="video-card"><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300"></div>
-            <div class="video-card"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300"></div>
+            <!-- TARJETA 2: FORTNITE (PLANTILLA PARA CAMBIAR) -->
+            <div class="video-card" onclick="openDetails(
+                'Fortnite: El Universo Creativo', 
+                'Explora las infinitas posibilidades del ecosistema de Fortnite. Construye tus propios mapas de combate, supera salas de escape extremas o compite en arenas competitivas diseñadas por la comunidad.',
+                'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg', 
+                'https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg',
+                'https://www.youtube.com/embed/DmCZoiCp5C0',
+                'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            )">
+                <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Fortnite">
+            </div>
+
+            <!-- TARJETA 3: ESTRENO NUEVO 3 (PLANTILLA PARA CAMBIAR) -->
+            <div class="video-card" onclick="openDetails(
+                'Toy Story', 
+                'Escribe aquí la sinopsis o breve resumen oficial de tu tercera película. Recuerda cambiar las URLs de abajo por sus posters correspondientes.',
+                'https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg', 
+                'https://image.tmdb.org/t/p/original/lxD5ak7BOoinRNehOCA85CQ8ubr.jpg',
+                'https://www.youtube.com/embed/DmCZoiCp5C0',
+                'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            )">
+                <img src="https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg" alt="Película 3">
+            </div>
+
+            <!-- TARJETA 4: ESTRENO NUEVO 4 (PLANTILLA PARA CAMBIAR) -->
+            <div class="video-card" onclick="openDetails(
+                'Película Estreno 4', 
+                'Escribe aquí la sinopsis o breve resumen oficial de tu cuarta película. Reemplaza los enlaces para que apunten a los recursos de video y portadas reales.',
+                'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg', 
+                'https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg',
+                'https://www.youtube.com/embed/DmCZoiCp5C0',
+                'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            )">
+                <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Película 4">
+            </div>
+
         </div>
     </div>
 
@@ -237,6 +346,34 @@
     </div>
 
     <script>
+        // LÓGICA INTEGRADRA DEL CARRUSEL DE BANNERS
+        const banners = document.querySelectorAll('.banner');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let carouselInterval = setInterval(nextBanner, 6000); // Rota automáticamente cada 6 segundos
+
+        function showBanner(index) {
+            banners.forEach(b => b.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            banners[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function nextBanner() {
+            let nextIndex = (currentIndex + 1) % banners.length;
+            showBanner(nextIndex);
+        }
+
+        // Al hacer clic manual en una píldora, salta de inmediato y reinicia el segundero
+        function changeBanner(index) {
+            clearInterval(carouselInterval);
+            showBanner(index);
+            carouselInterval = setInterval(nextBanner, 6000);
+        }
+
+        // LÓGICA DE VENTANAS DE DETALLES Y REPRODUCCIÓN
         const detailsModal = document.getElementById('detailsModal');
         const playerModal = document.getElementById('playerModal');
         const playerTarget = document.getElementById('playerTarget');
@@ -244,7 +381,6 @@
         let currentTrailerUrl = "";
         let currentMovieUrl = "";
 
-        // Función para abrir la ventana de descripción al estilo Netflix
         function openDetails(title, desc, poster, backdrop, trailerUrl, movieUrl) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
@@ -254,7 +390,6 @@
             currentTrailerUrl = trailerUrl;
             currentMovieUrl = movieUrl;
 
-            // Asignar funciones a los botones internos del modal
             document.getElementById('btnTrailerAction').onclick = () => launchStream(currentTrailerUrl, true);
             document.getElementById('btnMovieAction').onclick = () => launchStream(currentMovieUrl, false);
 
@@ -265,13 +400,10 @@
             detailsModal.style.display = 'none';
         }
 
-        // Función inteligente para reproducir (detecta si es YouTube o MP4/Server)
         function launchStream(url, isTrailer) {
             if (isTrailer || url.includes('embed')) {
-                // Si es trailer de YouTube, crea un iframe incrustado flotante
-                playerTarget.innerHTML = `<iframe src="${url}?autoplay=1" allow="autoplay;監督; fullscreen" allowfullscreen></iframe>`;
+                playerTarget.innerHTML = `<iframe src="${url}?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
             } else {
-                // Si es un archivo de video directo .mp4 o lista streaming
                 playerTarget.innerHTML = `<video src="${url}" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
             }
             playerModal.style.display = 'flex';
