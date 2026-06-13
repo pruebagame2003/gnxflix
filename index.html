@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNXFLIX - Mi Biblioteca de Streaming</title>
+    <style>
+        /* Estilo base Dark Premium */
+        body {
+            background-color: #141414;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Barra de Navegación */
+        header {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            position: fixed;
+            width: 92%;
+            top: 0;
+            z-index: 10;
+        }
+        .logo {
+            color: #E50914;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Banner Principal con degradado */
+        .banner {
+            height: 55vh;
+            background: linear-gradient(to bottom, rgba(20,20,20,0) 50%, #141414 100%), 
+                        url('https://www.joblo.com/wp-content/uploads/2026/02/super_mario_bros_galaxy_character_posters.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 4% 40px 4%;
+        }
+        .banner h1 { font-size: 36px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+
+        /* Filas y Contenedores */
+        .content-row { margin: 30px 0 0 4%; }
+        .content-row h2 { font-size: 20px; margin-bottom: 15px; font-weight: bold; }
+        .cards-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: none;
+        }
+        .cards-container::-webkit-scrollbar { display: none; }
+
+        /* Tarjetas de Videos */
+        .video-card {
+            min-width: 130px;
+            max-width: 130px;
+            height: 195px;
+            background-color: #222;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .video-card:hover { transform: scale(1.05); }
+        .video-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Reproductor de Video Flotante (Capa Completa) */
+        .player-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        video { width: 100%; max-height: 100%; outline: none; }
+        .back-btn {
+            position: absolute;
+            top: 25px; left: 25px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff; border: 1px solid #444;
+            padding: 12px 20px; font-size: 14px;
+            border-radius: 30px; font-weight: bold;
+            cursor: pointer; z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">GNXFLIX</div>
+    </header>
+
+    <div class="banner">
+        <h1>Mi Biblioteca Interactiva</h1>
+    </div>
+
+    <!-- Sección 1: Películas Recomendadas -->
+    <div class="content-row">
+        <h2>Películas y Series</h2>
+        <div class="cards-container">
+            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=300" alt="Video 1">
+            </div>
+            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300" alt="Video 2">
+            </div>
+            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')">
+                <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300" alt="Video 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 2: Canales de TV Online / Directos -->
+    <div class="content-row">
+        <h2>Televisión en Vivo</h2>
+        <div class="cards-container">
+            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4')">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300" alt="TV 1">
+            </div>
+            <div class="video-card" onclick="startStream('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4')">
+                <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8edd86?q=80&w=300" alt="TV 2">
+            </div>
+        </div>
+    </div>
+
+    <!-- Ventana del Reproductor -->
+    <div class="player-modal" id="playerModal">
+        <button class="back-btn" onclick="stopStream()">✕ Volver al Catálogo</button>
+        <video id="videoEngine" controls autoplay playsinline></video>
+    </div>
+
+    <script>
+        const playerModal = document.getElementById('playerModal');
+        const videoEngine = document.getElementById('videoEngine');
+
+        function startStream(url) {
+            videoEngine.src = url;
+            playerModal.style.display = 'flex';
+            videoEngine.play();
+
+            // Intento automático de pantalla completa horizontal en móviles
+            if (videoEngine.requestFullscreen) { videoEngine.requestFullscreen(); }
+            else if (videoEngine.webkitRequestFullscreen) { videoEngine.webkitRequestFullscreen(); }
+        }
+
+        function stopStream() {
+            videoEngine.pause();
+            videoEngine.src = "";
+            playerModal.style.display = 'none';
+            if (document.exitFullscreen) { document.exitFullscreen(); }
+        }
+    </script>
+</body>
+</html>
