@@ -394,21 +394,26 @@
         <div class="logo">GnxFlix</div>
     </header>
 
-    <!-- BANNER INTERACTIVO CON DOS FONDOS ROTATIVOS (DORAEMON Y BOB ESPONJA) -->
+    <!-- BANNER INTERACTIVO CON TRES FONDOS ROTATIVOS (DORAEMON, BOB ESPONJA Y PEPPA PIG) -->
     <div class="banner-container">
         <!-- Fondo 1: Doraemon -->
         <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
             <h1>Stand by Me Doraemon</h1>
         </div>
-        <!-- Fondo 2: Bob Esponja (Reemplaza a Frozen) -->
+        <!-- Fondo 2: Bob Esponja -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
             <h1>Bob Esponja</h1>
+        </div>
+        <!-- Fondo 3: Peppa Pig (Nueva incorporación) -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg');">
+            <h1>Peppa Pig</h1>
         </div>
 
         <!-- BARRITAS INDICADORAS DE BIENVENIDA -->
         <div class="carousel-dots">
             <div class="dot active" onclick="changeBanner(0)"></div>
             <div class="dot" onclick="changeBanner(1)"></div>
+            <div class="dot" onclick="changeBanner(2)"></div>
         </div>
     </div>
 
@@ -432,18 +437,18 @@
         </div>
     </div>
 
-    <!-- NUEVA CATEGORÍA: MARATÓN ANIMADA -->
+    <!-- CATEGORÍA: MARATÓN ANIMADA -->
     <div class="content-row">
         <h2>Maraton Animada</h2>
         <div class="cards-container">
 
-            <!-- TARJETA DE BOB ESPONJA CON LOGICA MULTI-VIDEO INTERNA -->
+            <!-- TARJETA 1: BOB ESPONJA -->
             <div class="video-card" onclick="openDetails(
                 'Bob Esponja', 
                 'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
                 'https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg', 
                 'https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg',
-                true, /* Indica que es una maratón multi-episodio */
+                true,
                 [
                     { name: 'Maratón #1: Celebridades Invitadas', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '60 min' },
                     { name: 'Maratón #2: Cocina Cangreburgers', url: 'https://www.dropbox.com/scl/fi/jikyak7qxc4k72kjboztl/Bob-Esponja-cocina-Cangreburgers-por-UNA-HORA-Bob-Esponja-en-Espa-ol.mp4?rlkey=hxn9h87haoai0em1uwvrkzg93&dl=1', time: '60 min' },
@@ -451,6 +456,22 @@
                 ]
             )">
                 <img src="https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg" alt="Bob Esponja">
+            </div>
+
+            <!-- TARJETA 2: PEPPA PIG (Nueva incorporación multi-video) -->
+            <div class="video-card" onclick="openDetails(
+                'Peppa Pig', 
+                'La protagonista de esta serie es Peppa, una cerdita de rasgos antropomórficos que vive con su hermanito George y sus padres: Mamá (Mummy) Pig y Papá (Daddy) Pig. Tiene como escenario principal su hogar, es ahí donde ocurren las tramas de los episodios. En algunos episodios, se muestra a su familia saliendo de casa, paseando con su coche, en casa de sus amigos o estando ya en otro lugar.',
+                'https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg', 
+                'https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg',
+                true,
+                [
+                    { name: 'Maratón #1: Vacaciones al Sol', url: 'https://www.dropbox.com/scl/fi/f8f1s3hvzu8299zky09uo/Peppa-se-va-de-vacaciones-al-sol___Los-Cuentos-de-Peppa-la-Cerdita.mp4?rlkey=ibjgxfbnl58xjhfsagk5yrjmv&dl=1', time: '15 min' },
+                    { name: 'Maratón #2: Cocinando con Peppa', url: 'https://www.dropbox.com/scl/fi/8mwdank4rm15lm41ib2vi/Cocinando-con-Peppa___Los-Cuentos-de-Peppa-la-Cerdita.mp4?rlkey=1rwjs92v456mmf15vosbt5rgb&dl=1', time: '15 min' },
+                    { name: 'Maratón #3: Helado (Clip Especial)', url: 'https://www.dropbox.com/scl/fi/z2qmrwf4bi9lsogqsf7sp/Peppa-Pig-Espa-ol-Latino-Helado-clip.mp4?rlkey=m71dtgnzj8wz4iwyhmbfrr0kf&dl=1', time: '5 min' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
             </div>
 
         </div>
@@ -467,7 +488,7 @@
                     <h2 id="modalTitle">Título</h2>
                     <p id="modalDescription">Descripción...</p>
                     
-                    <!-- Aquí se inyectan dinámicamente los botones clásicos o la lista de capítulos -->
+                    <!-- Área interactiva para lista de capítulos o botón de reproducción única -->
                     <div id="modalInteractiveArea"></div>
                 </div>
             </div>
@@ -480,7 +501,7 @@
         <div style="width:100%; height:100%;" id="playerTarget"></div>
     </div>
 
-    <!-- VENTANA EMERGENTE DE AVISO PREMIUM (ESTILO OPTIPROJECT) -->
+    <!-- VENTANA EMERGENTE DE AVISO PREMIUM -->
     <div class="notice-modal" id="noticeModal">
         <div class="notice-container">
             <h3>Aviso</h3>
@@ -505,7 +526,7 @@
         const preloader = document.getElementById('preloader');
         const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
-        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS (Ahora con soporte para 3 fondos)
         const banners = document.querySelectorAll('.banner');
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
@@ -548,7 +569,7 @@
             noticeModal.style.display = 'none';
         }
 
-        // APERTURA INTELIGENTE DEL MODAL (DETECTA SI ES PELÍCULA O MARATÓN MULTI-VIDEO)
+        // APERTURA INTELIGENTE DEL MODAL (AUTOMATIZADO PARA SOPORTAR N CANTIDAD DE SERIES)
         function openDetails(title, desc, poster, backdrop, isSeries, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
@@ -558,7 +579,6 @@
             modalInteractiveArea.innerHTML = "";
 
             if (isSeries) {
-                // Generar lista con scroll vertical para los capítulos de la maratón
                 const listContainer = document.createElement('div');
                 listContainer.className = 'episodes-list-container';
 
@@ -572,7 +592,6 @@
 
                 modalInteractiveArea.appendChild(listContainer);
             } else {
-                // Interfaz clásica para películas individuales (Doraemon)
                 modalInteractiveArea.innerHTML = `
                     <div class="btn-group">
                         <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
@@ -605,7 +624,7 @@
             playerModal.style.display = 'flex';
         }
 
-        // CIERRE DEL REPRODUCTOR (REGRESA INTEGRALMENTE AL MODAL SIN RESETEAR LA SALA)
+        // CIERRE DEL REPRODUCTOR (RETORNO INTEGRAL AL MODAL ESPECÍFICO)
         function closePlayer() {
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
