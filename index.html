@@ -74,7 +74,7 @@
             transform: skew(-5deg);
         }
 
-        /* BANNER PRINCIPAL FIJO EN ALTA RESOLUCIÓN */
+        /* BANNER PRINCIPAL CON EFECTO DE ROTACIÓN FLUIDA */
         .banner-container {
             position: relative;
             height: 60vh;
@@ -92,6 +92,12 @@
             justify-content: flex-end;
             padding: 0 4% 60px 4%;
             box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
+        }
+        .banner.active {
+            opacity: 1;
             z-index: 2;
         }
         .banner::before {
@@ -107,6 +113,29 @@
             margin-bottom: 10px; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
             z-index: 3;
+        }
+
+        /* PÍLDORAS INDICADORAS DE BANNER ACTIVO */
+        .carousel-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 4%;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .dot.active {
+            width: 35px;
+            background-color: #ffffff;
+            box-shadow: 0 0 8px rgba(255,255,255,0.6);
         }
 
         /* Filas y Contenedores */
@@ -328,10 +357,21 @@
         <div class="logo">GnxFlix</div>
     </header>
 
-    <!-- BANNER PRINCIPAL FIJO EN ALTA RESOLUCIÓN (DORAEMON) -->
+    <!-- BANNER INTERACTIVO CON DOS FONDOS (DORAEMON Y FROZEN) -->
     <div class="banner-container">
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
+        <!-- Fondo 1: Doraemon -->
+        <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
             <h1>Stand by Me Doraemon</h1>
+        </div>
+        <!-- Fondo 2: Frozen 1 -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/rj58WQ9ImI0mYDptXdM7euX1Wjt.jpg');">
+            <h1>Frozen: El reino del hielo</h1>
+        </div>
+
+        <!-- BARRITAS INDICADORAS DE BIENVENIDA -->
+        <div class="carousel-dots">
+            <div class="dot active" onclick="changeBanner(0)"></div>
+            <div class="dot" onclick="changeBanner(1)"></div>
         </div>
     </div>
 
@@ -340,7 +380,7 @@
         <h2>Películas Recomendadas</h2>
         <div class="cards-container">
             
-            <!-- TARJETA ÚNICA VERIFICADA: STAND BY ME DORAEMON (LATINO - DROPBOX PURO) -->
+            <!-- TARJETA 1: STAND BY ME DORAEMON -->
             <div class="video-card" onclick="openDetails(
                 'Stand by Me Doraemon', 
                 'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
@@ -350,6 +390,18 @@
                 'https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1'
             )">
                 <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
+            </div>
+
+            <!-- TARJETA 2: FROZEN 1 (NUEVA INCORPORACIÓN DESDE TU DROPBOX PC) -->
+            <div class="video-card" onclick="openDetails(
+                'Frozen: El reino del hielo', 
+                'Cuando una profecía condena a un reino a vivir un invierno eterno, la joven Anna, el temerario montañero Kristoff y el reno Sven emprenden un viaje ffico en busca de Elsa, la Reina de las Nieves, para poner fin al hechizo.',
+                'https://image.tmdb.org/t/p/original/2gBvNE1aXF51atAmVKePqRzqdk.jpg', 
+                'https://image.tmdb.org/t/p/original/rj58WQ9ImI0mYDptXdM7euX1Wjt.jpg',
+                'https://www.youtube.com/embed/embed/XW6sBY4zMy0',
+                'https://www.dropbox.com/scl/fi/w9c2rkxctven70aufkezb/FROZEN-1.avi?rlkey=0u36qaywpxxxw1vw4c5eail59&dl=1'
+            )">
+                <img src="https://image.tmdb.org/t/p/original/2gBvNE1aXF51atAmVKePqRzqdk.jpg" alt="Frozen 1">
             </div>
 
         </div>
@@ -405,21 +457,44 @@
         const noticeModal = document.getElementById('noticeModal');
         const preloader = document.getElementById('preloader');
 
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
+        const banners = document.querySelectorAll('.banner');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let carouselInterval = setInterval(nextBanner, 6000);
+
+        function showBanner(index) {
+            banners.forEach(b => b.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            banners[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function nextBanner() {
+            let nextIndex = (currentIndex + 1) % banners.length;
+            showBanner(nextIndex);
+        }
+
+        function changeBanner(index) {
+            clearInterval(carouselInterval);
+            showBanner(index);
+            carouselInterval = setInterval(nextBanner, 6000);
+        }
+
         let currentTrailerUrl = "";
         let currentMovieUrl = "";
 
         // CONTROL DEL LOG INTERNO DE LA PÁGINA (CARGA, LOGS Y CONTADOR)
         window.addEventListener('load', () => {
-            // Desvanecer preloader suavemente
             preloader.style.opacity = '0';
             setTimeout(() => preloader.style.display = 'none', 600);
 
-            // Control de ventana de aviso por localStorage
             if (localStorage.getItem('hideGnxNotice') !== 'true') {
                 noticeModal.style.display = 'flex';
             }
 
-            // Lógica de simulación local de contador de dispositivos
             if (!localStorage.getItem('gnxDeviceToken')) {
                 localStorage.setItem('gnxDeviceToken', 'device_' + Math.random().toString(36).substr(2, 9));
                 let currentCount = parseInt(localStorage.getItem('gnxLocalDevices') || '0') + 1;
@@ -475,7 +550,6 @@
                     videoElement.src = url;
                 }
             } else {
-                // BLINDAJE EXTRA: Oculta la descarga mediante controlsList="nodownload" y bloquea menú contextual
                 playerTarget.innerHTML = `
                     <video src="${url}" 
                            controls 
