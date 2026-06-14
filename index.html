@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GNXFLIX - Mi Biblioteca de Streaming</title>
 
-    <!-- CONFIGURACIÓN DE ICONO PERSONALIZADO (BRANDING GNXFLIX) -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="apple-touch-icon-precomposed" href="logo.png">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- MOTOR DE VIDEO AVANZADO PARA LLAMADOS .M3U8 -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         /* Estilo base Dark Premium */
@@ -146,7 +144,7 @@
             z-index: 999;
             justify-content: center;
             align-items: center;
-            overflow-y: auto; /* Permite scroll si la pantalla es muy pequeña */
+            overflow-y: auto;
         }
         .details-container {
             background-color: #181818;
@@ -306,26 +304,20 @@
         <div class="logo">GNXFLIX</div>
     </header>
 
-    <!-- BANNER ROTATIVO INTERACTIVO CON TUS ENLACES ULTRA HD -->
     <div class="banner-container">
-        <!-- Fondo 1: Super Mario Bros -->
         <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg');">
             <h1>Super Mario Bros: Movie</h1>
         </div>
-        <!-- Fondo 2: Toy Story -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/lxD5ak7BOoinRNehOCA85CQ8ubr.jpg');">
             <h1>Toy Story</h1>
         </div>
-        <!-- Fondo 3: Los Minions -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/iNhdomHWakdQbrE8oFfD4dzA7WF.jpg');">
             <h1>Los Minions</h1>
         </div>
-        <!-- Fondo 4: Stand by Me Doraemon -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
             <h1>Stand by Me Doraemon</h1>
         </div>
 
-        <!-- BARRITAS INDICADORAS ESTILO FORTNITE -->
         <div class="carousel-dots">
             <div class="dot active" onclick="changeBanner(0)"></div>
             <div class="dot" onclick="changeBanner(1)"></div>
@@ -334,12 +326,10 @@
         </div>
     </div>
 
-    <!-- Catálogo Principal -->
     <div class="content-row">
         <h2>Películas Recomendadas</h2>
         <div class="cards-container">
             
-            <!-- TARJETA 1: MARIO BROS (URL DEL REPRODUCTOR CON IFRAME DE CUEVANA CONFIGURADO) -->
             <div class="video-card" onclick="openDetails(
                 'Super Mario Bros. La Película', 
                 'Mientras trabajan en el subsuelo para reparar una tubería principal, los fontaneros de Brooklyn, Mario y su hermano Luigi, son transportados por una tubería misteriosa a un nuevo mundo mágico. Cuando los hermanos se separan, Mario se embarca en una pfica búsqueda para encontrar a Luigi.',
@@ -351,19 +341,17 @@
                 <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Super Mario Bros">
             </div>
 
-            <!-- TARJETA 2: LOS MINIONS (ACTUALIZADA CON ENLACE MP4 PURO Y SEGURO) -->
             <div class="video-card" onclick="openDetails(
                 'Los Minions', 
                 'Los Minions empiezan una aventura en los años 60 para encontrar un nuevo amo malvado al cual servir, cruzándose en el camino con la súper villana Scarlet Overkill.',
                 'https://image.tmdb.org/t/p/original/94f9xnuBMNgEZXIOjzShThuLUGH.jpg', 
                 'https://image.tmdb.org/t/p/original/iNhdomHWakdQbrE8oFfD4dzA7WF.jpg',
                 'https://www.youtube.com/embed/P9-FCC6I7uM',
-                'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
+                'https://www.dropbox.com/scl/fi/wk5636xt2yo7o64cp0z25/Pedro-Pedro-Pedro-__-Racoon-Mapache-__-Tiktok-Meme-Template-Plantilla-720P_60FPS.mp4?rlkey=px2a52e3hftwa21poqn8lb709&st=1je9h79p&dl=1'
             )">
                 <img src="https://image.tmdb.org/t/p/original/94f9xnuBMNgEZXIOjzShThuLUGH.jpg" alt="Los Minions">
             </div>
 
-            <!-- TARJETA 3: TOY STORY -->
             <div class="video-card" onclick="openDetails(
                 'Toy Story', 
                 'Los juguetes de Andy toman vida propia cuando él no está en la habitación. Liderados por Woody, se enfrentarán a la llegada de Buzz Lightyear, un moderno guardián espacial.',
@@ -375,7 +363,6 @@
                 <img src="https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg" alt="Toy Story">
             </div>
 
-            <!-- TARJETA 4: STAND BY ME DORAEMON -->
             <div class="video-card" onclick="openDetails(
                 'Stand by Me Doraemon', 
                 'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
@@ -390,7 +377,6 @@
         </div>
     </div>
 
-    <!-- PANTALLA DE DETALLES (ESTILO NETFLIX) -->
     <div class="details-modal" id="detailsModal">
         <div class="details-container">
             <button class="close-details" onclick="closeDetails()">✕</button>
@@ -409,7 +395,6 @@
         </div>
     </div>
 
-    <!-- PANTALLA FINAL DEL REPRODUCTOR -->
     <div class="player-modal" id="playerModal">
         <button class="back-btn" onclick="closePlayer()">✕ Volver a Detalles</button>
         <div style="width:100%; height:100%;" id="playerTarget"></div>
