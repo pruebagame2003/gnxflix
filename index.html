@@ -11,17 +11,41 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
+    <!-- FUENTE PREMIUM ESTILO CARTOON (DAFONT REFERENCIA) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
     <style>
         /* Estilo base Dark Premium */
         body {
             background-color: #141414;
             color: #ffffff;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
+
+        /* --- PANTALLA DE CARGA (PRELOADER) --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #141414;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top: 5px solid #E50914;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* Barra de Navegación */
         header {
@@ -35,14 +59,22 @@
             top: 0;
             z-index: 10;
         }
+        
+        /* NUEVO LOGO ESTILO CARTOON QUEEN (3D IMPACTANTE) */
         .logo {
-            color: #E50914;
-            font-size: 24px;
+            font-family: 'Fredoka One', sans-serif;
+            color: #ffffff;
+            font-size: 32px;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 
+                -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
+                2px 2px 0px #000, 4px 4px 0px #333, 6px 6px 10px rgba(0,0,0,0.8);
+            transform: skew(-5deg);
         }
 
-        /* CONTENEDOR NUEVO PARA EL CARRUSEL DEL BANNER (Fijo en Doraemon) */
+        /* BANNER PRINCIPAL FIJO EN ALTA RESOLUCIÓN */
         .banner-container {
             position: relative;
             height: 60vh;
@@ -60,10 +92,8 @@
             justify-content: flex-end;
             padding: 0 4% 60px 4%;
             box-sizing: border-box;
-            opacity: 1; /* Queda visible por defecto */
             z-index: 2;
         }
-        /* Degradado oscuro inferior integrado en cada banner */
         .banner::before {
             content: '';
             position: absolute;
@@ -72,6 +102,7 @@
             z-index: -1;
         }
         .banner h1 { 
+            font-family: 'Fredoka One', sans-serif;
             font-size: 42px; 
             margin-bottom: 10px; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
@@ -105,7 +136,7 @@
         .video-card:hover { transform: scale(1.05); }
         .video-card img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- VENTANA DE DETALLES ADAPTATIVA (MOBILE FRIENDLY) --- */
+        /* --- VENTANA DE DETALLES ADAPTATIVA --- */
         .details-modal {
             display: none;
             position: fixed;
@@ -170,10 +201,9 @@
             z-index: 2;
         }
         .details-info { flex: 1; margin-top: -30px; }
-        .details-info h2 { font-size: 28px; margin: 0 0 10px 0; }
+        .details-info h2 { font-family: 'Fredoka One', sans-serif; font-size: 28px; margin: 0 0 10px 0; }
         .details-info p { color: #cccccc; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
         
-        /* Botones de acción organizados */
         .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
         .btn {
             padding: 12px 24px;
@@ -205,7 +235,6 @@
             justify-content: center;
             align-items: center;
         }
-        /* Ajuste de escala multimedia móvil para inmersión total */
         .player-modal iframe, .player-modal video {
             width: 100%; height: 100%; border: none; background: #000; max-width: 100%; object-fit: contain;
         }
@@ -219,61 +248,84 @@
             cursor: pointer; z-index: 10005;
         }
 
-        /* --- DISEÑO RESPONSIVO EXCLUSIVO PARA MÓVILES (CSS MEDIA QUERIES) --- */
+        /* --- NUEVO SECTOR MODAL DE AVISO (ESTILO OPTIPROJECT) --- */
+        .notice-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+        }
+        .notice-container {
+            background-color: #1c1c1c;
+            border: 2px solid #E50914;
+            width: 90%; max-width: 500px;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(229,9,20,0.4);
+            text-align: center;
+        }
+        .notice-container h3 {
+            color: #E50914;
+            font-family: 'Fredoka One', sans-serif;
+            font-size: 28px; margin: 0 0 15px 0;
+            text-transform: uppercase;
+        }
+        .notice-container p {
+            color: #e0e0e0; font-size: 15px; line-height: 1.6; margin-bottom: 25px;
+        }
+        .notice-btn-group { display: flex; gap: 10px; }
+        .btn-notice {
+            padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; flex: 1; font-size: 13px;
+        }
+        .btn-notice-stop { background-color: #E50914; color: #fff; }
+        .btn-notice-stop:hover { background-color: #b8070f; }
+        .btn-notice-keep { background-color: #444; color: #fff; }
+        .btn-notice-keep:hover { background-color: #333; }
+
+        /* --- SECCIÓN DE ESTADÍSTICAS EN EL PIE DE PÁGINA --- */
+        footer {
+            margin: 50px 4% 30px 4%;
+            padding: 20px;
+            background-color: #1c1c1c;
+            border-radius: 8px;
+            border: 1px solid #282828;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px; color: #888;
+        }
+        .counter-box span { color: #E50914; font-weight: bold; }
+
+        /* --- DISEÑO RESPONSIVO EXCLUSIVO --- */
         @media (max-width: 650px) {
             .banner-container { height: 45vh; }
             .banner h1 { font-size: 26px; }
-            
-            .details-container {
-                width: 90%;
-                margin: 10px auto;
-            }
-            .details-banner {
-                height: 160px;
-            }
-            /* Pasamos la caja de horizontal a vertical */
-            .details-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 20px;
-                gap: 15px;
-            }
-            .details-poster {
-                margin-top: -70px;
-                min-width: 120px;
-                max-width: 120px;
-                height: 180px;
-                margin-bottom: 5px;
-            }
-            .details-info {
-                margin-top: 0;
-                width: 100%;
-            }
-            .details-info h2 {
-                font-size: 22px;
-            }
-            .details-info p {
-                font-size: 13px;
-                line-height: 1.4;
-                margin-bottom: 20px;
-            }
-            /* Botones centrados y ocupando todo el ancho */
-            .btn-group {
-                justify-content: center;
-                width: 100%;
-            }
-            .btn {
-                width: 100%;
-                flex: none;
-            }
+            .details-container { width: 90%; margin: 10px auto; }
+            .details-banner { height: 160px; }
+            .details-content { flex-direction: column; align-items: center; text-align: center; padding: 20px; gap: 15px; }
+            .details-poster { margin-top: -70px; min-width: 120px; max-width: 120px; height: 180px; margin-bottom: 5px; }
+            .details-info { margin-top: 0; width: 100%; }
+            .details-info h2 { font-size: 22px; }
+            .details-info p { font-size: 13px; line-height: 1.4; margin-bottom: 20px; }
+            .btn-group, .notice-btn-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; flex: none; }
+            footer { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
+    <!-- PANTALLA DE CARGA (PRELOADER) -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
     <header>
-        <div class="logo">GNXFLIX</div>
+        <div class="logo">GnxFlix</div>
     </header>
 
     <!-- BANNER PRINCIPAL FIJO EN ALTA RESOLUCIÓN (DORAEMON) -->
@@ -322,20 +374,66 @@
         </div>
     </div>
 
-    <!-- PANTALLA FINAL DEL REPRODUCTOR NATIVO INMERSIVO -->
+    <!-- PANTALLA FINAL DEL REPRODUCTOR NATIVO BLINDADO -->
     <div class="player-modal" id="playerModal">
         <button class="back-btn" onclick="closePlayer()">✕ Volver a Detalles</button>
         <div style="width:100%; height:100%;" id="playerTarget"></div>
     </div>
 
+    <!-- VENTANA EMERGENTE DE AVISO PREMIUM (ESTILO OPTIPROJECT) -->
+    <div class="notice-modal" id="noticeModal">
+        <div class="notice-container">
+            <h3>Aviso</h3>
+            <p>¡Bienvenido a <b>GnxFlix</b>! Este es un proyecto de streaming independiente diseñado para disfrutar de tus películas favoritas en alta definición, con audio latino verificado y totalmente libre de anuncios invasivos.</p>
+            <div class="notice-btn-group">
+                <button class="btn-notice btn-notice-stop" onclick="handleNotice(true)">No volver a mostrar</button>
+                <button class="btn-notice btn-notice-keep" onclick="handleNotice(false)">Seguir mostrando</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA CON SECTOR DE ESTADÍSTICAS -->
+    <footer>
+        <div>© 2026 GNXFLIX - Todos los derechos reservados.</div>
+        <div class="counter-box">Dispositivos Vinculados: <span id="userCounter">1</span></div>
+    </footer>
+
     <script>
-        // LÓGICA OPTIMIZADA PARA CATÁLOGO EN DEMO ENFOCADO
         const detailsModal = document.getElementById('detailsModal');
         const playerModal = document.getElementById('playerModal');
         const playerTarget = document.getElementById('playerTarget');
+        const noticeModal = document.getElementById('noticeModal');
+        const preloader = document.getElementById('preloader');
 
         let currentTrailerUrl = "";
         let currentMovieUrl = "";
+
+        // CONTROL DEL LOG INTERNO DE LA PÁGINA (CARGA, LOGS Y CONTADOR)
+        window.addEventListener('load', () => {
+            // Desvanecer preloader suavemente
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 600);
+
+            // Control de ventana de aviso por localStorage
+            if (localStorage.getItem('hideGnxNotice') !== 'true') {
+                noticeModal.style.display = 'flex';
+            }
+
+            // Lógica de simulación local de contador de dispositivos
+            if (!localStorage.getItem('gnxDeviceToken')) {
+                localStorage.setItem('gnxDeviceToken', 'device_' + Math.random().toString(36).substr(2, 9));
+                let currentCount = parseInt(localStorage.getItem('gnxLocalDevices') || '0') + 1;
+                localStorage.setItem('gnxLocalDevices', currentCount);
+            }
+            document.getElementById('userCounter').innerText = localStorage.getItem('gnxLocalDevices') || '1';
+        });
+
+        function handleNotice(hideForever) {
+            if (hideForever) {
+                localStorage.setItem('hideGnxNotice', 'true');
+            }
+            noticeModal.style.display = 'none';
+        }
 
         function openDetails(title, desc, poster, backdrop, trailerUrl, movieUrl) {
             document.getElementById('modalTitle').innerText = title;
@@ -357,13 +455,11 @@
         }
 
         function launchStream(url, isTrailer) {
-            playerTarget.innerHTML = ""; // Limpiar reproductor previo
+            playerTarget.innerHTML = ""; 
 
             if (isTrailer || url.includes('embed') || url.includes('token=') || url.includes('cuevana3') || url.includes('you/')) {
-                // Modo Tráiler e Iframes Seguros (YouTube Embed)
                 playerTarget.innerHTML = `<iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
             } else if (url.includes('.m3u8')) {
-                // Modo Streaming Avanzado HLS
                 const videoElement = document.createElement('video');
                 videoElement.controls = true;
                 videoElement.autoplay = true;
@@ -379,8 +475,16 @@
                     videoElement.src = url;
                 }
             } else {
-                // Modo Video Directo Nube (.mp4 de tu Dropbox)
-                playerTarget.innerHTML = `<video src="${url}" controls autoplay playsinline style="width:100%; height:100%; background-color:#000;"></video>`;
+                // BLINDAJE EXTRA: Oculta la descarga mediante controlsList="nodownload" y bloquea menú contextual
+                playerTarget.innerHTML = `
+                    <video src="${url}" 
+                           controls 
+                           autoplay 
+                           playsinline 
+                           controlsList="nodownload" 
+                           oncontextmenu="return false;" 
+                           style="width:100%; height:100%; background-color:#000;">
+                    </video>`;
             }
             playerModal.style.display = 'flex';
         }
