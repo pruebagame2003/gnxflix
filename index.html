@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GNXFLIX - Mi Biblioteca de Streaming</title>
+
+    <!-- CONFIGURACIÓN DE ICONO PERSONALIZADO (BRANDING GNXFLIX) -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="apple-touch-icon-precomposed" href="logo.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
     <!-- MOTOR DE VIDEO AVANZADO PARA LLAMADOS .M3U8 -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
@@ -405,7 +413,7 @@
         function launchStream(url, isTrailer) {
             playerTarget.innerHTML = ""; // Limpiar reproductor previo
 
-            // Si el enlace contiene parámetros de token o el dominio de Cuevana, levantamos un iframe seguro
+            // Si el enlace contiene parámetros de token o el dominio de Cuevana, levantamos un iframe seguro (permite reproducir con anuncios)
             if (isTrailer || url.includes('embed') || url.includes('token=') || url.includes('cuevana3') || url.includes('you/')) {
                 playerTarget.innerHTML = `<iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
             } else if (url.includes('.m3u8')) {
