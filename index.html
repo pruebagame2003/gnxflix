@@ -233,6 +233,46 @@
         .details-info h2 { font-family: 'Fredoka One', sans-serif; font-size: 28px; margin: 0 0 10px 0; }
         .details-info p { color: #cccccc; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
         
+        /* --- ESTILOS EXCLUSIVOS PARA LA LISTA DE SERIE CON SCROLL --- */
+        .episodes-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 8px;
+            margin-top: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: #E50914 #222;
+        }
+        .episodes-list-container::-webkit-scrollbar { width: 6px; }
+        .episodes-list-container::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
+        .episodes-list-container::-webkit-scrollbar-thumb { background: #E50914; border-radius: 4px; }
+
+        .episode-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #333;
+            transition: all 0.2s ease;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .episode-row:hover {
+            background-color: #E50914;
+            color: #ffffff;
+            border-color: #E50914;
+            transform: translateX(5px);
+        }
+        .episode-duration {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
         .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
         .btn {
             padding: 12px 24px;
@@ -315,19 +355,16 @@
         .btn-notice-keep { background-color: #444; color: #fff; }
         .btn-notice-keep:hover { background-color: #333; }
 
-        /* --- SECCIÓN DE ESTADÍSTICAS EN EL PIE DE PÁGINA --- */
+        /* --- SECCIÓN DE PIE DE PÁGINA --- */
         footer {
             margin: 50px 4% 30px 4%;
             padding: 20px;
             background-color: #1c1c1c;
             border-radius: 8px;
             border: 1px solid #282828;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             font-size: 14px; color: #888;
         }
-        .counter-box span { color: #E50914; font-weight: bold; }
 
         /* --- DISEÑO RESPONSIVO EXCLUSIVO --- */
         @media (max-width: 650px) {
@@ -339,10 +376,10 @@
             .details-poster { margin-top: -70px; min-width: 120px; max-width: 120px; height: 180px; margin-bottom: 5px; }
             .details-info { margin-top: 0; width: 100%; }
             .details-info h2 { font-size: 22px; }
-            .details-info p { font-size: 13px; line-height: 1.4; margin-bottom: 20px; }
+            .details-info p { font-size: 13px; line-height: 1.4; margin-bottom: 15px; }
             .btn-group, .notice-btn-group { flex-direction: column; width: 100%; }
             .btn { width: 100%; flex: none; }
-            footer { flex-direction: column; gap: 10px; text-align: center; }
+            .episodes-list-container { max-height: 160px; }
         }
     </style>
 </head>
@@ -357,15 +394,15 @@
         <div class="logo">GnxFlix</div>
     </header>
 
-    <!-- BANNER INTERACTIVO CON DOS FONDOS (DORAEMON Y FROZEN) -->
+    <!-- BANNER INTERACTIVO CON DOS FONDOS ROTATIVOS (DORAEMON Y BOB ESPONJA) -->
     <div class="banner-container">
         <!-- Fondo 1: Doraemon -->
         <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
             <h1>Stand by Me Doraemon</h1>
         </div>
-        <!-- Fondo 2: Frozen 1 -->
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/rj58WQ9ImI0mYDptXdM7euX1Wjt.jpg');">
-            <h1>Frozen: El reino del hielo</h1>
+        <!-- Fondo 2: Bob Esponja (Reemplaza a Frozen) -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
+            <h1>Bob Esponja</h1>
         </div>
 
         <!-- BARRITAS INDICADORAS DE BIENVENIDA -->
@@ -375,7 +412,7 @@
         </div>
     </div>
 
-    <!-- Catálogo Principal Exclusivo -->
+    <!-- Catálogo Categoría 1: Películas Recomendadas -->
     <div class="content-row">
         <h2>Películas Recomendadas</h2>
         <div class="cards-container">
@@ -386,28 +423,40 @@
                 'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
                 'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
                 'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg',
-                'https://www.youtube.com/embed/W3p3mOcim40',
-                'https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1'
+                false,
+                ['https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1']
             )">
                 <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
-            </div>
-
-            <!-- TARJETA 2: FROZEN 1 (NUEVA INCORPORACIÓN DESDE TU DROPBOX PC) -->
-            <div class="video-card" onclick="openDetails(
-                'Frozen: El reino del hielo', 
-                'Cuando una profecía condena a un reino a vivir un invierno eterno, la joven Anna, el temerario montañero Kristoff y el reno Sven emprenden un viaje ffico en busca de Elsa, la Reina de las Nieves, para poner fin al hechizo.',
-                'https://image.tmdb.org/t/p/original/2gBvNE1aXF51atAmVKePqRzqdk.jpg', 
-                'https://image.tmdb.org/t/p/original/rj58WQ9ImI0mYDptXdM7euX1Wjt.jpg',
-                'https://www.youtube.com/embed/embed/XW6sBY4zMy0',
-                'https://www.dropbox.com/scl/fi/w9c2rkxctven70aufkezb/FROZEN-1.avi?rlkey=0u36qaywpxxxw1vw4c5eail59&dl=1'
-            )">
-                <img src="https://image.tmdb.org/t/p/original/2gBvNE1aXF51atAmVKePqRzqdk.jpg" alt="Frozen 1">
             </div>
 
         </div>
     </div>
 
-    <!-- PANTALLA DE DETALLES (ESTILO NETFLIX) -->
+    <!-- NUEVA CATEGORÍA: MARATÓN ANIMADA -->
+    <div class="content-row">
+        <h2>Maraton Animada</h2>
+        <div class="cards-container">
+
+            <!-- TARJETA DE BOB ESPONJA CON LOGICA MULTI-VIDEO INTERNA -->
+            <div class="video-card" onclick="openDetails(
+                'Bob Esponja', 
+                'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
+                'https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg', 
+                'https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg',
+                true, /* Indica que es una maratón multi-episodio */
+                [
+                    { name: 'Maratón #1: Celebridades Invitadas', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '60 min' },
+                    { name: 'Maratón #2: Cocina Cangreburgers', url: 'https://www.dropbox.com/scl/fi/jikyak7qxc4k72kjboztl/Bob-Esponja-cocina-Cangreburgers-por-UNA-HORA-Bob-Esponja-en-Espa-ol.mp4?rlkey=hxn9h87haoai0em1uwvrkzg93&dl=1', time: '60 min' },
+                    { name: 'Maratón #3: Todas las Galletas', url: 'https://www.dropbox.com/scl/fi/8x1ntmy2sj3t27eyp3ucf/Bob-Esponja-Todas-las-galles-Bob-Esponja-en-Espa-ol.mp4?rlkey=hf3adkpfaevv0ry2xyh3cpmce&dl=1', time: '30 min' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg" alt="Bob Esponja">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PANTALLA DE DETALLES ADAPTATIVA (PELÍCULAS O SERIES) -->
     <div class="details-modal" id="detailsModal">
         <div class="details-container">
             <button class="close-details" onclick="closeDetails()">✕</button>
@@ -417,10 +466,9 @@
                 <div class="details-info">
                     <h2 id="modalTitle">Título</h2>
                     <p id="modalDescription">Descripción...</p>
-                    <div class="btn-group">
-                        <button class="btn btn-play" id="btnMovieAction">▶ Ver Película</button>
-                        <button class="btn btn-trailer" id="btnTrailerAction">🎬 Ver Tráiler</button>
-                    </div>
+                    
+                    <!-- Aquí se inyectan dinámicamente los botones clásicos o la lista de capítulos -->
+                    <div id="modalInteractiveArea"></div>
                 </div>
             </div>
         </div>
@@ -444,10 +492,9 @@
         </div>
     </div>
 
-    <!-- PIE DE PÁGINA CON SECTOR DE ESTADÍSTICAS -->
+    <!-- PIE DE PÁGINA -->
     <footer>
         <div>© 2026 GNXFLIX - Todos los derechos reservados.</div>
-        <div class="counter-box">Dispositivos Vinculados: <span id="userCounter">1</span></div>
     </footer>
 
     <script>
@@ -456,6 +503,7 @@
         const playerTarget = document.getElementById('playerTarget');
         const noticeModal = document.getElementById('noticeModal');
         const preloader = document.getElementById('preloader');
+        const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
         // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
         const banners = document.querySelectorAll('.banner');
@@ -483,10 +531,7 @@
             carouselInterval = setInterval(nextBanner, 6000);
         }
 
-        let currentTrailerUrl = "";
-        let currentMovieUrl = "";
-
-        // CONTROL DEL LOG INTERNO DE LA PÁGINA (CARGA, LOGS Y CONTADOR)
+        // CONTROL DE CARGA INICIAL
         window.addEventListener('load', () => {
             preloader.style.opacity = '0';
             setTimeout(() => preloader.style.display = 'none', 600);
@@ -494,13 +539,6 @@
             if (localStorage.getItem('hideGnxNotice') !== 'true') {
                 noticeModal.style.display = 'flex';
             }
-
-            if (!localStorage.getItem('gnxDeviceToken')) {
-                localStorage.setItem('gnxDeviceToken', 'device_' + Math.random().toString(36).substr(2, 9));
-                let currentCount = parseInt(localStorage.getItem('gnxLocalDevices') || '0') + 1;
-                localStorage.setItem('gnxLocalDevices', currentCount);
-            }
-            document.getElementById('userCounter').innerText = localStorage.getItem('gnxLocalDevices') || '1';
         });
 
         function handleNotice(hideForever) {
@@ -510,17 +548,38 @@
             noticeModal.style.display = 'none';
         }
 
-        function openDetails(title, desc, poster, backdrop, trailerUrl, movieUrl) {
+        // APERTURA INTELIGENTE DEL MODAL (DETECTA SI ES PELÍCULA O MARATÓN MULTI-VIDEO)
+        function openDetails(title, desc, poster, backdrop, isSeries, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
             document.getElementById('modalPoster').src = poster;
             document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
             
-            currentTrailerUrl = trailerUrl;
-            currentMovieUrl = movieUrl;
+            modalInteractiveArea.innerHTML = "";
 
-            document.getElementById('btnTrailerAction').onclick = () => launchStream(currentTrailerUrl, true);
-            document.getElementById('btnMovieAction').onclick = () => launchStream(currentMovieUrl, false);
+            if (isSeries) {
+                // Generar lista con scroll vertical para los capítulos de la maratón
+                const listContainer = document.createElement('div');
+                listContainer.className = 'episodes-list-container';
+
+                contentData.forEach((item) => {
+                    const row = document.createElement('div');
+                    row.className = 'episode-row';
+                    row.innerHTML = `<span>${item.name}</span><span class="episode-duration">${item.time}</span>`;
+                    row.onclick = () => launchStream(item.url);
+                    listContainer.appendChild(row);
+                });
+
+                modalInteractiveArea.appendChild(listContainer);
+            } else {
+                // Interfaz clásica para películas individuales (Doraemon)
+                modalInteractiveArea.innerHTML = `
+                    <div class="btn-group">
+                        <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
+                    </div>
+                `;
+                document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData[0]);
+            }
 
             detailsModal.style.display = 'flex';
         }
@@ -529,40 +588,24 @@
             detailsModal.style.display = 'none';
         }
 
-        function launchStream(url, isTrailer) {
+        // LANZAMIENTO DEL VIDEO EN MODO INMERSIVO BLINDADO
+        function launchStream(url) {
             playerTarget.innerHTML = ""; 
 
-            if (isTrailer || url.includes('embed') || url.includes('token=') || url.includes('cuevana3') || url.includes('you/')) {
-                playerTarget.innerHTML = `<iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
-            } else if (url.includes('.m3u8')) {
-                const videoElement = document.createElement('video');
-                videoElement.controls = true;
-                videoElement.autoplay = true;
-                videoElement.style.width = '100%';
-                videoElement.style.height = '100%';
-                playerTarget.appendChild(videoElement);
-
-                if (Hls.isSupported()) {
-                    const hls = new Hls();
-                    hls.loadSource(url);
-                    hls.attachMedia(videoElement);
-                } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-                    videoElement.src = url;
-                }
-            } else {
-                playerTarget.innerHTML = `
-                    <video src="${url}" 
-                           controls 
-                           autoplay 
-                           playsinline 
-                           controlsList="nodownload" 
-                           oncontextmenu="return false;" 
-                           style="width:100%; height:100%; background-color:#000;">
-                    </video>`;
-            }
+            playerTarget.innerHTML = `
+                <video src="${url}" 
+                       controls 
+                       autoplay 
+                       playsinline 
+                       controlsList="nodownload" 
+                       oncontextmenu="return false;" 
+                       style="width:100%; height:100%; background-color:#000;">
+                </video>`;
+                
             playerModal.style.display = 'flex';
         }
 
+        // CIERRE DEL REPRODUCTOR (REGRESA INTEGRALMENTE AL MODAL SIN RESETEAR LA SALA)
         function closePlayer() {
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
