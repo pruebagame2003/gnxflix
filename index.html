@@ -271,14 +271,14 @@
         <h2>Películas Recomendadas</h2>
         <div class="cards-container">
             
-            <!-- TARJETA 1: MARIO BROS (¡ENLACE DE CUEVANA AÑADIDO!) -->
+            <!-- TARJETA 1: MARIO BROS (URL DEL REPRODUCTOR CON IFRAME DE CUEVANA CONFIGURADO) -->
             <div class="video-card" onclick="openDetails(
                 'Super Mario Bros. La Película', 
                 'Mientras trabajan en el subsuelo para reparar una tubería principal, los fontaneros de Brooklyn, Mario y su hermano Luigi, son transportados por una tubería misteriosa a un nuevo mundo mágico. Cuando los hermanos se separan, Mario se embarca en una épica búsqueda para encontrar a Luigi.',
                 'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg', 
                 'https://image.tmdb.org/t/p/original/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg',
                 'https://www.youtube.com/embed/DmCZoiCp5C0',
-                'https://tiktokshopping.xyz/stream/fd3mI-NPiXCgkU57C7uwVA/hjkrhuihghfvu/1781440677/5568074/index-v1-a1.m3u8'
+                'https://tungtungsahur.cuevana3.you/?token=1UlMCCVhFCRRcRlhI&apl=0&pops=true'
             )">
                 <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Super Mario Bros">
             </div>
@@ -401,15 +401,15 @@
             detailsModal.style.display = 'none';
         }
 
-        // FUNCIÓN MEJORADA: COMPATIBLE CON MP4 E HLS (.M3U8) PARA SMARTPHONES Y PC
+        // LÓGICA INTELIGENTE DETECTORA DE IFRAMES EXTERNOS (CUEVANA)
         function launchStream(url, isTrailer) {
             playerTarget.innerHTML = ""; // Limpiar reproductor previo
 
-            if (isTrailer || url.includes('embed')) {
-                // Modo YouTube Tráiler
-                playerTarget.innerHTML = `<iframe src="${url}?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+            // Si el enlace contiene parámetros de token o el dominio de Cuevana, levantamos un iframe seguro
+            if (isTrailer || url.includes('embed') || url.includes('token=') || url.includes('cuevana3') || url.includes('you/')) {
+                playerTarget.innerHTML = `<iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>`;
             } else if (url.includes('.m3u8')) {
-                // Modo Streaming Avanzado HLS (Cuevana Link)
+                // Modo Streaming Avanzado HLS
                 const videoElement = document.createElement('video');
                 videoElement.controls = true;
                 videoElement.autoplay = true;
@@ -422,7 +422,6 @@
                     hls.loadSource(url);
                     hls.attachMedia(videoElement);
                 } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-                    // Soporte nativo para Safari/iOS Celulares
                     videoElement.src = url;
                 }
             } else {
