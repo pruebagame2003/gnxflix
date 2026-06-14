@@ -281,40 +281,40 @@
                 <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Super Mario Bros">
             </div>
 
-            <!-- TARJETA 2: LOS MINIONS (Usa a Mario temporalmente abajo, listo para enlazar) -->
+            <!-- TARJETA 2: LOS MINIONS (PORTADA ASIGNADA) -->
             <div class="video-card" onclick="openDetails(
                 'Los Minions', 
                 'Los Minions empiezan una aventura en los años 60 para encontrar un nuevo amo malvado al cual servir, cruzándose en el camino con la súper villana Scarlet Overkill.',
-                'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg', 
+                'https://image.tmdb.org/t/p/original/94f9xnuBMNgEZXIOjzShThuLUGH.jpg', 
                 'https://image.tmdb.org/t/p/original/iNhdomHWakdQbrE8oFfD4dzA7WF.jpg',
-                'https://www.youtube.com/embed/DmCZoiCp5C0',
+                'https://www.youtube.com/embed/P9-FCC6I7uM',
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
             )">
-                <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Los Minions">
+                <img src="https://image.tmdb.org/t/p/original/94f9xnuBMNgEZXIOjzShThuLUGH.jpg" alt="Los Minions">
             </div>
 
-            <!-- TARJETA 3: TOY STORY (Tus datos guardados con tráiler nativo corregido) -->
+            <!-- TARJETA 3: TOY STORY (TRÁILER REEMPLAZADO POR UNO DISPONIBLE) -->
             <div class="video-card" onclick="openDetails(
                 'Toy Story', 
                 'Los juguetes de Andy toman vida propia cuando él no está en la habitación. Liderados por Woody, se enfrentarán a la llegada de Buzz Lightyear, un moderno guardián espacial.',
                 'https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg', 
                 'https://image.tmdb.org/t/p/original/lxD5ak7BOoinRNehOCA85CQ8ubr.jpg',
-                'https://www.youtube.com/embed/cxJWQqYgGRI',
+                'https://www.youtube.com/embed/wzXG7Vf7_3U',
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
             )">
                 <img src="https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg" alt="Toy Story">
             </div>
 
-            <!-- TARJETA 4: STAND BY ME DORAEMON (Usa a Mario temporalmente abajo, listo para enlazar) -->
+            <!-- TARJETA 4: STAND BY ME DORAEMON (PORTADA ASIGNADA) -->
             <div class="video-card" onclick="openDetails(
                 'Stand by Me Doraemon', 
                 'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
-                'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg', 
+                'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
                 'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg',
-                'https://www.youtube.com/embed/DmCZoiCp5C0',
+                'https://www.youtube.com/embed/vOidR_C06kU',
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
             )">
-                <img src="https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg" alt="Doraemon">
+                <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
             </div>
 
         </div>
@@ -361,7 +361,6 @@
             currentIndex = index;
         }
 
-        // Rota automáticamente en bucle continuo
         function nextBanner() {
             let nextIndex = (currentIndex + 1) % banners.length;
             showBanner(nextIndex);
