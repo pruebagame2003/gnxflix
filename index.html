@@ -60,7 +60,7 @@
             z-index: 10;
         }
         
-        /* NUEVO LOGO ESTILO CARTOON QUEEN (3D IMPACTANTE) */
+        /* NUEVO LOGO ESTILO CARTOON QUEEN (3D IMPACTANTE) CON FLIX EN ROJO */
         .logo {
             font-family: 'Fredoka One', sans-serif;
             color: #ffffff;
@@ -73,8 +73,11 @@
                 2px 2px 0px #000, 4px 4px 0px #333, 6px 6px 10px rgba(0,0,0,0.8);
             transform: skew(-5deg);
         }
+        .logo span {
+            color: #E50914;
+        }
 
-        /* BANNER PRINCIPAL CON EFECTO DE ROTACIÓN FLUIDA */
+        /* BANNER PRINCIPAL CON EFECTO DE ROTACIÓN FLUIDA Y MEJORA DE ENCUADRE */
         .banner-container {
             position: relative;
             height: 60vh;
@@ -85,7 +88,7 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover;
-            background-position: center center;
+            background-position: center 20%; /* Ajuste para evitar que las cabezas queden excesivamente cortadas en PC */
             background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
@@ -391,7 +394,7 @@
     </div>
 
     <header>
-        <div class="logo">GnxFlix</div>
+        <div class="logo">Gnx<span>Flix</span></div>
     </header>
 
     <!-- BANNER INTERACTIVO CON TRES FONDOS ROTATIVOS (DORAEMON, BOB ESPONJA Y PEPPA PIG) -->
@@ -404,7 +407,7 @@
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
             <h1>Bob Esponja</h1>
         </div>
-        <!-- Fondo 3: Peppa Pig (Nueva incorporación) -->
+        <!-- Fondo 3: Peppa Pig -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg');">
             <h1>Peppa Pig</h1>
         </div>
@@ -442,7 +445,7 @@
         <h2>Maraton Animada</h2>
         <div class="cards-container">
 
-            <!-- TARJETA 1: BOB ESPONJA -->
+            <!-- TARJETA 1: BOB ESPONJA (CATÁLOGO EXPANDIDO A 9 VIDEOS) -->
             <div class="video-card" onclick="openDetails(
                 'Bob Esponja', 
                 'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
@@ -450,15 +453,21 @@
                 'https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg',
                 true,
                 [
-                    { name: 'Maratón #1: Celebridades Invitadas', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '60 min' },
+                    { name: 'Maratón #1: Celebridades Invitadas', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '78 min' },
                     { name: 'Maratón #2: Cocina Cangreburgers', url: 'https://www.dropbox.com/scl/fi/jikyak7qxc4k72kjboztl/Bob-Esponja-cocina-Cangreburgers-por-UNA-HORA-Bob-Esponja-en-Espa-ol.mp4?rlkey=hxn9h87haoai0em1uwvrkzg93&dl=1', time: '60 min' },
-                    { name: 'Maratón #3: Todas las Galletas', url: 'https://www.dropbox.com/scl/fi/8x1ntmy2sj3t27eyp3ucf/Bob-Esponja-Todas-las-galles-Bob-Esponja-en-Espa-ol.mp4?rlkey=hf3adkpfaevv0ry2xyh3cpmce&dl=1', time: '30 min' }
+                    { name: 'Maratón #3: Todas las Galletas', url: 'https://www.dropbox.com/scl/fi/8x1ntmy2sj3t27eyp3ucf/Bob-Esponja-Todas-las-galles-Bob-Esponja-en-Espa-ol.mp4?rlkey=hf3adkpfaevv0ry2xyh3cpmce&dl=1', time: '17 min' },
+                    { name: 'Maratón #4: Patricio en el Multiverso', url: 'https://www.dropbox.com/scl/fi/osd5gvoi6v0v5ez1tzwdr/El-show-de-Patricio-Estrella-Patricio-en-el-multiverso-por-35-minutos-seguidos-Espa-ol.mp4?rlkey=cyoebqr12obu7unkacysra283&dl=1', time: '35 min' },
+                    { name: 'Maratón #5: Actuando Sin Sentido', url: 'https://www.dropbox.com/scl/fi/jofarmdtan933q6zqtxcp/Bob-Esponja-actuando-sin-sentido-durante-60-minutos-Bob-Esponja-en-Espa-ol.mp4?rlkey=qlhxgtscdn75cz881ky4ew3y6&dl=1', time: '60 min' },
+                    { name: 'Maratón #6: Episodios Especiales 2024', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '33 min' },
+                    { name: 'Maratón #7: Transformaciones Alocadas', url: 'https://www.dropbox.com/scl/fi/lrofkk56mglqx6xrsfx1x/Bob-Esponja-Transformaciones-A-N-M-S-ALOCADAS-de-Bob-Esponja-Recopilaci-n-de-30-minutos.mp4?rlkey=cozde3vg6xz9czuidaf303sq9&dl=1', time: '30 min' },
+                    { name: 'Maratón #8: Consejeros de Kamp Koral', url: 'https://www.dropbox.com/scl/fi/et7nmpv9bk8qpvq4wjbx3/Kamp-Koral-Los-consejeros-del-Kamp-Koral-act-an-como-ni-os-durante-30-minutos-Bob-Esponja.mp4?rlkey=j0pc5xd09sffbcaomkbtceypt&dl=1', time: '30 min' },
+                    { name: 'Maratón #9: Huevos de Pascua Clásicos', url: 'https://www.dropbox.com/scl/fi/i0ysisvhd71wrpwu6xkwf/Bob-Esponja-75-MINUTOS-de-huevos-de-Pascua-cl-sicos-de-Bob-Esponja-en-los-NUEVOS-episodios.mp4?rlkey=p1u1fp609qn5rl49i0n6xfg2u&dl=1', time: '75 min' }
                 ]
             )">
                 <img src="https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg" alt="Bob Esponja">
             </div>
 
-            <!-- TARJETA 2: PEPPA PIG (Nueva incorporación multi-video) -->
+            <!-- TARJETA 2: PEPPA PIG -->
             <div class="video-card" onclick="openDetails(
                 'Peppa Pig', 
                 'La protagonista de esta serie es Peppa, una cerdita de rasgos antropomórficos que vive con su hermanito George y sus padres: Mamá (Mummy) Pig y Papá (Daddy) Pig. Tiene como escenario principal su hogar, es ahí donde ocurren las tramas de los episodios. En algunos episodios, se muestra a su familia saliendo de casa, paseando con su coche, en casa de sus amigos o estando ya en otro lugar.',
@@ -526,7 +535,7 @@
         const preloader = document.getElementById('preloader');
         const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
-        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS (Ahora con soporte para 3 fondos)
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
         const banners = document.querySelectorAll('.banner');
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
@@ -569,7 +578,7 @@
             noticeModal.style.display = 'none';
         }
 
-        // APERTURA INTELIGENTE DEL MODAL (AUTOMATIZADO PARA SOPORTAR N CANTIDAD DE SERIES)
+        // APERTURA INTELIGENTE DEL MODAL
         function openDetails(title, desc, poster, backdrop, isSeries, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
@@ -624,7 +633,7 @@
             playerModal.style.display = 'flex';
         }
 
-        // CIERRE DEL REPRODUCTOR (RETORNO INTEGRAL AL MODAL ESPECÍFICO)
+        // CIERRE DEL REPRODUCTOR
         function closePlayer() {
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
