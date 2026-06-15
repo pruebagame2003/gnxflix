@@ -88,7 +88,7 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover;
-            background-position: center 20%; /* Ajuste para evitar que las cabezas queden excesivamente cortadas en PC */
+            background-position: center 20%;
             background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
@@ -397,7 +397,7 @@
         <div class="logo">Gnx<span>Flix</span></div>
     </header>
 
-    <!-- BANNER INTERACTIVO CON TRES FONDOS ROTATIVOS (DORAEMON, BOB ESPONJA Y PEPPA PIG) -->
+    <!-- BANNER INTERACTIVO CON CUATRO FONDOS ROTATIVOS (DORAEMON, BOB ESPONJA, PEPPA PIG Y EL CHAVO) -->
     <div class="banner-container">
         <!-- Fondo 1: Doraemon -->
         <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
@@ -411,12 +411,17 @@
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg');">
             <h1>Peppa Pig</h1>
         </div>
+        <!-- Fondo 4: El Chavo Animado (Nueva incorporación) -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg');">
+            <h1>El Chavo Animado</h1>
+        </div>
 
         <!-- BARRITAS INDICADORAS DE BIENVENIDA -->
         <div class="carousel-dots">
             <div class="dot active" onclick="changeBanner(0)"></div>
             <div class="dot" onclick="changeBanner(1)"></div>
             <div class="dot" onclick="changeBanner(2)"></div>
+            <div class="dot" onclick="changeBanner(3)"></div>
         </div>
     </div>
 
@@ -445,7 +450,7 @@
         <h2>Maraton Animada</h2>
         <div class="cards-container">
 
-            <!-- TARJETA 1: BOB ESPONJA (CATÁLOGO EXPANDIDO A 9 VIDEOS) -->
+            <!-- TARJETA 1: BOB ESPONJA -->
             <div class="video-card" onclick="openDetails(
                 'Bob Esponja', 
                 'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
@@ -481,6 +486,18 @@
                 ]
             )">
                 <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
+            </div>
+
+            <!-- TARJETA 3: EL CHAVO ANIMADO (Nueva incorporación lista para episodios) -->
+            <div class="video-card" onclick="openDetails(
+                'El Chavo Animado', 
+                'El chavo animado es a serie de televisión mexicana producida por Televisa y Ánima Estudios que dio inicio el 22 de octubre de 2006 presentado por Televisa como una versión de dibujos animados basados en la serie real El Chavo, la cual fue producida originalmente en los años 70 y 80. Los episodios de El chavo animado se basa en los episodios de la serie original con los libretos de Roberto Gómez Bolaños.',
+                'https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg', 
+                'https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg',
+                true,
+                [] /* Marcador de posición vacío: inyectaremos el capítulo de MEGA en el siguiente paso */
+            )">
+                <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
             </div>
 
         </div>
@@ -535,7 +552,7 @@
         const preloader = document.getElementById('preloader');
         const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
-        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS (Ahora con soporte para 4 fondos)
         const banners = document.querySelectorAll('.banner');
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
@@ -591,13 +608,24 @@
                 const listContainer = document.createElement('div');
                 listContainer.className = 'episodes-list-container';
 
-                contentData.forEach((item) => {
-                    const row = document.createElement('div');
-                    row.className = 'episode-row';
-                    row.innerHTML = `<span>${item.name}</span><span class="episode-duration">${item.time}</span>`;
-                    row.onclick = () => launchStream(item.url);
-                    listContainer.appendChild(row);
-                });
+                if (contentData.length === 0) {
+                    // Mensaje temporal amigable si la lista está vacía
+                    const noEpisodes = document.createElement('div');
+                    noEpisodes.style.padding = '15px';
+                    noEpisodes.style.color = '#888';
+                    noEpisodes.style.textAlign = 'center';
+                    noEpisodes.style.fontSize = '14px';
+                    noEpisodes.innerText = 'Próximamente más maratones...';
+                    listContainer.appendChild(noEpisodes);
+                } else {
+                    contentData.forEach((item) => {
+                        const row = document.createElement('div');
+                        row.className = 'episode-row';
+                        row.innerHTML = `<span>${item.name}</span><span class="episode-duration">${item.time}</span>`;
+                        row.onclick = () => launchStream(item.url);
+                        listContainer.appendChild(row);
+                    });
+                }
 
                 modalInteractiveArea.appendChild(listContainer);
             } else {
