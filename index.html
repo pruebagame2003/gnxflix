@@ -77,6 +77,57 @@
             color: #E50914;
         }
 
+        /* CONTENEDOR DE BOTONES DE REDES SOCIALES CIRCULARES */
+        .social-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .social-icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .social-icon-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #ffffff;
+            transition: all 0.3s ease;
+        }
+        /* Efectos Hover personalizados con colores de marca minimalistas */
+        .social-icon-btn.tiktok:hover {
+            border-color: #ff0050;
+            box-shadow: 0 0 10px rgba(255, 0, 80, 0.4);
+            background-color: rgba(255, 0, 80, 0.1);
+        }
+        .social-icon-btn.tiktok:hover svg {
+            fill: #00f2fe; /* Efecto glitch sutil del icono de TikTok */
+        }
+        .social-icon-btn.twitch:hover {
+            border-color: #9146FF;
+            box-shadow: 0 0 10px rgba(145, 70, 255, 0.4);
+            background-color: rgba(145, 70, 255, 0.1);
+        }
+        .social-icon-btn.twitch:hover svg {
+            fill: #9146FF;
+        }
+        .social-icon-btn.youtube:hover {
+            border-color: #FF0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        .social-icon-btn.youtube:hover svg {
+            fill: #FF0000;
+        }
+
         /* BANNER PRINCIPAL CON EFECTO DE ROTACIÓN FLUIDA Y MEJORA DE ENCUADRE */
         .banner-container {
             position: relative;
@@ -395,6 +446,27 @@
 
     <header>
         <div class="logo">Gnx<span>Flix</span></div>
+        <!-- BOTONES MINIMALISTAS DE REDES SOCIALES VINCULADOS A TU MARCA -->
+        <div class="social-nav">
+            <!-- TikTok -->
+            <a class="social-icon-btn tiktok" href="https://www.tiktok.com/@mixfavmusic" target="_blank" title="Sígueme en TikTok">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.03 1.6 4.23.93.98 2.22 1.58 3.55 1.76v3.91c-1.39-.08-2.74-.58-3.86-1.44-.45-.36-.85-.78-1.2-1.24-.03 2.92-.01 5.84-.02 8.75-.07 1.83-.69 3.65-1.79 5.06-1.57 2.07-4.13 3.23-6.71 3.02-2.58-.1-4.99-1.56-6.17-3.96-1.44-2.73-1-6.17 1.11-8.47 1.5-1.71 3.75-2.59 6-2.4v3.93c-1.2-.13-2.42.3-3.21 1.2-.95 1.01-1.12 2.59-.44 3.77.63 1.15 1.95 1.87 3.27 1.82 1.34-.01 2.54-.92 2.87-2.22.1-.47.11-.96.11-1.44.02-3.88.01-7.77.02-11.66z"/>
+                </svg>
+            </a>
+            <!-- Twitch -->
+            <a class="social-icon-btn twitch" href="https://www.twitch.tv/elginux" target="_blank" title="Sígueme en Twitch">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                </svg>
+            </a>
+            <!-- YouTube -->
+            <a class="social-icon-btn youtube" href="https://www.youtube.com/@tutosgnxhd" target="_blank" title="Suscríbete en YouTube">
+                <svg viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </a>
+        </div>
     </header>
 
     <!-- BANNER INTERACTIVO CON CUATRO FONDOS ROTATIVOS (DORAEMON, BOB ESPONJA, PEPPA PIG Y EL CHAVO) -->
@@ -453,7 +525,7 @@
             <!-- TARJETA 1: BOB ESPONJA -->
             <div class="video-card" onclick="openDetails(
                 'Bob Esponja', 
-                'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones and sus ansias de hacer el bien suelen crear bastantes problemas',
+                'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
                 'https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg', 
                 'https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg',
                 'series',
@@ -488,7 +560,7 @@
                 <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
             </div>
 
-            <!-- TARJETA 3: EL CHAVO ANIMADO (Temporada 1 Depurada al 100%) -->
+            <!-- TARJETA 3: EL CHAVO ANIMADO -->
             <div class="video-card" onclick="openDetails(
                 'El Chavo Animado', 
                 'El chavo animado es a serie de televisión mexicana producida por Televisa y Ánima Estudios que dio inicio el 22 de octubre de 2006 presentado por Televisa como una versión de dibujos animados basados en la serie real El Chavo, la cual fue producida originalmente en los años 70 y 80. Los episodios de El chavo animado se basa en los episodios de la serie original con los libretos de Roberto Gómez Bolaños.',
@@ -581,7 +653,7 @@
         const preloader = document.getElementById('preloader');
         const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
-        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS (Ahora con soporte para 4 fondos)
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
         const banners = document.querySelectorAll('.banner');
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
@@ -648,7 +720,6 @@
                     const row = document.createElement('div');
                     row.className = 'episode-row';
                     row.innerHTML = `<span>📂 ${season.seasonName}</span><span class="episode-duration">Ver capítulos</span>`;
-                    // Al hacer clic, reescribimos el área con los episodios de la temporada sin abrir otra ventana
                     row.onclick = () => {
                         buildInteractiveArea('series', season.episodes);
                     };
