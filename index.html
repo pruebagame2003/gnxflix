@@ -263,6 +263,7 @@
             border: 1px solid #333;
             transition: all 0.2s ease;
             font-weight: bold;
+            font-weight: bold;
             font-size: 14px;
         }
         .episode-row:hover {
@@ -411,7 +412,7 @@
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg');">
             <h1>Peppa Pig</h1>
         </div>
-        <!-- Fondo 4: El Chavo Animado (Nueva incorporación) -->
+        <!-- Fondo 4: El Chavo Animado -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg');">
             <h1>El Chavo Animado</h1>
         </div>
@@ -436,7 +437,7 @@
                 'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
                 'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
                 'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg',
-                false,
+                'movie',
                 ['https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1']
             )">
                 <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
@@ -456,7 +457,7 @@
                 'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
                 'https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg', 
                 'https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg',
-                true,
+                'series',
                 [
                     { name: 'Maratón #1: Celebridades Invitadas', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '78 min' },
                     { name: 'Maratón #2: Cocina Cangreburgers', url: 'https://www.dropbox.com/scl/fi/jikyak7qxc4k72kjboztl/Bob-Esponja-cocina-Cangreburgers-por-UNA-HORA-Bob-Esponja-en-Espa-ol.mp4?rlkey=hxn9h87haoai0em1uwvrkzg93&dl=1', time: '60 min' },
@@ -478,7 +479,7 @@
                 'La protagonista de esta serie es Peppa, una cerdita de rasgos antropomórficos que vive con su hermanito George y sus padres: Mamá (Mummy) Pig y Papá (Daddy) Pig. Tiene como escenario principal su hogar, es ahí donde ocurren las tramas de los episodios. En algunos episodios, se muestra a su familia saliendo de casa, paseando con su coche, en casa de sus amigos o estando ya en otro lugar.',
                 'https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg', 
                 'https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg',
-                true,
+                'series',
                 [
                     { name: 'Maratón #1: Vacaciones al Sol', url: 'https://www.dropbox.com/scl/fi/f8f1s3hvzu8299zky09uo/Peppa-se-va-de-vacaciones-al-sol___Los-Cuentos-de-Peppa-la-Cerdita.mp4?rlkey=ibjgxfbnl58xjhfsagk5yrjmv&dl=1', time: '15 min' },
                     { name: 'Maratón #2: Cocinando con Peppa', url: 'https://www.dropbox.com/scl/fi/8mwdank4rm15lm41ib2vi/Cocinando-con-Peppa___Los-Cuentos-de-Peppa-la-Cerdita.mp4?rlkey=1rwjs92v456mmf15vosbt5rgb&dl=1', time: '15 min' },
@@ -488,14 +489,21 @@
                 <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
             </div>
 
-            <!-- TARJETA 3: EL CHAVO ANIMADO (Nueva incorporación lista para episodios) -->
+            <!-- TARJETA 3: EL CHAVO ANIMADO (Configuración avanzada de Temporadas) -->
             <div class="video-card" onclick="openDetails(
                 'El Chavo Animado', 
                 'El chavo animado es a serie de televisión mexicana producida por Televisa y Ánima Estudios que dio inicio el 22 de octubre de 2006 presentado por Televisa como una versión de dibujos animados basados en la serie real El Chavo, la cual fue producida originalmente en los años 70 y 80. Los episodios de El chavo animado se basa en los episodios de la serie original con los libretos de Roberto Gómez Bolaños.',
                 'https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg', 
                 'https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg',
-                true,
-                [] /* Marcador de posición vacío: inyectaremos el capítulo de MEGA en el siguiente paso */
+                'seasons',
+                [
+                    { 
+                        seasonName: 'Temporada 1: 26 Capítulos', 
+                        episodes: [
+                            { name: 'Capítulo 1: Los Globos', url: 'https://mega.nz/embed/VV1GRbQL#gXGl2bSrIrvfJmILxu2cnNSTlz2xaWLuS74mmG0jfXo', time: '22 min' }
+                        ]
+                    }
+                ]
             )">
                 <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
             </div>
@@ -521,7 +529,7 @@
         </div>
     </div>
 
-    <!-- PANTALLA FINAL DEL REPRODUCTOR NATIVO BLINDADO -->
+    <!-- PANTALLA FINAL DEL REPRODUCTOR NATIVO BLINDADO (HÍBRIDO MP4/IFRAME) -->
     <div class="player-modal" id="playerModal">
         <button class="back-btn" onclick="closePlayer()">✕ Volver a Detalles</button>
         <div style="width:100%; height:100%;" id="playerTarget"></div>
@@ -552,7 +560,7 @@
         const preloader = document.getElementById('preloader');
         const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
-        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS (Ahora con soporte para 4 fondos)
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
         const banners = document.querySelectorAll('.banner');
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
@@ -595,40 +603,54 @@
             noticeModal.style.display = 'none';
         }
 
-        // APERTURA INTELIGENTE DEL MODAL
-        function openDetails(title, desc, poster, backdrop, isSeries, contentData) {
+        // APERTURA INTELIGENTE DEL MODAL (CON CONTROLADOR DE ESTADOS MULTI-RESOLUCIÓN)
+        function openDetails(title, desc, poster, backdrop, contentType, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
             document.getElementById('modalPoster').src = poster;
             document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
             
+            buildInteractiveArea(contentType, contentData);
+            detailsModal.style.display = 'flex';
+        }
+
+        // CONSTRUCTOR DINÁMICO DE INTERFAZ INTERNA
+        function buildInteractiveArea(contentType, contentData) {
             modalInteractiveArea.innerHTML = "";
 
-            if (isSeries) {
+            if (contentType === 'seasons') {
+                // Menú Nivel 1: Lista de Temporadas (El Chavo)
                 const listContainer = document.createElement('div');
                 listContainer.className = 'episodes-list-container';
 
-                if (contentData.length === 0) {
-                    // Mensaje temporal amigable si la lista está vacía
-                    const noEpisodes = document.createElement('div');
-                    noEpisodes.style.padding = '15px';
-                    noEpisodes.style.color = '#888';
-                    noEpisodes.style.textAlign = 'center';
-                    noEpisodes.style.fontSize = '14px';
-                    noEpisodes.innerText = 'Próximamente más maratones...';
-                    listContainer.appendChild(noEpisodes);
-                } else {
-                    contentData.forEach((item) => {
-                        const row = document.createElement('div');
-                        row.className = 'episode-row';
-                        row.innerHTML = `<span>${item.name}</span><span class="episode-duration">${item.time}</span>`;
-                        row.onclick = () => launchStream(item.url);
-                        listContainer.appendChild(row);
-                    });
-                }
-
+                contentData.forEach((season) => {
+                    const row = document.createElement('div');
+                    row.className = 'episode-row';
+                    row.innerHTML = `<span>📂 ${season.seasonName}</span><span class="episode-duration">Ver capítulos</span>`;
+                    // Al hacer clic, reescribimos el área con los episodios de la temporada sin abrir otra ventana
+                    row.onclick = () => {
+                        buildInteractiveArea('series', season.episodes);
+                    };
+                    listContainer.appendChild(row);
+                });
                 modalInteractiveArea.appendChild(listContainer);
+
+            } else if (contentType === 'series') {
+                // Menú Nivel 2: Lista de Episodios (Bob, Peppa o Temporada activa del Chavo)
+                const listContainer = document.createElement('div');
+                listContainer.className = 'episodes-list-container';
+
+                contentData.forEach((item) => {
+                    const row = document.createElement('div');
+                    row.className = 'episode-row';
+                    row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
+                    row.onclick = () => launchStream(item.url);
+                    listContainer.appendChild(row);
+                });
+                modalInteractiveArea.appendChild(listContainer);
+
             } else {
+                // Interfaz clásica para películas individuales (Doraemon)
                 modalInteractiveArea.innerHTML = `
                     <div class="btn-group">
                         <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
@@ -636,27 +658,35 @@
                 `;
                 document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData[0]);
             }
-
-            detailsModal.style.display = 'flex';
         }
 
         function closeDetails() {
             detailsModal.style.display = 'none';
         }
 
-        // LANZAMIENTO DEL VIDEO EN MODO INMERSIVO BLINDADO
+        // REPRODUCTOR HÍBRIDO AVANZADO (DETECTA AUTOMÁTICAMENTE DIRECTO DROPBOX O EMBED MEGA)
         function launchStream(url) {
             playerTarget.innerHTML = ""; 
 
-            playerTarget.innerHTML = `
-                <video src="${url}" 
-                       controls 
-                       autoplay 
-                       playsinline 
-                       controlsList="nodownload" 
-                       oncontextmenu="return false;" 
-                       style="width:100%; height:100%; background-color:#000;">
-                </video>`;
+            if (url.includes('mega.nz') || url.includes('youtube') || url.includes('iframe')) {
+                // Si es un link de MEGA Embed, inyecta un iframe limpio a pantalla completa
+                playerTarget.innerHTML = `
+                    <iframe src="${url}" 
+                            allowfullscreen 
+                            style="width:100%; height:100%; background-color:#000; border:none;">
+                    </iframe>`;
+            } else {
+                // Si es un link de Dropbox directo, corre la etiqueta video blindada original
+                playerTarget.innerHTML = `
+                    <video src="${url}" 
+                           controls 
+                           autoplay 
+                           playsinline 
+                           controlsList="nodownload" 
+                           oncontextmenu="return false;" 
+                           style="width:100%; height:100%; background-color:#000;">
+                    </video>`;
+            }
                 
             playerModal.style.display = 'flex';
         }
