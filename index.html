@@ -23,6 +23,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         /* --- PANTALLA DE CARGA (PRELOADER) --- */
@@ -76,6 +77,35 @@
             color: #E50914;
         }
 
+        /* BARRA DE BÚSQUEDA INTEGRADA EN CABECERA */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 6px 15px;
+            margin-left: auto;
+            margin-right: 20px;
+            transition: all 0.3s ease;
+        }
+        .search-container:focus-within {
+            border-color: #E50914;
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+        }
+        .search-input {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            width: 180px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .search-input::placeholder {
+            color: #888;
+        }
+
         /* CONTENEDOR DE BOTONES DE REDES SOCIALES CIRCULARES */
         .social-nav {
             display: flex;
@@ -101,7 +131,6 @@
             fill: #ffffff;
             transition: all 0.3s ease;
         }
-        /* Efectos Hover personalizados con colores de marca minimalistas */
         .social-icon-btn.tiktok:hover {
             border-color: #ff0050;
             box-shadow: 0 0 10px rgba(255, 0, 80, 0.4);
@@ -191,9 +220,43 @@
             box-shadow: 0 0 8px rgba(255,255,255,0.6);
         }
 
+        /* SECTOR DE FILTROS RÁPIDOS DE CATEGORÍAS */
+        .category-filter-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 4% 10px 4%;
+            padding-bottom: 10px;
+        }
+        .filter-btn {
+            background-color: rgba(34, 34, 34, 0.8);
+            color: #ffffff;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .filter-btn:hover {
+            border-color: #E50914;
+            background-color: rgba(229, 9, 20, 0.1);
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+            transform: translateY(-2px);
+        }
+
         /* Filas y Contenedores */
-        .content-row { margin: 30px 0 0 4%; }
-        .content-row h2 { font-size: 20px; margin-bottom: 15px; font-weight: bold; }
+        .content-row { 
+            margin: 30px 0 0 4%; 
+            transition: all 0.5s ease;
+            padding: 10px 0;
+            border-radius: 8px;
+        }
+        .content-row h2 { font-size: 20px; margin-top: 5px; margin-bottom: 15px; font-weight: bold; transition: color 0.3s; }
         .cards-container {
             display: flex;
             gap: 15px;
@@ -212,11 +275,38 @@
             border-radius: 6px;
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
         .video-card:hover { transform: scale(1.05); }
         .video-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- ANIMACIONES DE ALUMBRAMIENTO DE SECCIÓN Y BUSCADOR --- */
+        @keyframes pulse-highlight {
+            0% { background-color: transparent; box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+            25% { background-color: rgba(229, 9, 20, 0.2); box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); }
+            50% { background-color: transparent; box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+            75% { background-color: rgba(229, 9, 20, 0.2); box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); }
+            100% { background-color: transparent; box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+        }
+        .row-highlight {
+            animation: pulse-highlight 1.6s ease-in-out forwards;
+        }
+        .row-highlight h2 {
+            color: #E50914 !important;
+        }
+
+        @keyframes card-pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+            25% { transform: scale(1.08); box-shadow: 0 0 20px #E50914; border-color: #E50914; }
+            50% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+            75% { transform: scale(1.08); box-shadow: 0 0 20px #E50914; border-color: #E50914; }
+            100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        }
+        .card-highlight {
+            animation: card-pulse 1.6s ease-in-out forwards;
+            border: 1px solid transparent;
+        }
 
         /* --- VENTANA DE DETALLES ADAPTATIVA --- */
         .details-modal {
@@ -370,7 +460,7 @@
             cursor: pointer; z-index: 10005;
         }
 
-        /* --- NUEVO SECTOR MODAL DE AVISO (ESTILO OPTIPROJECT) --- */
+        /* --- SECTOR MODAL DE AVISO --- */
         .notice-modal {
             display: none;
             position: fixed;
@@ -420,6 +510,11 @@
         }
 
         /* --- DISEÑO RESPONSIVO EXCLUSIVO --- */
+        @media (max-width: 850px) {
+            header { flex-direction: column; gap: 15px; padding: 15px 4%; }
+            .search-container { margin: 0 auto; width: 80%; }
+            .social-nav { justify-content: center; width: 100%; }
+        }
         @media (max-width: 650px) {
             .banner-container { height: 45vh; }
             .banner h1 { font-size: 26px; }
@@ -444,6 +539,9 @@
 
     <header>
         <div class="logo">Gnx<span>Flix</span></div>
+        <div class="search-container">
+            <input type="text" id="gnxSearch" class="search-input" placeholder="Buscar película o serie..." onkeyup="searchStreaming(this.value)">
+        </div>
         <div class="social-nav">
             <a class="social-icon-btn tiktok" href="https://www.tiktok.com/@mixfavmusic" target="_blank" title="Sígueme en TikTok">
                 <svg viewBox="0 0 24 24">
@@ -485,11 +583,18 @@
         </div>
     </div>
 
-    <div class="content-row">
+    <div class="category-filter-nav">
+        <button class="filter-btn" onclick="scrollToSection('recRow')">🎯 Películas Recomendadas</button>
+        <button class="filter-btn" onclick="scrollToSection('animRow')">🍿 Películas Animadas</button>
+        <button class="filter-btn" onclick="scrollToSection('comRow')">🎭 Películas Comedia</button>
+        <button class="filter-btn" onclick="scrollToSection('maraRow')">📂 Maratón Animada</button>
+    </div>
+
+    <div class="content-row" id="recRow">
         <h2>Películas Recomendadas</h2>
         <div class="cards-container">
             
-            <div class="video-card" onclick="openDetails(
+            <div class="video-card card-target-doraemon" onclick="openDetails(
                 'Stand by Me Doraemon', 
                 'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
                 'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
@@ -500,7 +605,7 @@
                 <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
             </div>
 
-            <div class="video-card" onclick="openDetails(
+            <div class="video-card card-target-scary" onclick="openDetails(
                 'Scary Movie 1', 
                 'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
                 'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
@@ -514,11 +619,40 @@
         </div>
     </div>
 
-    <div class="content-row">
-        <h2>Comedia</h2>
+    <div class="content-row" id="animRow">
+        <h2>Películas Animadas</h2>
         <div class="cards-container">
             
-            <div class="video-card" onclick="openDetails(
+            <div class="video-card card-target-doraemon" onclick="openDetails(
+                'Stand by Me Doraemon', 
+                'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
+                'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
+                'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1', trailerUrl: 'https://youtu.be/W3p3mOcim40?si=zd6N9_CxYBulBJco' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
+            </div>
+
+            <div class="video-card card-target-gallo" onclick="openDetails(
+                'Un Gallo con Muchos Huevos', 
+                'Toto es un pequeño pollito que ha nacido en un rancho muy bonito y con mucha tranquilidad. Después de que pase un tiempo, Toto se convertirá en un joven gallito, dispuesto a comerse el mundo. Un ranchero malvado y muy ambicioso conseguirá engañar a la dueña del rancho donde vive, para que la señora apueste su propiedad como premio, la disputa se arreglará con una pelea de gallos. La ranchera solamente tendrá como última esperanza a Toto, teniendo que entrenarse duramente para poder vencer al gallo más peligroso y violento de todos.',
+                'https://image.tmdb.org/t/p/original/eEqfi9fbsqHMJd78g4tawtIhc8n.jpg', 
+                'https://image.tmdb.org/t/p/original/ktOhIwoP7iLBfFIe5uulpS2gstu.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/x8p0bqop5msup729pywbd/UN-GALLO-CON-MUCHOS-HUEVOS.mp4?rlkey=bw7l2jn6kmx24wu379h9kax9t&dl=1', trailerUrl: 'https://youtu.be/iF6hiytfto0?si=-tiArq_ZSx9na5-l' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/eEqfi9fbsqHMJd78g4tawtIhc8n.jpg" alt="Un Gallo con Muchos Huevos">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="content-row" id="comRow">
+        <h2>Películas Comedia</h2>
+        <div class="cards-container">
+            
+            <div class="video-card card-target-scary" onclick="openDetails(
                 'Scary Movie 1', 
                 'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
                 'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
@@ -532,11 +666,11 @@
         </div>
     </div>
 
-    <div class="content-row">
+    <div class="content-row" id="maraRow">
         <h2>Maraton Animada</h2>
         <div class="cards-container">
 
-            <div class="video-card" onclick="openDetails(
+            <div class="video-card card-target-bob" onclick="openDetails(
                 'Bob Esponja', 
                 'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
                 'https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg', 
@@ -557,7 +691,7 @@
                 <img src="https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg" alt="Bob Esponja">
             </div>
 
-            <div class="video-card" onclick="openDetails(
+            <div class="video-card card-target-peppa" onclick="openDetails(
                 'Peppa Pig', 
                 'La protagonista de esta serie es Peppa, una cerdita de rasgos antropomórficos que vive con su hermanito George y sus padres: Mamá (Mummy) Pig y Papá (Daddy) Pig. Tiene como escenario principal su hogar, es ahí donde ocurren las tramas de los episodios. En algunos episodios, se muestra a su familia saliendo de casa, paseando con su coche, en casa de sus amigos o estando ya en otro lugar.',
                 'https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg', 
@@ -572,7 +706,7 @@
                 <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
             </div>
 
-            <div class="video-card" onclick="openDetails(
+            <div class="video-card card-target-chavo" onclick="openDetails(
                 'El Chavo Animado', 
                 'El chavo animado es a serie de televisión mexicana producida por Televisa y Ánima Estudios que dio inicio el 22 de octubre de 2006 presentado por Televisa como una versión de dibujos animados basados en la serie real El Chavo, la cual fue producida originalmente en los años 70 y 80. Los episodios de El chavo animado se basa en los episodios de la serie original con los libretos de Roberto Gómez Bolaños.',
                 'https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg', 
@@ -612,7 +746,7 @@
                 <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
             </div>
 
-            <div class="video-card" onclick="openDetails(
+            <div class="video-card card-target-pajaro" onclick="openDetails(
                 'El Pájaro Loco', 
                 'Diviértete con las locas aventuras y la mítica e inconfundible risa de Loquillo, el pájaro carpintero más audaz y divertido de la animación clásica, siempre burlando a sus rivales y causando descontrol.',
                 'https://image.tmdb.org/t/p/original/oizXc3SnlSWDqPMmfe4koUj4RRo.jpg', 
@@ -641,7 +775,6 @@
                 <div class="details-info">
                     <h2 id="modalTitle">Título</h2>
                     <p id="modalDescription">Descripción...</p>
-                    
                     <div id="modalInteractiveArea"></div>
                 </div>
             </div>
@@ -676,7 +809,7 @@
         const preloader = document.getElementById('preloader');
         const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
-        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS (Ahora con soporte para 4 fondos)
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
         const banners = document.querySelectorAll('.banner');
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
@@ -719,7 +852,49 @@
             noticeModal.style.display = 'none';
         }
 
-        // APERTURA INTELIGENTE DEL MODAL (CON CONTROLADOR DE ESTADOS MULTI-RESOLUCIÓN)
+        // CONTROLADOR DE SCROLL DIRECTO DESDE LA BOTONERA DE FILTROS
+        function scrollToSection(sectionId) {
+            const row = document.getElementById(sectionId);
+            if (row) {
+                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                row.classList.remove('row-highlight');
+                void row.offsetWidth; // Truco de renderizado JS para reiniciar animación
+                row.classList.add('row-highlight');
+                setTimeout(() => row.classList.remove('row-highlight'), 2000);
+            }
+        }
+
+        // SISTEMA DE BÚSQUEDA INTERACTIVA (SCROLL + DOBLE PARPADEO DE TARJETAS)
+        function searchStreaming(query) {
+            if (!query || query.trim() === "") return;
+            
+            const cleanQuery = query.toLowerCase().trim();
+            let targetClass = "";
+
+            if (cleanQuery.includes('chavo')) targetClass = "card-target-chavo";
+            else if (cleanQuery.includes('bob') || cleanQuery.includes('esponja')) targetClass = "card-target-bob";
+            else if (cleanQuery.includes('doraemon') || cleanQuery.includes('nobita')) targetClass = "card-target-doraemon";
+            else if (cleanQuery.includes('scary') || cleanQuery.includes('movie')) targetClass = "card-target-scary";
+            else if (cleanQuery.includes('gallo') || cleanQuery.includes('toto') || cleanQuery.includes('huevos')) targetClass = "card-target-gallo";
+            else if (cleanQuery.includes('peppa') || cleanQuery.includes('pig')) targetClass = "card-target-peppa";
+            else if (cleanQuery.includes('pajaro') || cleanQuery.includes('loco') || cleanQuery.includes('loquillo')) targetClass = "card-target-pajaro";
+
+            if (targetClass !== "") {
+                const targets = document.querySelectorAll('.' + targetClass);
+                if (targets.length > 0) {
+                    targets[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    targets.forEach(card => {
+                        card.classList.remove('card-highlight');
+                        void card.offsetWidth; // Forzar reflow
+                        card.classList.add('card-highlight');
+                        setTimeout(() => card.classList.remove('card-highlight'), 2000);
+                    });
+                }
+            }
+        }
+
+        // APERTURA INTELIGENTE DEL MODAL
         function openDetails(title, desc, poster, backdrop, contentType, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
@@ -746,7 +921,6 @@
             modalInteractiveArea.innerHTML = "";
 
             if (contentType === 'seasons') {
-                // Menú Nivel 1: Lista de Temporadas (El Chavo)
                 const listContainer = document.createElement('div');
                 listContainer.className = 'episodes-list-container';
 
@@ -762,7 +936,6 @@
                 modalInteractiveArea.appendChild(listContainer);
 
             } else if (contentType === 'series') {
-                // Menú Nivel 2: Lista de Episodios (Bob, Peppa o Temporada activa del Chavo)
                 const listContainer = document.createElement('div');
                 listContainer.className = 'episodes-list-container';
 
@@ -776,7 +949,6 @@
                 modalInteractiveArea.appendChild(listContainer);
 
             } else {
-                // Interfaz para películas con soporte híbrido de Película + Trailer Remasterizado
                 modalInteractiveArea.innerHTML = `
                     <div class="btn-group">
                         <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
@@ -797,14 +969,12 @@
             playerTarget.innerHTML = ""; 
 
             if (url.includes('mega.nz') || url.includes('youtube.com/embed') || url.includes('iframe')) {
-                // Si es un link de MEGA Embed o YouTube Embed, inyecta un iframe limpio a pantalla completa
                 playerTarget.innerHTML = `
                     <iframe src="${url}" 
                             allowfullscreen 
                             style="width:100%; height:100%; background-color:#000; border:none;">
                     </iframe>`;
             } else {
-                // Si es un link de Dropbox directo, corre la etiqueta video blindada original
                 playerTarget.innerHTML = `
                     <video src="${url}" 
                            controls 
@@ -819,7 +989,6 @@
             playerModal.style.display = 'flex';
         }
 
-        // CIERRE DEL REPRODUCTOR
         function closePlayer() {
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
