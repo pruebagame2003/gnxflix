@@ -469,7 +469,7 @@
         </div>
     </header>
 
-    <!-- BANNER INTERACTIVO CON CUATRO FONDOS ROTATIVOS (DORAEMON, BOB ESPONJA, PEPPA PIG Y EL CHAVO) -->
+    <!-- BANNER INTERACTIVO ROTATIVO (Peppa Pig reemplazada por el banner gigante de Scary Movie) -->
     <div class="banner-container">
         <!-- Fondo 1: Doraemon -->
         <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
@@ -479,9 +479,9 @@
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
             <h1>Bob Esponja</h1>
         </div>
-        <!-- Fondo 3: Peppa Pig -->
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg');">
-            <h1>Peppa Pig</h1>
+        <!-- Fondo 3: Scary Movie 1 (Estreno exclusivo destacado en cabecera) -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/v7Vpqyepu54v0chKrbLECYfg8Vk.jpg');">
+            <h1>Scary Movie 1</h1>
         </div>
         <!-- Fondo 4: El Chavo Animado -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg');">
@@ -512,6 +512,38 @@
                 ['https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1']
             )">
                 <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
+            </div>
+
+            <!-- TARJETA 2: SCARY MOVIE 1 (Inyectada en Películas Recomendadas) -->
+            <div class="video-card" onclick="openDetails(
+                'Scary Movie 1', 
+                'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
+                'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
+                'https://image.tmdb.org/t/p/original/v7Vpqyepu54v0chKrbLECYfg8Vk.jpg',
+                'movie',
+                ['https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1']
+            )">
+                <img src="https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg" alt="Scary Movie 1">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- NUEVA CATEGORÍA: COMEDIA (Ubicada de forma premium por encima de Maratón Animada) -->
+    <div class="content-row">
+        <h2>Comedia</h2>
+        <div class="cards-container">
+            
+            <!-- TARJETA 1: SCARY MOVIE 1 -->
+            <div class="video-card" onclick="openDetails(
+                'Scary Movie 1', 
+                'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
+                'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
+                'https://image.tmdb.org/t/p/original/v7Vpqyepu54v0chKrbLECYfg8Vk.jpg',
+                'movie',
+                ['https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1']
+            )">
+                <img src="https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg" alt="Scary Movie 1">
             </div>
 
         </div>
@@ -601,7 +633,7 @@
                 <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
             </div>
 
-            <!-- TARJETA 4: EL PÁJARO LOCO (Nueva incorporación) -->
+            <!-- TARJETA 4: EL PÁJARO LOCO -->
             <div class="video-card" onclick="openDetails(
                 'El Pájaro Loco', 
                 'Diviértete con las locas aventuras y la mítica e inconfundible risa de Loquillo, el pájaro carpintero más audaz y divertido de la animación clásica, siempre burlando a sus rivales y causando descontrol.',
@@ -754,13 +786,13 @@
                     const row = document.createElement('div');
                     row.className = 'episode-row';
                     row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
-                    row.onclick = () => launchStream(item.url);
+                    row.onclick = () => launchStream(url);
                     listContainer.appendChild(row);
                 });
                 modalInteractiveArea.appendChild(listContainer);
 
             } else {
-                // Interfaz clásica para películas individuales (Doraemon)
+                // Interfaz clásica para películas individuales (Doraemon, Scary Movie)
                 modalInteractiveArea.innerHTML = `
                     <div class="btn-group">
                         <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
