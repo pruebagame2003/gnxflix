@@ -109,7 +109,7 @@
             background-color: rgba(255, 0, 80, 0.1);
         }
         .social-icon-btn.tiktok:hover svg {
-            fill: #00f2fe; /* Efecto glitch sutil del icono de TikTok */
+            fill: #00f2fe;
         }
         .social-icon-btn.twitch:hover {
             border-color: #9146FF;
@@ -463,7 +463,7 @@
             <!-- YouTube -->
             <a class="social-icon-btn youtube" href="https://www.youtube.com/@tutosgnxhd" target="_blank" title="Suscríbete en YouTube">
                 <svg viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
             </a>
         </div>
@@ -601,6 +601,24 @@
                 <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
             </div>
 
+            <!-- TARJETA 4: EL PÁJARO LOCO (Nueva incorporación) -->
+            <div class="video-card" onclick="openDetails(
+                'El Pájaro Loco', 
+                'Diviértete con las locas aventuras y la mítica e inconfundible risa de Loquillo, el pájaro carpintero más audaz y divertido de la animación clásica, siempre burlando a sus rivales y causando descontrol.',
+                'https://image.tmdb.org/t/p/original/oizXc3SnlSWDqPMmfe4koUj4RRo.jpg', 
+                'https://image.tmdb.org/t/p/original/vdcuZ7YHLemlTZ5NPfbctumWIg2.jpg',
+                'series',
+                [
+                    { name: 'Maratón #1: Los 7 Episodios Más Populares', url: 'https://www.dropbox.com/scl/fi/4w5jwnmhh7t34qj8yscqs/Los-7-Episodios-M-s-Populares-_-El-P-jaro-Loco.mp4?rlkey=9jn8juuxfv3dzl513sp1koufj&dl=1', time: '61 min' },
+                    { name: 'Maratón #2: La Granja de mis Sueños', url: 'https://www.dropbox.com/scl/fi/iyvl0mbz9vo933ysbqxml/La-Granja-de-mis-Sue-os.mp4?rlkey=atdwqeo6if94ymsqgkaipmugg&dl=1', time: '15 min' },
+                    { name: 'Maratón #3: El Niñero', url: 'https://www.dropbox.com/scl/fi/j8ef58t37xg7j8r4bazvn/El-Ni-ero.mp4?rlkey=fucekyg620zi8s2o85hy0yz14&dl=1', time: '12 min' },
+                    { name: 'Maratón #4: Misión Infiltración', url: 'https://www.dropbox.com/scl/fi/c9nzfkf5e01j6e7ztszd3/Misi-n-Infiltraci-n.mp4?rlkey=zkbkvnm3w1brm7men4m3lunwg&dl=1', time: '15 min' },
+                    { name: 'Maratón #5: Meany es una Robot', url: 'https://www.dropbox.com/scl/fi/2j59quxyn96lmodctguij/Meany-es-una-robot.mp4?rlkey=cacgwi79e8m0yseghr6f0mrya&dl=1', time: '11 min' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/oizXc3SnlSWDqPMmfe4koUj4RRo.jpg" alt="El Pájaro Loco">
+            </div>
+
         </div>
     </div>
 
@@ -653,7 +671,7 @@
         const preloader = document.getElementById('preloader');
         const modalInteractiveArea = document.getElementById('modalInteractiveArea');
 
-        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS (Ahora con soporte para 4 fondos)
         const banners = document.querySelectorAll('.banner');
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
