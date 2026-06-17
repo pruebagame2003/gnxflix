@@ -281,6 +281,12 @@
         .video-card:hover { transform: scale(1.05); }
         .video-card img { width: 100%; height: 100%; object-fit: cover; }
 
+        /* --- CLASES NATIVAS PARA CURSORES TEMÁTICOS --- */
+        .cursor-custom-bob { cursor: url('cursor-bob.png'), auto !important; }
+        .cursor-custom-peppa { cursor: url('cursor-peppa.png'), auto !important; }
+        .cursor-custom-chavo { cursor: url('cursor-chavo.png'), auto !important; }
+        .cursor-custom-pajaro { cursor: url('cursor-pajaro.png'), auto !important; }
+
         /* --- ANIMACIONES DE ALUMBRAMIENTO DE SECCIÓN Y BUSCADOR --- */
         @keyframes pulse-highlight {
             0% { background-color: transparent; box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
@@ -670,7 +676,7 @@
         <h2>Maraton Animada</h2>
         <div class="cards-container">
 
-            <div class="video-card card-target-bob" onclick="openDetails(
+            <div class="video-card card-target-bob cursor-custom-bob" onclick="openDetails(
                 'Bob Esponja', 
                 'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
                 'https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg', 
@@ -691,7 +697,7 @@
                 <img src="https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg" alt="Bob Esponja">
             </div>
 
-            <div class="video-card card-target-peppa" onclick="openDetails(
+            <div class="video-card card-target-peppa cursor-custom-peppa" onclick="openDetails(
                 'Peppa Pig', 
                 'La protagonista de esta serie es Peppa, una cerdita de rasgos antropomórficos que vive con su hermanito George y sus padres: Mamá (Mummy) Pig y Papá (Daddy) Pig. Tiene como escenario principal su hogar, es ahí donde ocurren las tramas de los episodios. En algunos episodios, se muestra a su familia saliendo de casa, paseando con su coche, en casa de sus amigos o estando ya en otro lugar.',
                 'https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg', 
@@ -706,7 +712,7 @@
                 <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
             </div>
 
-            <div class="video-card card-target-chavo" onclick="openDetails(
+            <div class="video-card card-target-chavo cursor-custom-chavo" onclick="openDetails(
                 'El Chavo Animado', 
                 'El chavo animado es a serie de televisión mexicana producida por Televisa y Ánima Estudios que dio inicio el 22 de octubre de 2006 presentado por Televisa como una versión de dibujos animados basados en la serie real El Chavo, la cual fue producida originalmente en los años 70 y 80. Los episodios de El chavo animado se basa en los episodios de la serie original con los libretos de Roberto Gómez Bolaños.',
                 'https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg', 
@@ -746,7 +752,7 @@
                 <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
             </div>
 
-            <div class="video-card card-target-pajaro" onclick="openDetails(
+            <div class="video-card card-target-pajaro cursor-custom-pajaro" onclick="openDetails(
                 'El Pájaro Loco', 
                 'Diviértete con las locas aventuras y la mítica e inconfundible risa de Loquillo, el pájaro carpintero más audaz y divertido de la animación clásica, siempre burlando a sus rivales y causando descontrol.',
                 'https://image.tmdb.org/t/p/original/oizXc3SnlSWDqPMmfe4koUj4RRo.jpg', 
@@ -858,7 +864,7 @@
             if (row) {
                 row.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 row.classList.remove('row-highlight');
-                void row.offsetWidth; // Truco de renderizado JS para reiniciar animación
+                void row.offsetWidth; // Forzar reflow
                 row.classList.add('row-highlight');
                 setTimeout(() => row.classList.remove('row-highlight'), 2000);
             }
@@ -894,13 +900,23 @@
             }
         }
 
-        // APERTURA INTELIGENTE DEL MODAL
+        // APERTURA INTELIGENTE DEL MODAL (CON INYECTOR DINÁMICO DE CURSORES LOCALES)
         function openDetails(title, desc, poster, backdrop, contentType, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
             document.getElementById('modalPoster').src = poster;
             document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
             
+            // Limpiar clases de cursores previas del modal antes de abrir uno nuevo
+            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro');
+
+            // Detectar la maratón seleccionada y aplicarle el cursor a toda la ventana flotante
+            const lowerTitle = title.toLowerCase();
+            if (lowerTitle.includes('bob')) detailsModal.classList.add('cursor-custom-bob');
+            else if (lowerTitle.includes('peppa')) detailsModal.classList.add('cursor-custom-peppa');
+            else if (lowerTitle.includes('chavo')) detailsModal.classList.add('cursor-custom-chavo');
+            else if (lowerTitle.includes('pájaro') || lowerTitle.includes('pajaro')) detailsModal.classList.add('cursor-custom-pajaro');
+
             buildInteractiveArea(contentType, contentData);
             detailsModal.style.display = 'flex';
         }
@@ -961,10 +977,12 @@
         }
 
         function closeDetails() {
+            // Limpiar cursores al cerrar el modal
+            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro');
             detailsModal.style.display = 'none';
         }
 
-        // REPRODUCTOR HÍBRIDO AVANZADO (DETECTA AUTOMÁTICAMENTE DIRECTO DROPBOX O EMBED MEGA/YOUTUBE)
+        // REPRODUCTOR HÍBRIDO AVANZADO
         function launchStream(url) {
             playerTarget.innerHTML = ""; 
 
