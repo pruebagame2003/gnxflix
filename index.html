@@ -11,7 +11,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- FUENTE PREMIUM ESTILO CARTOON (DAFONT REFERENCIA) -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     
@@ -439,28 +438,23 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE CARGA (PRELOADER) -->
     <div id="preloader">
         <div class="spinner"></div>
     </div>
 
     <header>
         <div class="logo">Gnx<span>Flix</span></div>
-        <!-- BOTONES MINIMALISTAS DE REDES SOCIALES VINCULADOS A TU MARCA -->
         <div class="social-nav">
-            <!-- TikTok -->
             <a class="social-icon-btn tiktok" href="https://www.tiktok.com/@mixfavmusic" target="_blank" title="Sígueme en TikTok">
                 <svg viewBox="0 0 24 24">
                     <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.03 1.6 4.23.93.98 2.22 1.58 3.55 1.76v3.91c-1.39-.08-2.74-.58-3.86-1.44-.45-.36-.85-.78-1.2-1.24-.03 2.92-.01 5.84-.02 8.75-.07 1.83-.69 3.65-1.79 5.06-1.57 2.07-4.13 3.23-6.71 3.02-2.58-.1-4.99-1.56-6.17-3.96-1.44-2.73-1-6.17 1.11-8.47 1.5-1.71 3.75-2.59 6-2.4v3.93c-1.2-.13-2.42.3-3.21 1.2-.95 1.01-1.12 2.59-.44 3.77.63 1.15 1.95 1.87 3.27 1.82 1.34-.01 2.54-.92 2.87-2.22.1-.47.11-.96.11-1.44.02-3.88.01-7.77.02-11.66z"/>
                 </svg>
             </a>
-            <!-- Twitch -->
             <a class="social-icon-btn twitch" href="https://www.twitch.tv/elginux" target="_blank" title="Sígueme en Twitch">
                 <svg viewBox="0 0 24 24">
                     <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
                 </svg>
             </a>
-            <!-- YouTube -->
             <a class="social-icon-btn youtube" href="https://www.youtube.com/@tutosgnxhd" target="_blank" title="Suscríbete en YouTube">
                 <svg viewBox="0 0 24 24">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -469,26 +463,20 @@
         </div>
     </header>
 
-    <!-- BANNER INTERACTIVO ROTATIVO (Peppa Pig reemplazada por el banner gigante de Scary Movie) -->
     <div class="banner-container">
-        <!-- Fondo 1: Doraemon -->
         <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
             <h1>Stand by Me Doraemon</h1>
         </div>
-        <!-- Fondo 2: Bob Esponja -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
             <h1>Bob Esponja</h1>
         </div>
-        <!-- Fondo 3: Scary Movie 1 (Estreno exclusivo destacado en cabecera) -->
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/v7Vpqyepu54v0chKrbLECYfg8Vk.jpg');">
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg');">
             <h1>Scary Movie 1</h1>
         </div>
-        <!-- Fondo 4: El Chavo Animado -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg');">
             <h1>El Chavo Animado</h1>
         </div>
 
-        <!-- BARRITAS INDICADORAS DE BIENVENIDA -->
         <div class="carousel-dots">
             <div class="dot active" onclick="changeBanner(0)"></div>
             <div class="dot" onclick="changeBanner(1)"></div>
@@ -497,31 +485,28 @@
         </div>
     </div>
 
-    <!-- Catálogo Categoría 1: Películas Recomendadas -->
     <div class="content-row">
         <h2>Películas Recomendadas</h2>
         <div class="cards-container">
             
-            <!-- TARJETA 1: STAND BY ME DORAEMON -->
             <div class="video-card" onclick="openDetails(
                 'Stand by Me Doraemon', 
                 'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
                 'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
                 'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg',
                 'movie',
-                ['https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1']
+                { videoUrl: 'https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1', trailerUrl: 'https://youtu.be/W3p3mOcim40?si=zd6N9_CxYBulBJco' }
             )">
                 <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
             </div>
 
-            <!-- TARJETA 2: SCARY MOVIE 1 (Inyectada en Películas Recomendadas) -->
             <div class="video-card" onclick="openDetails(
                 'Scary Movie 1', 
                 'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
                 'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
-                'https://image.tmdb.org/t/p/original/v7Vpqyepu54v0chKrbLECYfg8Vk.jpg',
+                'https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg',
                 'movie',
-                ['https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1']
+                { videoUrl: 'https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1', trailerUrl: 'https://youtu.be/SzpGYrrcJZw?si=tsANScRmBNcwCJPb' }
             )">
                 <img src="https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg" alt="Scary Movie 1">
             </div>
@@ -529,19 +514,17 @@
         </div>
     </div>
 
-    <!-- NUEVA CATEGORÍA: COMEDIA (Ubicada de forma premium por encima de Maratón Animada) -->
     <div class="content-row">
         <h2>Comedia</h2>
         <div class="cards-container">
             
-            <!-- TARJETA 1: SCARY MOVIE 1 -->
             <div class="video-card" onclick="openDetails(
                 'Scary Movie 1', 
                 'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
                 'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
-                'https://image.tmdb.org/t/p/original/v7Vpqyepu54v0chKrbLECYfg8Vk.jpg',
+                'https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg',
                 'movie',
-                ['https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1']
+                { videoUrl: 'https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1', trailerUrl: 'https://youtu.be/SzpGYrrcJZw?si=tsANScRmBNcwCJPb' }
             )">
                 <img src="https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg" alt="Scary Movie 1">
             </div>
@@ -549,12 +532,10 @@
         </div>
     </div>
 
-    <!-- CATEGORÍA: MARATÓN ANIMADA -->
     <div class="content-row">
         <h2>Maraton Animada</h2>
         <div class="cards-container">
 
-            <!-- TARJETA 1: BOB ESPONJA -->
             <div class="video-card" onclick="openDetails(
                 'Bob Esponja', 
                 'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
@@ -576,7 +557,6 @@
                 <img src="https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg" alt="Bob Esponja">
             </div>
 
-            <!-- TARJETA 2: PEPPA PIG -->
             <div class="video-card" onclick="openDetails(
                 'Peppa Pig', 
                 'La protagonista de esta serie es Peppa, una cerdita de rasgos antropomórficos que vive con su hermanito George y sus padres: Mamá (Mummy) Pig y Papá (Daddy) Pig. Tiene como escenario principal su hogar, es ahí donde ocurren las tramas de los episodios. En algunos episodios, se muestra a su familia saliendo de casa, paseando con su coche, en casa de sus amigos o estando ya en otro lugar.',
@@ -592,7 +572,6 @@
                 <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
             </div>
 
-            <!-- TARJETA 3: EL CHAVO ANIMADO -->
             <div class="video-card" onclick="openDetails(
                 'El Chavo Animado', 
                 'El chavo animado es a serie de televisión mexicana producida por Televisa y Ánima Estudios que dio inicio el 22 de octubre de 2006 presentado por Televisa como una versión de dibujos animados basados en la serie real El Chavo, la cual fue producida originalmente en los años 70 y 80. Los episodios de El chavo animado se basa en los episodios de la serie original con los libretos de Roberto Gómez Bolaños.',
@@ -607,7 +586,7 @@
                             { name: 'Capítulo 2: Insomnio', url: 'https://mega.nz/embed/MQMShTrY#tH43RsDuKtASOfRQoxWRt7Hokpf0bgNezgilDTd6cQc', time: '22 min' },
                             { name: 'Capítulo 3: Una mosca en el café', url: 'https://mega.nz/embed/kFVS1ThI#dypzm0hVmpTkTNY2ATpZwKF0lklgYWa49iVVPvrqTno', time: '22 min' },
                             { name: 'Capítulo 4: Satanás', url: 'https://mega.nz/embed/pZFwWRAY#eP8rYpc4RnN1AsbCUl9l5TabvM0alLve5faqrWWRdgE', time: '22 min' },
-                            { name: 'Capítulo 5: Los yeseros', url: 'https://mega.nz/embed/YdFmnRpS#t71JXF2cfErKoLUbhGLc0o3H1LEuND0ht2ug5I6R5-Q', time: '22 min' },
+                            { name: 'Capítulo 5: Los yeseros', url: 'https://mega.nz/embed/YdFmnRpS#t71JXF2cfErKoLUbhGLc0o3H1LEnd0ht2ug5I6R5-Q', time: '22 min' },
                             { name: 'Capítulo 6: La venta de churros', url: 'https://mega.nz/embed/JFUREAjC#0TF_f5GtL_wKEeM6fZCqxszn3IWSzZyFqOR09839OCw', time: '22 min' },
                             { name: 'Capítulo 7: Toque de romeo', url: 'https://mega.nz/embed/EU0mSYKa#IUe1HdjwNDxgI2nmH5IcKk2kd6WLPx7g_p2rIht8QX4', time: '22 min' },
                             { name: 'Capítulo 8: El parque de diversiones', url: 'https://mega.nz/embed/gZ90DSzR#E9MXTUIlWaELYI-9Lx1yjer_75o39dAM7hgQzHHG9iw', time: '22 min' },
@@ -633,7 +612,6 @@
                 <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
             </div>
 
-            <!-- TARJETA 4: EL PÁJARO LOCO -->
             <div class="video-card" onclick="openDetails(
                 'El Pájaro Loco', 
                 'Diviértete con las locas aventuras y la mítica e inconfundible risa de Loquillo, el pájaro carpintero más audaz y divertido de la animación clásica, siempre burlando a sus rivales y causando descontrol.',
@@ -654,7 +632,6 @@
         </div>
     </div>
 
-    <!-- PANTALLA DE DETALLES ADAPTATIVA (PELÍCULAS O SERIES) -->
     <div class="details-modal" id="detailsModal">
         <div class="details-container">
             <button class="close-details" onclick="closeDetails()">✕</button>
@@ -665,20 +642,17 @@
                     <h2 id="modalTitle">Título</h2>
                     <p id="modalDescription">Descripción...</p>
                     
-                    <!-- Área interactiva para lista de capítulos o botón de reproducción única -->
                     <div id="modalInteractiveArea"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- PANTALLA FINAL DEL REPRODUCTOR NATIVO BLINDADO (HÍBRIDO MP4/IFRAME) -->
     <div class="player-modal" id="playerModal">
         <button class="back-btn" onclick="closePlayer()">✕ Volver a Detalles</button>
         <div style="width:100%; height:100%;" id="playerTarget"></div>
     </div>
 
-    <!-- VENTANA EMERGENTE DE AVISO PREMIUM -->
     <div class="notice-modal" id="noticeModal">
         <div class="notice-container">
             <h3>Aviso</h3>
@@ -690,7 +664,6 @@
         </div>
     </div>
 
-    <!-- PIE DE PÁGINA -->
     <footer>
         <div>© 2026 GNXFLIX - Todos los derechos reservados.</div>
     </footer>
@@ -757,6 +730,17 @@
             detailsModal.style.display = 'flex';
         }
 
+        // CONVERSOR DINÁMICO DE URLS DE YOUTUBE PARA EMBED
+        function getEmbedUrl(url) {
+            if (url.includes('youtu.be/')) {
+                return 'https://www.youtube.com/embed/' + url.split('youtu.be/')[1].split('?')[0];
+            }
+            if (url.includes('watch?v=')) {
+                return 'https://www.youtube.com/embed/' + url.split('watch?v=')[1].split('&')[0];
+            }
+            return url;
+        }
+
         // CONSTRUCTOR DINÁMICO DE INTERFAZ INTERNA
         function buildInteractiveArea(contentType, contentData) {
             modalInteractiveArea.innerHTML = "";
@@ -786,19 +770,21 @@
                     const row = document.createElement('div');
                     row.className = 'episode-row';
                     row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
-                    row.onclick = () => launchStream(url);
+                    row.onclick = () => launchStream(item.url);
                     listContainer.appendChild(row);
                 });
                 modalInteractiveArea.appendChild(listContainer);
 
             } else {
-                // Interfaz clásica para películas individuales (Doraemon, Scary Movie)
+                // Interfaz para películas con soporte híbrido de Película + Trailer Remasterizado
                 modalInteractiveArea.innerHTML = `
                     <div class="btn-group">
                         <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
+                        <button class="btn btn-trailer" id="btnPlayTrailer">🍿 Ver Trailer</button>
                     </div>
                 `;
-                document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData[0]);
+                document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData.videoUrl);
+                document.getElementById('btnPlayTrailer').onclick = () => launchStream(getEmbedUrl(contentData.trailerUrl));
             }
         }
 
@@ -806,12 +792,12 @@
             detailsModal.style.display = 'none';
         }
 
-        // REPRODUCTOR HÍBRIDO AVANZADO (DETECTA AUTOMÁTICAMENTE DIRECTO DROPBOX O EMBED MEGA)
+        // REPRODUCTOR HÍBRIDO AVANZADO (DETECTA AUTOMÁTICAMENTE DIRECTO DROPBOX O EMBED MEGA/YOUTUBE)
         function launchStream(url) {
             playerTarget.innerHTML = ""; 
 
-            if (url.includes('mega.nz') || url.includes('youtube') || url.includes('iframe')) {
-                // Si es un link de MEGA Embed, inyecta un iframe limpio a pantalla completa
+            if (url.includes('mega.nz') || url.includes('youtube.com/embed') || url.includes('iframe')) {
+                // Si es un link de MEGA Embed o YouTube Embed, inyecta un iframe limpio a pantalla completa
                 playerTarget.innerHTML = `
                     <iframe src="${url}" 
                             allowfullscreen 
