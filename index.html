@@ -16,121 +16,1082 @@
     
     <style>
         /* Estilo base Dark Premium */
-        body { background-color: #141414; color: #ffffff; font-family: 'Open Sans', Helvetica, Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; scroll-behavior: smooth !important; }
+        body {
+            background-color: #141414;
+            color: #ffffff;
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth !important;
+        }
 
-        /* --- PANTALLA DE CARGA --- */
-        #preloader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #141414; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.6s ease; }
-        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top: 5px solid #E50914; border-radius: 50%; animation: spin 1s linear infinite; }
+        /* --- PANTALLA DE CARGA (PRELOADER) --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #141414;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top: 5px solid #E50914;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* HEADER */
-        header { background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); display: flex; justify-content: space-between; align-items: center; padding: 20px 4%; position: fixed; width: 92%; top: 0; z-index: 10; }
-        .logo { font-family: 'Fredoka One', sans-serif; color: #ffffff; font-size: 32px; font-weight: bold; text-transform: uppercase; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 2px 2px 0px #000, 4px 4px 0px #333, 6px 6px 10px rgba(0,0,0,0.8); transform: skew(-5deg); }
-        .logo span { color: #E50914; }
-        .search-container { display: flex; align-items: center; background-color: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px; padding: 6px 15px; margin-left: auto; margin-right: 20px; }
-        .search-input { background: none; border: none; color: #fff; font-size: 14px; outline: none; width: 180px; }
-        .social-nav { display: flex; gap: 12px; }
-        .social-icon-btn { width: 38px; height: 38px; border-radius: 50%; background-color: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; text-decoration: none; }
-
-        /* BANNER */
-        .banner-container { position: relative; height: 60vh; width: 100%; overflow: hidden; }
-        .banner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center 20%; opacity: 0; transition: opacity 0.8s; }
-        .banner.active { opacity: 1; }
-
-        /* CATEGORÍAS */
-        .category-filter-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 20px 4%; padding-bottom: 20px; }
-        .filter-btn { background: #222; color: #fff; border: 1px solid #444; padding: 10px 20px; border-radius: 25px; cursor: pointer; transition: 0.3s; }
-        .filter-btn:hover { border-color: #E50914; background: rgba(229, 9, 20, 0.1); }
+        /* Barra de Navegación */
+        header {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            position: fixed;
+            width: 92%;
+            top: 0;
+            z-index: 10;
+        }
         
-        .content-row { margin: 30px 0 0 4%; }
-        .content-row h2 { font-size: 20px; margin-bottom: 15px; font-weight: bold; }
-        .content-row.kids-section h2 { font-family: 'Fredoka One', sans-serif; font-size: 24px; background: linear-gradient(45deg, #00f2fe, #4facfe, #ffee55); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* NUEVO LOGO ESTILO CARTOON QUEEN (3D IMPACTANTE) CON FLIX EN ROJO */
+        .logo {
+            font-family: 'Fredoka One', sans-serif;
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 
+                -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
+                2px 2px 0px #000, 4px 4px 0px #333, 6px 6px 10px rgba(0,0,0,0.8);
+            transform: skew(-5deg);
+        }
+        .logo span {
+            color: #E50914;
+        }
 
-        .cards-container { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; }
-        .video-card { min-width: 140px; max-width: 140px; height: 210px; background: #222; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        /* BARRA DE BÚSQUEDA INTEGRADA EN CABECERA */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 6px 15px;
+            margin-left: auto;
+            margin-right: 20px;
+            transition: all 0.3s ease;
+        }
+        .search-container:focus-within {
+            border-color: #E50914;
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+        }
+        .search-input {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            width: 180px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        /* CONTENEDOR DE BOTONES DE REDES SOCIALES CIRCULARES */
+        .social-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .social-icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .social-icon-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #ffffff;
+            transition: all 0.3s ease;
+        }
+        .social-icon-btn.tiktok:hover {
+            border-color: #ff0050;
+            box-shadow: 0 0 10px rgba(255, 0, 80, 0.4);
+            background-color: rgba(255, 0, 80, 0.1);
+        }
+        .social-icon-btn.tiktok:hover svg {
+            fill: #00f2fe;
+        }
+        .social-icon-btn.twitch:hover {
+            border-color: #9146FF;
+            box-shadow: 0 0 10px rgba(145, 70, 255, 0.4);
+            background-color: rgba(145, 70, 255, 0.1);
+        }
+        .social-icon-btn.twitch:hover svg {
+            fill: #9146FF;
+        }
+        .social-icon-btn.youtube:hover {
+            border-color: #FF0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        .social-icon-btn.youtube:hover svg {
+            fill: #FF0000;
+        }
+
+        /* BANNER PRINCIPAL CON EFECTO DE ROTACIÓN FLUIDA Y MEJORA DE ENCUADRE */
+        .banner-container {
+            position: relative;
+            height: 60vh;
+            width: 100%;
+            overflow: hidden;
+        }
+        .banner {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center 20%;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 4% 60px 4%;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
+        }
+        .banner.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(20,20,20,0) 40%, #141414 100%);
+            z-index: -1;
+        }
+        .banner h1 { 
+            font-family: 'Fredoka One', sans-serif;
+            font-size: 42px; 
+            margin-bottom: 10px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
+            z-index: 3;
+        }
+
+        /* PÍLDORAS INDICADORAS DE BANNER ACTIVO */
+        .carousel-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 4%;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .dot.active {
+            width: 35px;
+            background-color: #ffffff;
+            box-shadow: 0 0 8px rgba(255,255,255,0.6);
+        }
+
+        /* SECTOR DE FILTROS RÁPIDOS DE CATEGORÍAS */
+        .category-filter-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 4% 10px 4%;
+            padding-bottom: 10px;
+        }
+        .filter-btn {
+            background-color: rgba(34, 34, 34, 0.8);
+            color: #ffffff;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .filter-btn:hover {
+            border-color: #E50914;
+            background-color: rgba(229, 9, 20, 0.1);
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Filas y Contenedores */
+        .content-row { 
+            margin: 30px 0 0 4%; 
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 10px 0;
+            border-radius: 8px;
+        }
+        .content-row h2 { font-size: 20px; font-family: 'Open Sans', sans-serif; margin-top: 5px; margin-bottom: 15px; font-weight: bold; transition: all 0.4s ease; }
+        
+        /* ESTILO INTERACTIVO EXCLUSIVO PARA EL TÍTULO DE LA CATEGORÍA KIDS */
+        .content-row.kids-section h2 {
+            font-family: 'Fredoka One', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00f2fe, #4facfe, #ffee55);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: none;
+        }
+        .cards-container::-webkit-scrollbar { display: none; }
+
+        /* Tarjetas de Videos */
+        .video-card {
+            min-width: 140px;
+            max-width: 140px;
+            height: 210px;
+            background-color: #222;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
         .video-card:hover { transform: scale(1.05); }
-        .video-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+        .video-card img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* CURSORES */
+        /* --- CLASES NATIVAS PARA CURSORES TEMÁTICOS --- */
         .cursor-custom-bob { cursor: url('cursor-bob.png'), auto !important; }
         .cursor-custom-peppa { cursor: url('cursor-peppa.png'), auto !important; }
         .cursor-custom-chavo { cursor: url('cursor-chavo.png'), auto !important; }
         .cursor-custom-pajaro { cursor: url('cursor-pajaro.png'), auto !important; }
 
-        /* MODALES */
-        .details-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 999; justify-content: center; align-items: center; overflow-y: auto; }
-        .details-container { background: #181818; width: 85%; max-width: 800px; border-radius: 12px; position: relative; padding: 30px; }
-        .details-banner { height: 250px; background-size: cover; background-position: center; width: 100%; margin-bottom: 20px; }
-        .player-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 9999; flex-direction: column; justify-content: center; }
+        /* --- ANIMACIONES DE ALUMBRAMIENTO DE SECCIÓN Y BUSCADOR --- */
+        @keyframes pulse-highlight {
+            0% { background-color: transparent; box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+            25% { background-color: rgba(229, 9, 20, 0.25); box-shadow: 0 0 30px rgba(229, 9, 20, 0.6); }
+            50% { background-color: transparent; box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+            75% { background-color: rgba(229, 9, 20, 0.25); box-shadow: 0 0 30px rgba(229, 9, 20, 0.6); }
+            100% { background-color: transparent; box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+        }
+        @keyframes pulse-highlight-kids {
+            0% { background-color: transparent; box-shadow: 0 0 0 rgba(0, 242, 254, 0); }
+            25% { background-color: rgba(0, 242, 254, 0.15); box-shadow: 0 0 30px rgba(0, 242, 254, 0.5); }
+            50% { background-color: transparent; box-shadow: 0 0 0 rgba(0, 242, 254, 0); }
+            75% { background-color: rgba(0, 242, 254, 0.15); box-shadow: 0 0 30px rgba(0, 242, 254, 0.5); }
+            100% { background-color: transparent; box-shadow: 0 0 0 rgba(0, 242, 254, 0); }
+        }
+        
+        .row-highlight { animation: pulse-highlight 1.8s ease-in-out forwards; }
+        .row-highlight h2 { color: #E50914 !important; }
+        
+        .row-highlight-kids { animation: pulse-highlight-kids 1.8s ease-in-out forwards; }
+
+        @keyframes card-pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+            25% { transform: scale(1.08); box-shadow: 0 0 20px #E50914; border-color: #E50914; }
+            50% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+            75% { transform: scale(1.08); box-shadow: 0 0 20px #E50914; border-color: #E50914; }
+            100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        }
+        .card-highlight {
+            animation: card-pulse 1.6s ease-in-out forwards;
+            border: 1px solid transparent;
+        }
+
+        /* --- VENTANA DE DETALLES ADAPTATIVA --- */
+        .details-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .details-container {
+            background-color: #181818;
+            width: 85%;
+            max-width: 800px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            border: 1px solid #282828;
+            display: flex;
+            flex-direction: column;
+        }
+        .details-banner {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            width: 100%;
+        }
+        .details-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, #181818 5%, rgba(24,24,24,0) 100%);
+        }
+        .close-details {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(0,0,0,0.8);
+            color: #fff; border: 1px solid #444;
+            width: 38px; height: 38px;
+            border-radius: 50%; font-size: 18px;
+            cursor: pointer; z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .details-content {
+            padding: 30px;
+            display: flex;
+            gap: 25px;
+        }
+        .details-poster {
+            min-width: 150px;
+            max-width: 150px;
+            height: 225px;
+            border-radius: 6px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-top: -100px;
+            z-index: 2;
+        }
+        .details-info { flex: 1; margin-top: -30px; }
+        .details-info h2 { font-family: 'Fredoka One', sans-serif; font-size: 28px; margin: 0 0 10px 0; }
+        .details-info p { color: #cccccc; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
+        
+        /* --- ESTILOS EXCLUSIVOS PARA LA LISTA DE SERIE CON SCROLL --- */
+        .episodes-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 8px;
+            margin-top: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: #E50914 #222;
+        }
+        .episodes-list-container::-webkit-scrollbar { width: 6px; }
+        .episodes-list-container::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
+        .episodes-list-container::-webkit-scrollbar-thumb { background: #E50914; border-radius: 4px; }
+
+        .episode-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #333;
+            transition: all 0.2s ease;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .episode-row:hover {
+            background-color: #E50914;
+            color: #ffffff;
+            border-color: #E50914;
+            transform: translateX(5px);
+        }
+        .episode-duration {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 140px;
+        }
+        .btn-play { background-color: #ffffff; color: #000000; }
+        .btn-play:hover { background-color: #e6e6e6; }
+        .btn-trailer { background-color: #5a5a5a; color: #ffffff; }
+        .btn-trailer:hover { background-color: #444444; }
+
+        /* --- REPRODUCTORES FINALES --- */
+        .player-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .player-modal iframe, .player-modal video {
+            width: 100%; height: 100%; border: none; background: #000; max-width: 100%; object-fit: contain;
+        }
+        .back-btn {
+            position: absolute;
+            top: 25px; left: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff; border: 1px solid #444;
+            padding: 12px 20px; font-size: 14px;
+            border-radius: 30px; font-weight: bold;
+            cursor: pointer; z-index: 10005;
+        }
+
+        /* --- SECTOR MODAL DE AVISO --- */
+        .notice-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+        }
+        .notice-container {
+            background-color: #1c1c1c;
+            border: 2px solid #E50914;
+            width: 90%; max-width: 500px;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(229,9,20,0.4);
+            text-align: center;
+        }
+        .notice-container h3 {
+            color: #E50914;
+            font-family: 'Fredoka One', sans-serif;
+            font-size: 28px; margin: 0 0 15px 0;
+            text-transform: uppercase;
+        }
+        .notice-container p {
+            color: #e0e0e0; font-size: 15px; line-height: 1.6; margin-bottom: 25px;
+        }
+        .notice-btn-group { display: flex; gap: 10px; }
+        .btn-notice {
+            padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; flex: 1; font-size: 13px;
+        }
+        .btn-notice-stop { background-color: #E50914; color: #fff; }
+        .btn-notice-stop:hover { background-color: #b8070f; }
+        .btn-notice-keep { background-color: #444; color: #fff; }
+        .btn-notice-keep:hover { background-color: #333; }
+
+        /* --- SECCIÓN DE PIE DE PÁGINA --- */
+        footer {
+            margin: 50px 4% 30px 4%;
+            padding: 20px;
+            background-color: #1c1c1c;
+            border-radius: 8px;
+            border: 1px solid #282828;
+            text-align: center;
+            font-size: 14px; color: #888;
+        }
+
+        /* --- DISEÑO RESPONSIVO EXCLUSIVO --- */
+        @media (max-width: 850px) {
+            header { flex-direction: column; gap: 15px; padding: 15px 4%; }
+            .search-container { margin: 0 auto; width: 80%; }
+            .social-nav { justify-content: center; width: 100%; }
+        }
+        @media (max-width: 650px) {
+            .banner-container { height: 45vh; }
+            .banner h1 { font-size: 26px; }
+            .details-container { width: 90%; margin: 10px auto; }
+            .details-banner { height: 160px; }
+            .details-content { flex-direction: column; align-items: center; text-align: center; padding: 20px; gap: 15px; }
+            .details-poster { margin-top: -70px; min-width: 120px; max-width: 120px; height: 180px; margin-bottom: 5px; }
+            .details-info { margin-top: 0; width: 100%; }
+            .details-info h2 { font-size: 22px; }
+            .details-info p { font-size: 13px; line-height: 1.4; margin-bottom: 15px; }
+            .btn-group, .notice-btn-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; flex: none; }
+            .episodes-list-container { max-height: 160px; }
+        }
     </style>
 </head>
 <body>
-    <div id="preloader"><div class="spinner"></div></div>
-    
-    <header>
+
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+<header>
         <div class="logo">Gnx<span>Flix</span></div>
-        <div class="search-container"><input type="text" id="gnxSearch" class="search-input" placeholder="Buscar..." onkeyup="searchStreaming(this.value)"></div>
+        <div class="search-container">
+            <input type="text" id="gnxSearch" class="search-input" placeholder="Buscar película o serie..." onkeyup="searchStreaming(this.value)">
+        </div>
+        <div class="social-nav">
+            <!-- TikTok -->
+            <a class="social-icon-btn tiktok" href="https://www.tiktok.com/@mixfavmusic" target="_blank" title="Sígueme en TikTok">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.03 1.6 4.23.93.98 2.22 1.58 3.55 1.76v3.91c-1.39-.08-2.74-.58-3.86-1.44-.45-.36-.85-.78-1.2-1.24-.03 2.92-.01 5.84-.02 8.75-.07 1.83-.69 3.65-1.79 5.06-1.57 2.07-4.13 3.23-6.71 3.02-2.58-.1-4.99-1.56-6.17-3.96-1.44-2.73-1-6.17 1.11-8.47 1.5-1.71 3.75-2.59 6-2.4v3.93c-1.2-.13-2.42.3-3.21 1.2-.95 1.01-1.12 2.59-.44 3.77.63 1.15 1.95 1.87 3.27 1.82 1.34-.01 2.54-.92 2.87-2.22.1-.47.11-.96.11-1.44.02-3.88.01-7.77.02-11.66z"/>
+                </svg>
+            </a>
+            <!-- Twitch -->
+            <a class="social-icon-btn twitch" href="https://www.twitch.tv/elginux" target="_blank" title="Sígueme en Twitch">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                </svg>
+            </a>
+            <!-- YouTube -->
+            <a class="social-icon-btn youtube" href="https://www.youtube.com/@tutosgnxhd" target="_blank" title="Suscríbete en YouTube">
+                <svg viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </a>
+        </div>
     </header>
+
+    <div class="banner-container">
+        <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
+            <h1>Stand by Me Doraemon</h1>
+        </div>
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
+            <h1>Bob Esponja</h1>
+        </div>
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg');">
+            <h1>Scary Movie 1</h1>
+        </div>
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg');">
+            <h1>El Chavo Animado</h1>
+        </div>
+
+        <div class="carousel-dots">
+            <div class="dot active" onclick="changeBanner(0)"></div>
+            <div class="dot" onclick="changeBanner(1)"></div>
+            <div class="dot" onclick="changeBanner(2)"></div>
+            <div class="dot" onclick="changeBanner(3)"></div>
+        </div>
+    </div>
 
     <div class="category-filter-nav">
         <button class="filter-btn" onclick="scrollToSection('recRow')">🎯 Películas Recomendadas</button>
         <button class="filter-btn" onclick="scrollToSection('kidsRow')">👶 Sección Kids</button>
         <button class="filter-btn" onclick="scrollToSection('animRow')">🍿 Películas Animadas</button>
         <button class="filter-btn" onclick="scrollToSection('comRow')">🎭 Películas Comedia</button>
+        <button class="filter-btn" onclick="scrollToSection('maraRow')">📂 Maratón Animada</button>
     </div>
 
-    <div class="content-row" id="animRow">
-        <h2>Películas Animadas</h2>
+    <div class="content-row" id="recRow">
+        <h2>Películas Recomendadas</h2>
         <div class="cards-container">
-            <div class="video-card" onclick="openDetails('Sing: ¡Ven y canta!', 'Buster es un koala...', 'https://image.tmdb.org/t/p/original/lW0kUtXTOVlHTVhDO2VzNBACAHX.jpg', 'https://image.tmdb.org/t/p/original/wf9C6iqY9tXG7TrQDg3E4Flgap7.jpg', 'movie', { videoUrl: 'https://www.dropbox.com/scl/fi/i29sdmevph0toaw0kcbqm/SING-1-VEN-Y-CANTA.mp4?rlkey=zeqyyfswsbfov682n4iqbe8xo&dl=1', trailerUrl: 'https://youtu.be/QrMbJyRBhP0?si=VbVtcQZm6Huu2RpL' })">
-                <img src="https://image.tmdb.org/t/p/original/lW0kUtXTOVlHTVhDO2VzNBACAHX.jpg" alt="Sing">
-            </div>
-            <div class="video-card card-target-doraemon" onclick="openDetails('Stand by Me Doraemon', 'Nobita Nobi...', 'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg', 'movie', { videoUrl: 'https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1', trailerUrl: 'https://youtu.be/W3p3mOcim40?si=zd6N9_CxYBulBJco' })">
+            
+            <div class="video-card card-target-doraemon" onclick="openDetails(
+                'Stand by Me Doraemon', 
+                'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
+                'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
+                'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1', trailerUrl: 'https://youtu.be/W3p3mOcim40?si=zd6N9_CxYBulBJco' }
+            )">
                 <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
             </div>
+
+            <div class="video-card card-target-scary" onclick="openDetails(
+                'Scary Movie 1', 
+                'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
+                'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
+                'https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1', trailerUrl: 'https://youtu.be/SzpGYrrcJZw?si=tsANScRmBNcwCJPb' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg" alt="Scary Movie 1">
+            </div>
+
         </div>
     </div>
 
     <div class="content-row kids-section" id="kidsRow">
         <h2>Kids</h2>
         <div class="cards-container">
-            <div class="video-card card-target-pocoyo cursor-custom-bob" onclick="openDetails('Pocoyó', '...', 'https://image.tmdb.org/t/p/original/1fmaC3t96Napg7TR9SsfOX8q11X.jpg', 'https://image.tmdb.org/t/p/original/2muMwIOZ5UOozjE1jwCfvDALssm.jpg', 'series', [ { name: 'Capítulo 1', url: 'https://www.dropbox.com/scl/fi/3xp0i6r2bd97b5iyozzui/El-Museo-Secreto-de-Pocoy.mp4?rlkey=5vekwsehh4rym5gfem8tyfxqi&dl=1', time: '11 min' } ])">
+            
+            <div class="video-card card-target-pocoyo" onclick="openDetails(
+                'Pocoyó', 
+                'Acompaña a Pocoyó, un niño pequeño, curioso y divertido, junto a sus inseparables amigos Pato, Elly, Loula y Pajaroto. Juntos descubren el mundo que les rodea, aprenden valores importantes y resuelven pequeños misterios diarios en un entorno lleno de color e imaginación.',
+                'https://image.tmdb.org/t/p/original/1fmaC3t96Napg7TR9SsfOX8q11X.jpg', 
+                'https://image.tmdb.org/t/p/original/2muMwIOZ5UOozjE1jwCfvDALssm.jpg',
+                'series',
+                [
+                    { name: 'Capítulo 1: El Museo Secreto de Pocoyó', url: 'https://www.dropbox.com/scl/fi/3xp0i6r2bd97b5iyozzui/El-Museo-Secreto-de-Pocoy.mp4?rlkey=5vekwsehh4rym5gfem8tyfxqi&dl=1', time: '11 min' },
+                    { name: 'Capítulo 2: Pocoyó encontró un tesoro', url: 'https://www.dropbox.com/scl/fi/zgwcprhcwbqtuabpttuct/Pocoy-encontr-un-tesoro.mp4?rlkey=cq9aqjizasx8r8kkca5ip9zke&dl=1', time: '7 min' },
+                    { name: 'Capítulo 3: ¡A jugar al Fútbol!', url: 'https://www.dropbox.com/scl/fi/x1lkpj39twoojspgrwsgj/A-jugar-al-Futbol.mp4?rlkey=qj8ykj0xu5kpz7iqsz4x7cqzg&dl=1', time: '6 min' },
+                    { name: 'Capítulo 4: El coche de Pocoyó', url: 'https://www.dropbox.com/scl/fi/ddzkuhreq3f61bjzq54im/El-coche-de-Pocoyo.mp4?rlkey=p31dygdu9bi1wzotibs8944rn&dl=1', time: '6 min' },
+                    { name: 'Capítulo 5: Trucos con Mascotas', url: 'https://www.dropbox.com/scl/fi/dly4xsam4qlrlwfur4na7/Trucos-con-Mascotas.mp4?rlkey=017cjaqcp81z73n60e8gefo3t&dl=1', time: '5 min' }
+                ]
+            )">
                 <img src="https://image.tmdb.org/t/p/original/1fmaC3t96Napg7TR9SsfOX8q11X.jpg" alt="Pocoyó">
             </div>
-            <div class="video-card card-target-plim cursor-custom-peppa" onclick="openDetails('El Payaso Plim Plim', '...', 'https://image.tmdb.org/t/p/original/xsQdAkeKo4v4Lv09JnCffNdIN3H.jpg', 'https://image.tmdb.org/t/p/original/nUD6alZRMEDrOJxfR4qfCdgt1JU.jpg', 'series', [ { name: 'Capítulo 1', url: 'https://www.dropbox.com/scl/fi/phyaiv7l1bw99mta8iklb/Qu-Le-Pasa-al-Cerdito-Enoj-n_-Canciones-Infantiles-_-Plim-Plim.mp4?rlkey=jsa0kuy6ue9ghuc9wme2s1h9v&dl=1', time: '4 min' } ])">
-                <img src="https://image.tmdb.org/t/p/original/xsQdAkeKo4v4Lv09JnCffNdIN3H.jpg" alt="Plim Plim">
+
+            <div class="video-card card-target-plim" onclick="openDetails(
+                'El Payaso Plim Plim', 
+                '¡Un héroe del corazón! Sigue las mágicas aventuras de Plim Plim, un payaso entusiasta que ayuda a sus amigos preescolares a resolver conflictos cotidianos mediante canciones pegadizas, juegos divertidos y lecciones llenas de valores positivos, hábitos saludables y mucha alegría.',
+                'https://image.tmdb.org/t/p/original/xsQdAkeKo4v4Lv09JnCffNdIN3H.jpg', 
+                'https://image.tmdb.org/t/p/original/nUD6alZRMEDrOJxfR4qfCdgt1JU.jpg',
+                'series',
+                [
+                    { name: 'Capítulo 1: ¿Qué Le Pasa al Cerdito Enojón?', url: 'https://www.dropbox.com/scl/fi/phyaiv7l1bw99mta8iklb/Qu-Le-Pasa-al-Cerdito-Enoj-n_-Canciones-Infantiles-_-Plim-Plim.mp4?rlkey=jsa0kuy6ue9ghuc9wme2s1h9v&dl=1', time: '4 min' },
+                    { name: 'Capítulo 2: Abejita Chiquitita Clásico', url: 'https://www.dropbox.com/scl/fi/j6zsg4ucawvviclqxme08/Abejita-Chiquitita-Canciones-Infantiles-_-Plim-Plim.mp4?rlkey=rwf9l3anpmx8zk64d6h1na4c1&dl=1', time: '3 min' },
+                    { name: 'Capítulo 3: El Cangrejo No Es Un Pez', url: 'https://www.dropbox.com/scl/fi/9z324kmefs8tu2vu7c1pb/El-Cangrejo-No-Es-Un-Pez-Canciones-Infantiles-_-Plim-Plim.mp4?rlkey=nvm6jkzm8hwf3ts10dr14krul&dl=1', time: '3 min' },
+                    { name: 'Capítulo 4: ¡A Bañarme!', url: 'https://www.dropbox.com/scl/fi/q7qno8xqkrjiumfjfgtca/A-Ba-arme-Canciones-Infantiles-_-Plim-Plim.mp4?rlkey=vaarrn41mb7b0ledly5vjsnqc&dl=1', time: '4 min' },
+                    { name: 'Capítulo 5: Las 10 Abejitas Numéricas', url: 'https://www.dropbox.com/scl/fi/oiv9a7114ppllf6qzs55m/10-Abejitas.mp4?rlkey=7w68jo9j7ntoiwsvq90w8ns1o&dl=1', time: '4 min' },
+                    { name: 'Capítulo 6: Que Levante La Mano (Animales)', url: 'https://www.dropbox.com/scl/fi/e2ybl7rq0zwwq2hw0o8og/Que-Levante-La-Mano-Sonidos-de-Animales-Canciones-Infantiles-_-Plim-Plim.mp4?rlkey=8pii4ml0vf244srbaf89uiseg&dl=1', time: '5 min' },
+                    { name: 'Capítulo 7: Cinco Patitos', url: 'https://www.dropbox.com/scl/fi/3p0560xmeiedfhusjeqi7/Cinco-Patitos-Canciones-Infantiles-Plim-Plim.mp4?rlkey=hthriav9epngv8welsjj2wn8i&dl=1', time: '3 min' },
+                    { name: 'Capítulo 8: La Abejita se confunde', url: 'https://www.dropbox.com/scl/fi/j33xh8j8dnaan8ssrco1y/La-Abejita-se-confunde.mp4?rlkey=q0di3ioqipv83d0f71fs9ha1d&dl=1', time: '3 min' },
+                    { name: 'Maratón Especial: Conociendo Animales', url: 'https://www.dropbox.com/scl/fi/lyv4rr2kwp9w6m63jisqb/Abejita-Chiquitita-Y-M-s-Canciones-Infantiles-Para-Conocer-Animales-15-Min-_-Plim-Plim.mp4?rlkey=vfhacpx52yuguv43il1xuywr9&dl=1', time: '15 min' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/xsQdAkeKo4v4Lv09JnCffNdIN3H.jpg" alt="El Payaso Plim Plim">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="content-row" id="animRow">
+        <h2>Películas Animadas</h2>
+        <div class="cards-container">
+            
+            <div class="video-card card-target-doraemon" onclick="openDetails(
+                'Stand by Me Doraemon', 
+                'Nobita Nobi es un niño bastante patoso al que las cosas le salen bastante mal. Para ayudarlo, viaja desde el futuro Doraemon, un gato robot con un bolsillo repleto de inventos asombrosos.',
+                'https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg', 
+                'https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/bqa0disi08xd2drx61rj6/DORAEMON-QUEDATE-CONMIGO.mp4?rlkey=jtkkb5xv4g3b66g0l76dllvh7&st=h902aex6&dl=1', trailerUrl: 'https://youtu.be/W3p3mOcim40?si=zd6N9_CxYBulBJco' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/7g3SGUY7ym4D7RxErzqlseq5wwM.jpg" alt="Doraemon">
+            </div>
+
+            <div class="video-card card-target-gallo" onclick="openDetails(
+                'Un Gallo con Muchos Huevos', 
+                'Toto es un pequeño pollito que ha nacido en un rancho muy bonito y con mucha tranquilidad. Después de que pase un tiempo, Toto se convertirá en un joven gallito, dispuesto a comerse el mundo. Un ranchero malvado y muy ambicioso conseguirá engañar a la dueña del rancho donde vive, para que la señora apueste su propiedad como premio, la disputa se arreglará con una pelea de gallos. La ranchera solamente tendrá como última esperanza a Toto, teniendo que entrenarse duramente para poder vencer al gallo más peligroso y violento de todos.',
+                'https://image.tmdb.org/t/p/original/eEqfi9fbsqHMJd78g4tawtIhc8n.jpg', 
+                'https://image.tmdb.org/t/p/original/ktOhIwoP7iLBfFIe5uulpS2gstu.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/x8p0bqop5msup729pywbd/UN-GALLO-CON-MUCHOS-HUEVOS.mp4?rlkey=bw7l2jn6kmx24wu379h9kax9t&dl=1', trailerUrl: 'https://youtu.be/iF6hiytfto0?si=-tiArq_ZSx9na5-l' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/eEqfi9fbsqHMJd78g4tawtIhc8n.jpg" alt="Un Gallo con Muchos Huevos">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="content-row" id="comRow">
+        <h2>Películas Comedia</h2>
+        <div class="cards-container">
+            
+            <div class="video-card card-target-scary" onclick="openDetails(
+                'Scary Movie 1', 
+                'Tras el asesinato de una bella estudiante, un grupo de adolescentes descubren que hay un asesino entre ellas. La heroína, Cindy, y su grupo de desconcertantes amigos, serán aterrorizados por un singular psicópata enmascarado que pretende vengarse de ellos por haberlo atropellado el pasado Halloween.',
+                'https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg', 
+                'https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/1yei8bay8nvm4akwihnfl/SCARY-MOVIE-1.mp4?rlkey=cqk9dk0yujx8zjo94ovedfw0x&dl=1', trailerUrl: 'https://youtu.be/SzpGYrrcJZw?si=tsANScRmBNcwCJPb' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/8p6cxOT2044sQNvqH2fCv0u8HsV.jpg" alt="Scary Movie 1">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="content-row" id="maraRow">
+        <h2>Maraton Animada</h2>
+        <div class="cards-container">
+
+            <div class="video-card card-target-bob cursor-custom-bob" onclick="openDetails(
+                'Bob Esponja', 
+                'Cerca del Atolón Bikini, a algunas leguas bajo el mar, en una ciudad submarina llamada Fondo de Bikini, vive Bob Esponja. No tiene un modo lógico de actuar en la vida, todo lo hace de una manera poco unconventional. Sus buenas intenciones y sus ansias de hacer el bien suelen crear bastantes problemas',
+                'https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg', 
+                'https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg',
+                'series',
+                [
+                    { name: 'Maratón #1: Celebridades Invitadas', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '78 min' },
+                    { name: 'Maratón #2: Cocina Cangreburgers', url: 'https://www.dropbox.com/scl/fi/jikyak7qxc4k72kjboztl/Bob-Esponja-cocina-Cangreburgers-por-UNA-HORA-Bob-Esponja-en-Espa-ol.mp4?rlkey=hxn9h87haoai0em1uwvrkzg93&dl=1', time: '60 min' },
+                    { name: 'Maratón #3: Todas las Galletas', url: 'https://www.dropbox.com/scl/fi/8x1ntmy2sj3t27eyp3ucf/Bob-Esponja-Todas-las-galles-Bob-Esponja-en-Espa-ol.mp4?rlkey=hf3adkpfaevv0ry2xyh3cpmce&dl=1', time: '17 min' },
+                    { name: 'Maratón #4: Patricio en el Multiverso', url: 'https://www.dropbox.com/scl/fi/osd5gvoi6v0v5ez1tzwdr/El-show-de-Patricio-Estrella-Patricio-en-el-multiverso-por-35-minutos-seguidos-Espa-ol.mp4?rlkey=cyoebqr12obu7unkacysra283&dl=1', time: '35 min' },
+                    { name: 'Maratón #5: Actuando Sin Sentido', url: 'https://www.dropbox.com/scl/fi/jofarmdtan933q6zqtxcp/Bob-Esponja-actuando-sin-sentido-durante-60-minutos-Bob-Esponja-en-Espa-ol.mp4?rlkey=qlhxgtscdn75cz881ky4ew3y6&dl=1', time: '60 min' },
+                    { name: 'Maratón #6: Episodios Especiales 2024', url: 'https://www.dropbox.com/scl/fi/2qq8swv0qa1supx94dkki/Bob-Esponja-Todas-las-celebridades-invitadas-en-Bob-Esponja-Recopilaci-n-de-60-minutos.mp4?rlkey=jy1vj38vohc8coj1vxyn7qvjl&dl=1', time: '33 min' },
+                    { name: 'Maratón #7: Transformaciones Alocadas', url: 'https://www.dropbox.com/scl/fi/lrofkk56mglqx6xrsfx1x/Bob-Esponja-Transformaciones-A-N-M-S-ALOCADAS-de-Bob-Esponja-Recopilaci-n-de-30-minutos.mp4?rlkey=cozde3vg6xz9czuidaf303sq9&dl=1', time: '30 min' },
+                    { name: 'Maratón #8: Consejeros de Kamp Koral', url: 'https://www.dropbox.com/scl/fi/et7nmpv9bk8qpvq4wjbx3/Kamp-Koral-Los-consejeros-del-Kamp-Koral-act-an-como-ni-os-durante-30-minutos-Bob-Esponja.mp4?rlkey=j0pc5xd09sffbcaomkbtceypt&dl=1', time: '30 min' },
+                    { name: 'Maratón #9: Huevos de Pascua Clásicos', url: 'https://www.dropbox.com/scl/fi/i0ysisvhd71wrpwu6xkwf/Bob-Esponja-75-MINUTOS-de-huevos-de-Pascua-cl-sicos-de-Bob-Esponja-en-los-NUEVOS-episodios.mp4?rlkey=p1u1fp609qn5rl49i0n6xfg2u&dl=1', time: '75 min' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/7nCFpzcQ6pQttxCdvcKfjHkY9bE.jpg" alt="Bob Esponja">
+            </div>
+
+            <div class="video-card card-target-peppa cursor-custom-peppa" onclick="openDetails(
+                'Peppa Pig', 
+                'La protagonista de esta serie es Peppa, una cerdita de rasgos antropomórficos que vive con su hermanito George y sus padres: Mamá (Mummy) Pig y Papá (Daddy) Pig. Tiene como escenario principal su hogar, es ahí donde ocurren las tramas de los episodios. En algunos episodios, se muestra a su familia saliendo de casa, paseando con su coche, en casa de sus amigos o estando ya en otro lugar.',
+                'https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg', 
+                'https://image.tmdb.org/t/p/original/fnyS6gOv9tTjhHPl4A1aKEDgWEG.jpg',
+                'series',
+                [
+                    { name: 'Maratón #1: Vacaciones al Sol', url: 'https://www.dropbox.com/scl/fi/f8f1s3hvzu8299zky09uo/Peppa-se-va-de-vacaciones-al-sol___Los-Cuentos-de-Peppa-la-Cerdita.mp4?rlkey=ibjgxfbnl58xjhfsagk5yrjmv&dl=1', time: '15 min' },
+                    { name: 'Maratón #2: Cocinando con Peppa', url: 'https://www.dropbox.com/scl/fi/8mwdank4rm15lm41ib2vi/Cocinando-con-Peppa___Los-Cuentos-de-Peppa-la-Cerdita.mp4?rlkey=1rwjs92v456mmf15vosbt5rgb&dl=1', time: '15 min' },
+                    { name: 'Maratón #3: Helado (Clip Especial)', url: 'https://www.dropbox.com/scl/fi/z2qmrwf4bi9lsogqsf7sp/Peppa-Pig-Espa-ol-Latino-Helado-clip.mp4?rlkey=m71dtgnzj8wz4iwyhmbfrr0kf&dl=1', time: '5 min' },
+                    { name: 'Maratón #4: La Cara de Sandía', url: 'https://www.dropbox.com/scl/fi/fhwrrjpdvmrgwtzfp3qyc/La-Cara-de-Sandia.mp4?rlkey=tcely2a5wa33efuy6wtygn4do&dl=1', time: '10 min' },
+                    { name: 'Maratón #5: Peppa aprende a recoger fresas', url: 'https://www.dropbox.com/scl/fi/8mj09igdorgwkg7veud4y/Peppa-aprende-a-recoger-fresas.mp4?rlkey=14ycczuui8728tes7efvhbb0t&dl=1', time: '11 min' },
+                    { name: 'Maratón #6: Los Cuentos de Peppa', url: 'https://www.dropbox.com/scl/fi/1oa4acn51ieqiesbxdffy/Los-Cuento-de-Peppa.mp4?rlkey=j0rxdv48bfmu2wov8a1o9lx0z&dl=1', time: '14 min' },
+                    { name: 'Maratón #7: El Restaurante', url: 'https://www.dropbox.com/scl/fi/yz33rww7un8kzx9dnsc3m/Restaurante.mp4?rlkey=ptf62uoq28j63gpyfbypfjpdc&dl=1', time: '12 min' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/iwKVo3HlsyVNXCzFEkd0xHz3kGi.jpg" alt="Peppa Pig">
+            </div>
+
+            <div class="video-card card-target-chavo cursor-custom-chavo" onclick="openDetails(
+                'El Chavo Animado', 
+                'El chavo animado es a serie de televisión mexicana producida por Televisa y Ánima Estudios que dio inicio el 22 de octubre de 2006 presentado por Televisa como una versión de dibujos animados basados en la serie real El Chavo, la cual fue producida originalmente en los años 70 y 80. Los episodios de El chavo animado se basa en los episodios de la serie original con los libretos de Roberto Gómez Bolaños.',
+                'https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg', 
+                'https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg',
+                'seasons',
+                [
+                    { 
+                        seasonName: 'Temporada 1: 23 Capítulos Disponibles', 
+                        episodes: [
+                            { name: 'Capítulo 1: Los Globos', url: 'https://mega.nz/embed/VV1GRbQL#gXGl2bSrIrvfJmILxu2cnNSTlz2xaWLuS74mmG0jfXo', time: '22 min' },
+                            { name: 'Capítulo 2: Insomnio', url: 'https://mega.nz/embed/MQMShTrY#tH43RsDuKtASOfRQoxWRt7Hokpf0bgNezgilDTd6cQc', time: '22 min' },
+                            { name: 'Capítulo 3: Una mosca en el café', url: 'https://mega.nz/embed/kFVS1ThI#dypzm0hVmpTkTNY2ATpZwKF0lklgYWa49iVVPvrqTno', time: '22 min' },
+                            { name: 'Capítulo 4: Satanás', url: 'https://mega.nz/embed/pZFwWRAY#eP8rYpc4RnN1AsbCUl9l5TabvM0alLve5faqrWWRdgE', time: '22 min' },
+                            { name: 'Capítulo 5: Los yeseros', url: 'https://mega.nz/embed/YdFmnRpS#t71JXF2cfErKoLUbhGLc0o3H1LEuND0ht2ug5I6R5-Q', time: '22 min' },
+                            { name: 'Capítulo 6: La venta de churros', url: 'https://mega.nz/embed/JFUREAjC#0TF_f5GtL_wKEeM6fZCqxszn3IWSzZyFqOR09839OCw', time: '22 min' },
+                            { name: 'Capítulo 7: Toque de romeo', url: 'https://mega.nz/embed/EU0mSYKa#IUe1HdjwNDxgI2nmH5IcKk2kd6WLPx7g_p2rIht8QX4', time: '22 min' },
+                            { name: 'Capítulo 8: El parque de diversiones', url: 'https://mega.nz/embed/gZ90DSzR#E9MXTUIlWaELYI-9Lx1yjer_75o39dAM7hgQzHHG9iw', time: '22 min' },
+                            { name: 'Capítulo 9: El dinero perdido', url: 'https://mega.nz/embed/Ccx0UKDQ#pP6eiQFXvpZr55fdDOpp3W46BnmF9e7TqczkKZz4d5Y', time: '22 min' },
+                            { name: 'Capítulo 10: En el ritmó de la vecindad', url: 'https://mega.nz/embed/hI9zFIAR#KX1pP63ZC_n4pPCgZa6Vq6mA0ko0gOwTSD65psN3rvs', time: '22 min' },
+                            { name: 'Capítulo 11: El chavo lavacoches', url: 'https://mega.nz/embed/RENUhRZI#4XyvvSwNxFaIE0Kiq2igQVylv_w35G1motsKOFfpYsQ', time: '22 min' },
+                            { name: 'Capítulo 12: Fútbol americano', url: 'https://mega.nz/embed/IJcSiBwL#fbSjLqSqvNgklSrdtqGf5o_rOyjHnKe28fIElYfPd5Y', time: '22 min' },
+                            { name: 'Capítulo 13: Un ratero en la vecindad', url: 'https://mega.nz/embed/xYkDRaCL#sriBOqBihgmmrTDq846YX2tlBTFu506ZP2hvNLsNhaQ', time: '22 min' },
+                            { name: 'Capítulo 14: La mascota de quico', url: 'https://mega.nz/embed/8JF02RoS#amCQxBYQqG5QhpLocOjxBc_KaoQ60MZRxA2vLFqx_3o', time: '22 min' },
+                            { name: 'Capítulo 15: Fotos buenas, regulares y peores', url: 'https://mega.nz/embed/EMcSBbRI#9hLJRaa0C4CZb2veK93Eihl_qXFROHSLuoJkyLnMrVU', time: '22 min' },
+                            { name: 'Capítulo 16: El amor llegó a la vecindad', url: 'https://mega.nz/embed/RUMH3QZL#b4VspzUj_djHBqLXikRcYLj_M01AC3CCVvf2jVqlzCs', time: '22 min' },
+                            { name: 'Capítulo 17: Una broma de carnaval', url: 'https://mega.nz/embed/gI1BxAyL#zDnm59jq3Goa0UpB1Qm8y0Sq4PPQ01R41kYOa9jfdc8', time: '22 min' },
+                            { name: 'Capítulo 18: Los globos del chavo', url: 'https://mega.nz/embed/lcdShJhS#RylhLrUnH0Nh14f7SgqHvSmMJxpQMZRkZLHbeVfo3aE', time: '22 min' },
+                            { name: 'Capítulo 19: Don ramón peluquero', url: 'https://mega.nz/embed/cBF2kBKL#tOiG1i56xL1Q3oelbUgCsvKBC43LRReBunDHIsgZ4wk', time: '22 min' },
+                            { name: 'Capítulo 20: El examen de la vecindad', url: 'https://mega.nz/embed/8cV2QT4K#UY2xhU6JTw-a1Xq-PrF0al76z8f9ICdB6U6-6nzeoFU', time: '22 min' },
+                            { name: 'Capítulo 21: Los juguetes de la vecindad', url: 'https://mega.nz/embed/RIEG0Z6I#QX0UT3eoVrZdctQE6Fpu5-sKq0t-cCgIZCIpwU_VDZ0', time: '22 min' },
+                            { name: 'Capítulo 22: Un viaje de locos', url: 'https://mega.nz/embed/cMM2DbyI#Sakvm68yQfHWEsNqQZIahVcMJNmZtfyPLSULiM5FbVM', time: '22 min' },
+                            { name: 'Capítulo 23: En el país de los juguetes', url: 'https://mega.nz/embed/8YsTiAYC#kLxnoPxc6p5m_o02-qPpEkTjJH4zY_YMMViB9AL8DbE', time: '22 min' }
+                        ]
+                    }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/xeDaYUWycTmk4yQ0WAZzQvk38af.jpg" alt="El Chavo Animado">
+            </div>
+
+            <div class="video-card card-target-pajaro cursor-custom-pajaro" onclick="openDetails(
+                'El Pájaro Loco', 
+                'Diviértete con las locas aventuras y la mítica e inconfundible risa de Loquillo, el pájaro carpintero más audaz y divertido de la animación clásica, siempre burlando a sus rivales y causando descontrol.',
+                'https://image.tmdb.org/t/p/original/oizXc3SnlSWDqPMmfe4koUj4RRo.jpg', 
+                'https://image.tmdb.org/t/p/original/vdcuZ7YHLemlTZ5NPfbctumWIg2.jpg',
+                'series',
+                [
+                    { name: 'Maratón #1: Los 7 Episodios Más Populares', url: 'https://www.dropbox.com/scl/fi/4w5jwnmhh7t34qj8yscqs/Los-7-Episodios-M-s-Populares-_-El-P-jaro-Loco.mp4?rlkey=9jn8juuxfv3dzl513sp1koufj&dl=1', time: '61 min' },
+                    { name: 'Maratón #2: La Granja de mis Sueños', url: 'https://www.dropbox.com/scl/fi/iyvl0mbz9vo933ysbqxml/La-Granja-de-mis-Sue-os.mp4?rlkey=atdwqeo6if94ymsqgkaipmugg&dl=1', time: '15 min' },
+                    { name: 'Maratón #3: El Niñero', url: 'https://www.dropbox.com/scl/fi/j8ef58t37xg7j8r4bazvn/El-Ni-ero.mp4?rlkey=fucekyg620zi8s2o85hy0yz14&dl=1', time: '12 min' },
+                    { name: 'Maratón #4: Misión Infiltración', url: 'https://www.dropbox.com/scl/fi/c9nzfkf5e01j6e7ztszd3/Misi-n-Infiltraci-n.mp4?rlkey=zkbkvnm3w1brm7men4m3lunwg&dl=1', time: '15 min' },
+                    { name: 'Maratón #5: Meany es una Robot', url: 'https://www.dropbox.com/scl/fi/2j59quxyn96lmodctguij/Meany-es-una-robot.mp4?rlkey=cacgwi79e8m0yseghr6f0mrya&dl=1', time: '11 min' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/oizXc3SnlSWDqPMmfe4koUj4RRo.jpg" alt="El Pájaro Loco">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="details-modal" id="detailsModal">
+        <div class="details-container">
+            <button class="close-details" onclick="closeDetails()">✕</button>
+            <div class="details-banner" id="modalBg"></div>
+            <div class="details-content">
+                <img src="" class="details-poster" id="modalPoster">
+                <div class="details-info">
+                    <h2 id="modalTitle">Título</h2>
+                    <p id="modalDescription">Descripción...</p>
+                    <div id="modalInteractiveArea"></div>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="player-modal" id="playerModal">
+        <button class="back-btn" onclick="closePlayer()">✕ Volver a Detalles</button>
+        <div style="width:100%; height:100%;" id="playerTarget"></div>
+    </div>
+
+    <div class="notice-modal" id="noticeModal">
+        <div class="notice-container">
+            <h3>Aviso</h3>
+            <p>¡Bienvenido a <b>GnxFlix</b>! Este es un proyecto de streaming independiente diseñado para disfrutar de tus películas favoritas en alta definición, con audio latino verificado y totalmente libre de anuncios invasivos.</p>
+            <div class="notice-btn-group">
+                <button class="btn-notice btn-notice-stop" onclick="handleNotice(true)">No volver a mostrar</button>
+                <button class="btn-notice btn-notice-keep" onclick="handleNotice(false)">Seguir mostrando</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div>© 2026 GNXFLIX - Todos los derechos reservados.</div>
+    </footer>
+
     <script>
+        const detailsModal = document.getElementById('detailsModal');
+        const playerModal = document.getElementById('playerModal');
+        const playerTarget = document.getElementById('playerTarget');
+        const noticeModal = document.getElementById('noticeModal');
+        const preloader = document.getElementById('preloader');
+        const modalInteractiveArea = document.getElementById('modalInteractiveArea');
+
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
+        const banners = document.querySelectorAll('.banner');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let carouselInterval = setInterval(nextBanner, 6000);
+
+        function showBanner(index) {
+            banners.forEach(b => b.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            banners[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function nextBanner() {
+            let nextIndex = (currentIndex + 1) % banners.length;
+            showBanner(nextIndex);
+        }
+
+        function changeBanner(index) {
+            clearInterval(carouselInterval);
+            showBanner(index);
+            carouselInterval = setInterval(nextBanner, 6000);
+        }
+
+        // CONTROL DE CARGA INICIAL
+        window.addEventListener('load', () => {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 600);
+
+            if (localStorage.getItem('hideGnxNotice') !== 'true') {
+                noticeModal.style.display = 'flex';
+            }
+        });
+
+        function handleNotice(hideForever) {
+            if (hideForever) {
+                localStorage.setItem('hideGnxNotice', 'true');
+            }
+            noticeModal.style.display = 'none';
+        }
+
+        // CONTROLADOR DE SCROLL SUAVE CORREGIDO CON TRANSICIONES FLUIDAS
+        function scrollToSection(sectionId) {
+            const row = document.getElementById(sectionId);
+            if (row) {
+                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Resetear y disparar animaciones según el tipo de sección
+                if (sectionId === 'kidsRow') {
+                    row.classList.remove('row-highlight-kids');
+                    void row.offsetWidth; // Forzar reflow de renderizado
+                    row.classList.add('row-highlight-kids');
+                    setTimeout(() => row.classList.remove('row-highlight-kids'), 2000);
+                } else {
+                    row.classList.remove('row-highlight');
+                    void row.offsetWidth;
+                    row.classList.add('row-highlight');
+                    setTimeout(() => row.classList.remove('row-highlight'), 2000);
+                }
+            }
+        }
+
+        // SISTEMA DE BÚSQUEDA INTERACTIVA AUTO-ADAPTATIVA POR CLASES
+        function searchStreaming(query) {
+            if (!query || query.trim() === "") return;
+            
+            const cleanQuery = query.toLowerCase().trim();
+            let targetClass = "";
+
+            if (cleanQuery.includes('chavo')) targetClass = "card-target-chavo";
+            else if (cleanQuery.includes('bob') || cleanQuery.includes('esponja')) targetClass = "card-target-bob";
+            else if (cleanQuery.includes('doraemon') || cleanQuery.includes('nobita')) targetClass = "card-target-doraemon";
+            else if (cleanQuery.includes('scary') || cleanQuery.includes('movie')) targetClass = "card-target-scary";
+            else if (cleanQuery.includes('gallo') || cleanQuery.includes('toto') || cleanQuery.includes('huevos')) targetClass = "card-target-gallo";
+            else if (cleanQuery.includes('peppa') || cleanQuery.includes('pig')) targetClass = "card-target-peppa";
+            else if (cleanQuery.includes('pajaro') || cleanQuery.includes('loco') || cleanQuery.includes('loquillo')) targetClass = "card-target-pajaro";
+            else if (cleanQuery.includes('pocoyo') || cleanQuery.includes('pato')) targetClass = "card-target-pocoyo";
+            else if (cleanQuery.includes('plim') || cleanQuery.includes('payaso') || cleanQuery.includes('abejita')) targetClass = "card-target-plim";
+
+            if (targetClass !== "") {
+                const targets = document.querySelectorAll('.' + targetClass);
+                if (targets.length > 0) {
+                    targets[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    targets.forEach(card => {
+                        card.classList.remove('card-highlight');
+                        void card.offsetWidth; // Forzar reflow
+                        card.classList.add('card-highlight');
+                        setTimeout(() => card.classList.remove('card-highlight'), 2000);
+                    });
+                }
+            }
+        }
+
+        // APERTURA INTELIGENTE DEL MODAL (CON INYECTOR DINÁMICO DE CURSORES LOCALES)
         function openDetails(title, desc, poster, backdrop, contentType, contentData) {
             document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = desc;
             document.getElementById('modalPoster').src = poster;
             document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
             
-            // Lógica de cursores
+            // Limpiar clases de cursores previas del modal antes de abrir uno nuevo
             detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro');
+
+            // Detectar la maratón seleccionada y aplicarle el cursor a toda la ventana flotante
             const lowerTitle = title.toLowerCase();
-            if (lowerTitle.includes('bob') || lowerTitle.includes('pocoyo')) detailsModal.classList.add('cursor-custom-bob');
-            else if (lowerTitle.includes('peppa') || lowerTitle.includes('plim')) detailsModal.classList.add('cursor-custom-peppa');
+            if (lowerTitle.includes('bob')) detailsModal.classList.add('cursor-custom-bob');
+            else if (lowerTitle.includes('peppa')) detailsModal.classList.add('cursor-custom-peppa');
             else if (lowerTitle.includes('chavo')) detailsModal.classList.add('cursor-custom-chavo');
             else if (lowerTitle.includes('pájaro') || lowerTitle.includes('pajaro')) detailsModal.classList.add('cursor-custom-pajaro');
 
-            // Construir botones
-            modalInteractiveArea.innerHTML = contentType === 'series' ? '...' : `
-                <div class="btn-group">
-                    <button class="btn btn-play" onclick="launchStream('${contentData.videoUrl}')">▶ Ver Película</button>
-                    <button class="btn btn-trailer" onclick="launchStream(getEmbedUrl('${contentData.trailerUrl}'))">🍿 Ver Trailer</button>
-                </div>`;
+            buildInteractiveArea(contentType, contentData);
             detailsModal.style.display = 'flex';
         }
-        function getEmbedUrl(url) { return url.replace('youtu.be/', 'youtube.com/embed/').replace('watch?v=', 'embed/'); }
-        function launchStream(url) { playerTarget.innerHTML = url.includes('youtube') ? `<iframe src="${url}" allowfullscreen style="width:100%; height:100%;"></iframe>` : `<video src="${url}" controls autoplay playsinline style="width:100%; height:100%;"></video>`; playerModal.style.display = 'flex'; }
-        function closePlayer() { playerTarget.innerHTML = ""; playerModal.style.display = 'none'; }
-        function closeDetails() { detailsModal.style.display = 'none'; }
-        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
-        window.addEventListener('load', () => setTimeout(() => document.getElementById('preloader').style.display = 'none', 600));
+
+        // CONVERSOR DINÁMICO DE URLS DE YOUTUBE PARA EMBED
+        function getEmbedUrl(url) {
+            if (url.includes('youtu.be/')) {
+                return 'https://www.youtube.com/embed/' + url.split('youtu.be/')[1].split('?')[0];
+            }
+            if (url.includes('watch?v=')) {
+                return 'https://www.youtube.com/embed/' + url.split('watch?v=')[1].split('&')[0];
+            }
+            return url;
+        }
+
+        // CONSTRUCTOR DINÁMICO DE INTERFAZ INTERNA
+        function buildInteractiveArea(contentType, contentData) {
+            modalInteractiveArea.innerHTML = "";
+
+            if (contentType === 'seasons') {
+                const listContainer = document.createElement('div');
+                listContainer.className = 'episodes-list-container';
+
+                contentData.forEach((season) => {
+                    const row = document.createElement('div');
+                    row.className = 'episode-row';
+                    row.innerHTML = `<span>📂 ${season.seasonName}</span><span class="episode-duration">Ver capítulos</span>`;
+                    row.onclick = () => {
+                        buildInteractiveArea('series', season.episodes);
+                    };
+                    listContainer.appendChild(row);
+                });
+                modalInteractiveArea.appendChild(listContainer);
+
+            } else if (contentType === 'series') {
+                const listContainer = document.createElement('div');
+                listContainer.className = 'episodes-list-container';
+
+                contentData.forEach((item) => {
+                    const row = document.createElement('div');
+                    row.className = 'episode-row';
+                    row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
+                    row.onclick = () => launchStream(item.url);
+                    listContainer.appendChild(row);
+                });
+                modalInteractiveArea.appendChild(listContainer);
+
+            } else {
+                modalInteractiveArea.innerHTML = `
+                    <div class="btn-group">
+                        <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
+                        <button class="btn btn-trailer" id="btnPlayTrailer">🍿 Ver Trailer</button>
+                    </div>
+                `;
+                document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData.videoUrl);
+                document.getElementById('btnPlayTrailer').onclick = () => launchStream(getEmbedUrl(contentData.trailerUrl));
+            }
+        }
+
+        function closeDetails() {
+            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro');
+            detailsModal.style.display = 'none';
+        }
+
+        // REPRODUCTOR HÍBRIDO AVANZADO
+        function launchStream(url) {
+            playerTarget.innerHTML = ""; 
+
+            if (url.includes('mega.nz') || url.includes('youtube.com/embed') || url.includes('iframe')) {
+                playerTarget.innerHTML = `
+                    <iframe src="${url}" 
+                            allowfullscreen 
+                            style="width:100%; height:100%; background-color:#000; border:none;">
+                    </iframe>`;
+            } else {
+                playerTarget.innerHTML = `
+                    <video src="${url}" 
+                           controls 
+                           autoplay 
+                           playsinline 
+                           controlsList="nodownload" 
+                           oncontextmenu="return false;" 
+                           style="width:100%; height:100%; background-color:#000;">
+                    </video>`;
+            }
+                
+            playerModal.style.display = 'flex';
+        }
+
+        function closePlayer() {
+            playerTarget.innerHTML = "";
+            playerModal.style.display = 'none';
+        }
     </script>
 </body>
 </html>
