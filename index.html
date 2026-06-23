@@ -589,17 +589,21 @@
     </header>
 
     <div class="banner-container">
-        <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
+        <!-- Banner 1: Monsters Inc -->
+        <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/sDTnMOJ3H5wI38OxObmCtK7wfd5.jpg');">
+            <h1>Monstruos S.A.</h1>
+        </div>
+        <!-- Banner 2: Toy Story -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3Rfvhy1Nl6sSGJwyjb0QiZzZYlB.jpg');">
+            <h1>Toy Story</h1>
+        </div>
+        <!-- Banner 3: Doraemon -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
             <h1>Stand by Me Doraemon</h1>
         </div>
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
-            <h1>Bob Esponja</h1>
-        </div>
+        <!-- Banner 4: Scary Movie -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg');">
             <h1>Scary Movie 1</h1>
-        </div>
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg');">
-            <h1>El Chavo Animado</h1>
         </div>
 
         <div class="carousel-dots">
@@ -727,6 +731,30 @@
                 { videoUrl: 'https://www.dropbox.com/scl/fi/i29sdmevph0toaw0kcbqm/SING-1-VEN-Y-CANTA.mp4?rlkey=zeqyyfswsbfov682n4iqbe8xo&dl=1', trailerUrl: 'https://youtu.be/QrMbJyRBhP0?si=VbVtcQZm6Huu2RpL' }
             )">
                 <img src="https://image.tmdb.org/t/p/original/lW0kUtXTOVlHTVhDO2VzNBACAHX.jpg" alt="Sing">
+            </div>
+
+<!-- MONSTERS INC -->
+            <div class="video-card card-target-monsters" onclick="openDetails(
+                'Monstruos S.A.', 
+                'Monsters Inc. es la mayor empresa de miedo del mundo, y James P. Sullivan es uno de sus mejores empleados. Asustar a los niños no es un trabajo fácil, ya que todos creen que los niños son tóxicos y no pueden tener contacto con ellos. Pero un día una niña se cuela sin querer en la empresa, provocando el caos.', 
+                'https://image.tmdb.org/t/p/original/wFSpyMsp7H0ttERbxY7Trlv8xry.jpg', 
+                'https://image.tmdb.org/t/p/original/puo6orN2BjQt1g4K0umVlooVff9.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/i4u5mk4myc1wj23f3mwj3/Monster-Inc.mp4?rlkey=6i92f2j8hya8121s7v6vlnk5d&st=j2mremyu&dl=1', trailerUrl: 'https://youtu.be/uzkkh-1A_kY?si=A--d_mmM_Mi8giGe' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/wFSpyMsp7H0ttERbxY7Trlv8xry.jpg" alt="Monstruos S.A.">
+            </div>
+
+            <!-- TOY STORY -->
+            <div class="video-card card-target-toy" onclick="openDetails(
+                'Toy Story', 
+                'Los juguetes de Andy, un niño de seis años, temen que haya llegado su hora y que un nuevo regalo de cumpleaños les sustituya en el corazón de su dueño. Woody, un vaquero que ha sido hasta ahora el juguete favorito de Andy, trata de tranquilizarlos hasta que aparece Buzz Lightyear, un héroe espacial dotado de todo tipo de avances tecnológicos. Woody es relegado a un segundo plano, pero su constante rivalidad se transformará en una gran amistad cuando ambos se pierden en la ciudad sin saber cómo volver a casa.', 
+                'https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg', 
+                'https://image.tmdb.org/t/p/original/wXTMod0lcLMtQy6Tz9yBP2wF4F1.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/nirwdoubc75sl9sj5c6e6/Toy-Story-1.mp4?rlkey=ptw7mpd4890v49opy9ttrrm56&st=mv1xb20c&dl=1', trailerUrl: 'https://youtu.be/VhCDgv4x_pU?si=zE0CsrFyH--82jUI' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg" alt="Toy Story">
             </div>
 
         </div>
@@ -886,7 +914,7 @@
     </div>
 
     <footer>
-        <div>© 2026 GNXFLIX - Todos los derechos reservados.</div>
+        <div>© 2026 GNXFLIX - Aporte: Gemini™ (Google) -Todos los derechos reservados.</div>
     </footer>
 
     <script>
@@ -978,6 +1006,8 @@
             else if (cleanQuery.includes('pocoyo') || cleanQuery.includes('pato')) targetClass = "card-target-pocoyo";
             else if (cleanQuery.includes('plim') || cleanQuery.includes('payaso') || cleanQuery.includes('abejita')) targetClass = "card-target-plim";
             else if (cleanQuery.includes('sing') || cleanQuery.includes('canta')) targetClass = "card-target-sing";
+            else if (cleanQuery.includes('monster') || cleanQuery.includes('monstruos')) targetClass = "card-target-monsters";
+            else if (cleanQuery.includes('toy') || cleanQuery.includes('story')) targetClass = "card-target-toy";
 
             if (targetClass !== "") {
                 const targets = document.querySelectorAll('.' + targetClass);
