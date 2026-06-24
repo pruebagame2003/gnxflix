@@ -558,9 +558,19 @@
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="spinner"></div>
-    </div>
+```
+*(Al poner los ``, comentas el preloader y el navegador lo ignorará. Si la web aparece de golpe, entonces el problema es que el script de carga no está detectando que la página ya terminó de procesarse).*
+
+### 3. El error de los cierres
+Cada vez que agregas una tarjeta nueva (`<div class="video-card"...`), asegúrate de que **después** de esa tarjeta, en la sección de *Maratón*, haya exactamente:
+1. `</div>` (para cerrar la tarjeta)
+2. `</div>` (para cerrar el `cards-container`)
+3. `</div>` (para cerrar el `content-row`)
+
+**Si quieres que yo lo arregle, haz lo siguiente:**
+Copia todo el contenido de tu `index.html` (desde el `<!DOCTYPE html>` hasta el `</html>`) y **pégalo en un archivo de texto o aquí mismo en partes** (por ejemplo: primero el `head`, luego el `body`, luego el `script`). Si el código es demasiado largo, puedes usar un servicio como [Pastebin](https://pastebin.com/) y pasarme el enlace aquí para que pueda ver tu archivo completo como lo ve el navegador.
+
+**¡No se ha roto nada irreversible!** Es solo un `</div>` fuera de lugar que está confundiendo al navegador. ¡Pásame el código (o el error de la consola F12) y lo desbloqueamos ahora mismo! 🎬🚀
 
 <header>
         <div class="logo">Gnx<span>Flix</span></div>
