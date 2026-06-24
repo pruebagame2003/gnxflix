@@ -60,22 +60,47 @@
             z-index: 10;
         }
         
-        /* NUEVO LOGO ESTILO CARTOON QUEEN (3D IMPACTANTE) CON FLIX EN ROJO */
-        .logo {
-            font-family: 'Fredoka One', sans-serif;
-            color: #ffffff;
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 
-                -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
-                2px 2px 0px #000, 4px 4px 0px #333, 6px 6px 10px rgba(0,0,0,0.8);
-            transform: skew(-5deg);
-        }
-        .logo span {
-            color: #E50914;
-        }
+        /* LOGO CON EFECTO DE LUZ ROJA DINÁMICA AL HACER HOVER */
+.logo {
+    font-family: 'Fredoka One', sans-serif;
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 
+        -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+        2px 2px 0px #000, 4px 4px 0px #333, 6px 6px 10px rgba(0,0,0,0.8);
+    transform: skew(-5deg);
+    cursor: pointer;
+    transition: all 0.4s ease; /* Suaviza el desvanecimiento */
+}
+
+/* Efecto de luz roja al pasar el cursor */
+.logo:hover {
+    text-shadow: 
+        -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+        0px 0px 10px #E50914, 0px 0px 20px #E50914, 0px 0px 30px #E50914;
+    animation: rotateGlow 1.5s linear infinite;
+}
+
+/* Animación de "luz rotatoria" */
+@keyframes rotateGlow {
+    0% { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px -5px 15px #E50914; }
+    25% { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 5px 0px 15px #E50914; }
+    50% { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px 5px 15px #E50914; }
+    75% { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, -5px 0px 15px #E50914; }
+    100% { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px -5px 15px #E50914; }
+}
+
+.logo span {
+    color: #E50914;
+    transition: color 0.4s ease;
+}
+
+.logo:hover span {
+    color: #ff4d4d; /* Un rojo un poco más brillante al activar la luz */
+}
 
         /* BARRA DE BÚSQUEDA INTEGRADA EN CABECERA */
         .search-container {
