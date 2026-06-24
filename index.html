@@ -1176,10 +1176,13 @@
             carouselInterval = setInterval(nextBanner, 6000);
         }
 
-        // CONTROL DE CARGA INICIAL
+        // CONTROL DE CARGA INICIAL (FORZADO)
         window.addEventListener('load', () => {
-            preloader.style.opacity = '0';
-            setTimeout(() => preloader.style.display = 'none', 600);
+            // Quitamos el preloader pase lo que pase
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 600);
+            }, 1000); // 1 segundo de espera máximo
 
             if (localStorage.getItem('hideGnxNotice') !== 'true') {
                 noticeModal.style.display = 'flex';
