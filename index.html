@@ -975,49 +975,42 @@ Copia todo el contenido de tu `index.html` (desde el `<!DOCTYPE html>` hasta el 
             return url;
         }
 
-        // CONSTRUCTOR DINÁMICO DE INTERFAZ INTERNA
-        function buildInteractiveArea(contentType, contentData) {
-            modalInteractiveArea.innerHTML = "";
-
-            if (contentType === 'seasons') {
-                const listContainer = document.createElement('div');
-                listContainer.className = 'episodes-list-container';
-
-                contentData.forEach((season) => {
-                    const row = document.createElement('div');
-                    row.className = 'episode-row';
-                    row.innerHTML = `<span>📂 ${season.seasonName}</span><span class="episode-duration">Ver capítulos</span>`;
-                    row.onclick = () => {
-                        buildInteractiveArea('series', season.episodes);
-                    };
-                    listContainer.appendChild(row);
-                });
-                modalInteractiveArea.appendChild(listContainer);
-
-            } else if (contentType === 'series') {
-                const listContainer = document.createElement('div');
-                listContainer.className = 'episodes-list-container';
-
-                contentData.forEach((item) => {
-                    const row = document.createElement('div');
-                    row.className = 'episode-row';
-                    row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
-                    row.onclick = () => launchStream(item.url);
-                    listContainer.appendChild(row);
-                });
-                modalInteractiveArea.appendChild(listContainer);
-
-            } else {
-                modalInteractiveArea.innerHTML = `
-                    <div class="btn-group">
-                        <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
-                        <button class="btn btn-trailer" id="btnPlayTrailer">🍿 Ver Trailer</button>
-                    </div>
-                `;
-                document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData.videoUrl);
-                document.getElementById('btnPlayTrailer').onclick = () => launchStream(getEmbedUrl(contentData.trailerUrl));
-            }
-        }
+       function buildInteractiveArea(contentType, contentData) {
+    const modalInteractiveArea = document.getElementById('modalInteractiveArea');
+    modalInteractiveArea.innerHTML = "";
+    
+    if (contentType === 'seasons') {
+        const list = document.createElement('div');
+        list.className = 'episodes-list-container';
+        contentData.forEach(s => {
+            const row = document.createElement('div');
+            row.className = 'episode-row';
+            row.innerHTML = `<span>📂 ${s.seasonName}</span>`;
+            row.onclick = () => buildInteractiveArea('series', s.episodes);
+            list.appendChild(row);
+        });
+        modalInteractiveArea.appendChild(list);
+    } else if (contentType === 'series') {
+        const list = document.createElement('div');
+        list.className = 'episodes-list-container';
+        contentData.forEach(i => {
+            const row = document.createElement('div');
+            row.className = 'episode-row';
+            row.innerHTML = `<span>▶ ${i.name}</span><span class="episode-duration">${i.time}</span>`;
+            row.onclick = () => launchStream(i.url);
+            list.appendChild(row);
+        });
+        modalInteractiveArea.appendChild(list);
+    } else {
+        modalInteractiveArea.innerHTML = `
+            <div class="btn-group">
+                <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
+                <button class="btn btn-trailer" id="btnPlayTrailer">🍿 Ver Trailer</button>
+            </div>`;
+        document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData.videoUrl);
+        document.getElementById('btnPlayTrailer').onclick = () => launchStream(getEmbedUrl(contentData.trailerUrl));
+    }
+}
 
      function closeDetails() {
             detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro', 'cursor-custom-padrinos');
@@ -1151,41 +1144,6 @@ Copia todo el contenido de tu `index.html` (desde el `<!DOCTYPE html>` hasta el 
         function closePlayer() {
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
-        }
-        
-        function buildInteractiveArea(contentType, contentData) {
-            modalInteractiveArea.innerHTML = "";
-            if (contentType === 'seasons') {
-                const listContainer = document.createElement('div');
-                listContainer.className = 'episodes-list-container';
-                contentData.forEach((season) => {
-                    const row = document.createElement('div');
-                    row.className = 'episode-row';
-                    row.innerHTML = `<span>📂 ${season.seasonName}</span><span class="episode-duration">Ver capítulos</span>`;
-                    row.onclick = () => buildInteractiveArea('series', season.episodes);
-                    listContainer.appendChild(row);
-                });
-                modalInteractiveArea.appendChild(listContainer);
-            } else if (contentType === 'series') {
-                const listContainer = document.createElement('div');
-                listContainer.className = 'episodes-list-container';
-                contentData.forEach((item) => {
-                    const row = document.createElement('div');
-                    row.className = 'episode-row';
-                    row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
-                    row.onclick = () => launchStream(item.url);
-                    listContainer.appendChild(row);
-                });
-                modalInteractiveArea.appendChild(listContainer);
-            } else {
-                modalInteractiveArea.innerHTML = `
-                    <div class="btn-group">
-                        <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
-                        <button class="btn btn-trailer" id="btnPlayTrailer">🍿 Ver Trailer</button>
-                    </div>`;
-                document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData.videoUrl);
-                document.getElementById('btnPlayTrailer').onclick = () => launchStream(getEmbedUrl(contentData.trailerUrl));
-            }
         }
         
         function getEmbedUrl(url) {
