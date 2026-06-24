@@ -298,6 +298,7 @@
         .cursor-custom-peppa { cursor: url('cursor-peppa.png'), auto !important; }
         .cursor-custom-chavo { cursor: url('cursor-chavo.png'), auto !important; }
         .cursor-custom-pajaro { cursor: url('cursor-pajaro.png'), auto !important; }
+        .cursor-custom-padrinos { cursor: auto !important; }
 
         /* --- ANIMACIONES DE ALUMBRAMIENTO DE SECCIÓN Y BUSCADOR --- */
         @keyframes pulse-highlight {
@@ -1030,22 +1031,23 @@
             }
         }
 
-        // APERTURA INTELIGENTE DEL MODAL (CON INYECTOR DINÁMICO DE CURSORES LOCALES)
+        // APERTURA INTELIGENTE DEL MODAL (CORREGIDA)
         function openDetails(title, desc, poster, backdrop, contentType, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
             document.getElementById('modalPoster').src = poster;
             document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
             
-            // Limpiar clases de cursores previas del modal antes de abrir uno nuevo
-            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro');
+            // Limpiar clases de cursores previas
+            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro', 'cursor-custom-padrinos');
 
-            // Detectar la maratón seleccionada y aplicarle el cursor a toda la ventana flotante
+            // Detectar y aplicar cursor
             const lowerTitle = title.toLowerCase();
             if (lowerTitle.includes('bob')) detailsModal.classList.add('cursor-custom-bob');
             else if (lowerTitle.includes('peppa')) detailsModal.classList.add('cursor-custom-peppa');
             else if (lowerTitle.includes('chavo')) detailsModal.classList.add('cursor-custom-chavo');
             else if (lowerTitle.includes('pájaro') || lowerTitle.includes('pajaro')) detailsModal.classList.add('cursor-custom-pajaro');
+            else if (lowerTitle.includes('padrinos')) detailsModal.classList.add('cursor-custom-padrinos');
 
             buildInteractiveArea(contentType, contentData);
             detailsModal.style.display = 'flex';
