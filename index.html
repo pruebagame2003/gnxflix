@@ -1282,6 +1282,18 @@
             if (url.includes('watch?v=')) return 'https://www.youtube.com/embed/' + url.split('watch?v=')[1].split('&')[0];
             return url;
         }
+
+        // LÓGICA DE SEGURIDAD PARA EL PRELOADER
+        window.addEventListener('load', () => {
+            console.log("Página cargada totalmente.");
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => preloader.style.display = 'none', 600);
+                }
+            }, 500);
+        });
     </script>
 
     <div class="details-modal" id="detailsModal">
@@ -1298,5 +1310,5 @@
             </div>
         </div>
     </div>
-</body>
+    </body>
 </html>
