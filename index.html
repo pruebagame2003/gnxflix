@@ -589,17 +589,21 @@
     </header>
 
     <div class="banner-container">
-        <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
+        <!-- Banner 1: Monsters Inc -->
+        <div class="banner active" style="background-image: url('https://image.tmdb.org/t/p/original/sDTnMOJ3H5wI38OxObmCtK7wfd5.jpg');">
+            <h1>Monstruos S.A.</h1>
+        </div>
+        <!-- Banner 2: Toy Story -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3Rfvhy1Nl6sSGJwyjb0QiZzZYlB.jpg');">
+            <h1>Toy Story</h1>
+        </div>
+        <!-- Banner 3: Doraemon -->
+        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg');">
             <h1>Stand by Me Doraemon</h1>
         </div>
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/3PYi8rff24zVPlkX09jkB2ZQBC1.jpg');">
-            <h1>Bob Esponja</h1>
-        </div>
+        <!-- Banner 4: Scary Movie -->
         <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/m5dA4JZsj78EBTa2D6imWOAebwB.jpg');">
             <h1>Scary Movie 1</h1>
-        </div>
-        <div class="banner" style="background-image: url('https://image.tmdb.org/t/p/original/hAAQlQfCwRfHWftE3vuHe5nDq5a.jpg');">
-            <h1>El Chavo Animado</h1>
         </div>
 
         <div class="carousel-dots">
@@ -729,6 +733,30 @@
                 <img src="https://image.tmdb.org/t/p/original/lW0kUtXTOVlHTVhDO2VzNBACAHX.jpg" alt="Sing">
             </div>
 
+<!-- MONSTERS INC -->
+            <div class="video-card card-target-monsters" onclick="openDetails(
+                'Monstruos S.A.', 
+                'Monsters Inc. es la mayor empresa de miedo del mundo, y James P. Sullivan es uno de sus mejores empleados. Asustar a los niños no es un trabajo fácil, ya que todos creen que los niños son tóxicos y no pueden tener contacto con ellos. Pero un día una niña se cuela sin querer en la empresa, provocando el caos.', 
+                'https://image.tmdb.org/t/p/original/wFSpyMsp7H0ttERbxY7Trlv8xry.jpg', 
+                'https://image.tmdb.org/t/p/original/puo6orN2BjQt1g4K0umVlooVff9.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/i4u5mk4myc1wj23f3mwj3/Monster-Inc.mp4?rlkey=6i92f2j8hya8121s7v6vlnk5d&st=j2mremyu&dl=1', trailerUrl: 'https://youtu.be/uzkkh-1A_kY?si=A--d_mmM_Mi8giGe' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/wFSpyMsp7H0ttERbxY7Trlv8xry.jpg" alt="Monstruos S.A.">
+            </div>
+
+            <!-- TOY STORY -->
+            <div class="video-card card-target-toy" onclick="openDetails(
+                'Toy Story', 
+                'Los juguetes de Andy, un niño de seis años, temen que haya llegado su hora y que un nuevo regalo de cumpleaños les sustituya en el corazón de su dueño. Woody, un vaquero que ha sido hasta ahora el juguete favorito de Andy, trata de tranquilizarlos hasta que aparece Buzz Lightyear, un héroe espacial dotado de todo tipo de avances tecnológicos. Woody es relegado a un segundo plano, pero su constante rivalidad se transformará en una gran amistad cuando ambos se pierden en la ciudad sin saber cómo volver a casa.', 
+                'https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg', 
+                'https://image.tmdb.org/t/p/original/wXTMod0lcLMtQy6Tz9yBP2wF4F1.jpg',
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/nirwdoubc75sl9sj5c6e6/Toy-Story-1.mp4?rlkey=ptw7mpd4890v49opy9ttrrm56&st=mv1xb20c&dl=1', trailerUrl: 'https://youtu.be/VhCDgv4x_pU?si=zE0CsrFyH--82jUI' }
+            )">
+                <img src="https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg" alt="Toy Story">
+            </div>
+
         </div>
     </div>
 
@@ -854,6 +882,25 @@
         </div>
     </div>
 
+            <div class="video-card card-target-padrinos cursor-custom-padrinos" onclick="openDetails(
+                'Los Padrinos Mágicos', 
+                'Timmy Turner es un niño de 10 años descuidado por sus padres y maltratado por su niñera, Vicky. Su vida cambia cuando recibe a Cosmo y Wanda, sus padrinos mágicos. Juntos viven aventuras increíbles, aunque los deseos de Timmy suelen causar más problemas que soluciones, obligándolos a resolver situaciones caóticas con magia.',
+                'https://image.tmdb.org/t/p/original/3ryMj7tIvVtiXyI2tLvHYTjOjq4.jpg', 
+                'https://image.tmdb.org/t/p/original/jlruzecsif3tkCSoHlUaPR01O7U.jpg',
+                'series',
+                [
+                    { name: 'Episodio 1', url: 'https://www.dropbox.com/scl/fi/7yj1rl38cqoul43r0g732/Los-Padrinos-M-gicos-Pura-acci-n-El-sabelotodo-Ep.10.mp4?rlkey=wvvkw5ohkbbt51do30xxtrgsw&dl=1' },
+                    { name: 'Episodio 3', url: 'https://www.dropbox.com/scl/fi/9ong7u5vn2eq2hkusn3se/Los-Padrinos-M-gicos-Arriba-barbilla-Tarde-de-perros-Ep.3.mp4?rlkey=o2aifyvpd0oknz2g9pagkfmx9&dl=1' },
+                    { name: 'Episodio 5', url: 'https://www.dropbox.com/scl/fi/q4202yvibw5fhy7blxin7/Los-Padrinos-M-gicos-El-padre-tiempo-Los-aliados-Ep.5.mp4?rlkey=kfbff6tkviry2mfnz2uwq5vwb&dl=1' },
+                    { name: 'Episodio 7', url: 'https://www.dropbox.com/scl/fi/tyzrhttyot61gfq08ryr1/Los-Padrinos-M-gicos-Navidad-todos-los-D-as-Ep.7.mp4?rlkey=eukjx0pd2hbsit4cr6hqkdrod&dl=1' },
+                    { name: 'Episodio 8', url: 'https://www.dropbox.com/scl/fi/qtv0kj4lr8gnqzhs3ruaj/Los-Padrinos-M-gicos-El-chicos-de-la-banda-Trampas-con-hechizos-Ep.8.mp4?rlkey=c8taa6mavoazjntikzwzrqov8&dl=1' },
+                    { name: 'Episodio 9', url: 'https://www.dropbox.com/scl/fi/hqlmzwj3tz0q3ltu9gqy0/Los-Padrinos-M-gicos-El-Ni-o-juguete-Detecci-n-e-inspecci-n-Ep.9.mp4?rlkey=gx60tv8qgf80hzm5ucvuteuih&dl=1' },
+                    { name: 'Episodio 10', url: 'https://www.dropbox.com/scl/fi/7yj1rl38cqoul43r0g732/Los-Padrinos-M-gicos-Pura-acci-n-El-sabelotodo-Ep.10.mp4?rlkey=wvvkw5ohkbbt51do30xxtrgsw&dl=1' },
+                    { name: 'Episodio 11', url: 'https://www.dropbox.com/scl/fi/cp0sys2ch301rm8oanrbg/Los-Padrinos-M-gicos-La-s-perbicicleta-Camina-un-rato-en-mis-zapatos-Ep.11.mp4?rlkey=c8lf9t8ixdsggsk0rvf1ua0a9&dl=1' }
+                ]
+            )">
+                <img src="https://image.tmdb.org/t/p/original/3ryMj7tIvVtiXyI2tLvHYTjOjq4.jpg" alt="Los Padrinos Mágicos">
+            </div>
     <div class="details-modal" id="detailsModal">
         <div class="details-container">
             <button class="close-details" onclick="closeDetails()">✕</button>
@@ -886,7 +933,7 @@
     </div>
 
     <footer>
-        <div>© 2026 GNXFLIX - Todos los derechos reservados.</div>
+        <div>© 2026 GNXFLIX - Aporte: Gemini™ (Google) -Todos los derechos reservados.</div>
     </footer>
 
     <script>
@@ -978,6 +1025,8 @@
             else if (cleanQuery.includes('pocoyo') || cleanQuery.includes('pato')) targetClass = "card-target-pocoyo";
             else if (cleanQuery.includes('plim') || cleanQuery.includes('payaso') || cleanQuery.includes('abejita')) targetClass = "card-target-plim";
             else if (cleanQuery.includes('sing') || cleanQuery.includes('canta')) targetClass = "card-target-sing";
+            else if (cleanQuery.includes('monster') || cleanQuery.includes('monstruos')) targetClass = "card-target-monsters";
+            else if (cleanQuery.includes('toy') || cleanQuery.includes('story')) targetClass = "card-target-toy";
 
             if (targetClass !== "") {
                 const targets = document.querySelectorAll('.' + targetClass);
