@@ -1142,6 +1142,158 @@
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
         }
+<script>
+        const detailsModal = document.getElementById('detailsModal');
+        const playerModal = document.getElementById('playerModal');
+        const playerTarget = document.getElementById('playerTarget');
+        const noticeModal = document.getElementById('noticeModal');
+        const preloader = document.getElementById('preloader');
+        const modalInteractiveArea = document.getElementById('modalInteractiveArea');
+
+        // LÓGICA DEL CARRUSEL AUTOMATIZADO DE BANNERS
+        const banners = document.querySelectorAll('.banner');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let carouselInterval = setInterval(nextBanner, 6000);
+
+        function showBanner(index) {
+            banners.forEach(b => b.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            banners[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function nextBanner() {
+            let nextIndex = (currentIndex + 1) % banners.length;
+            showBanner(nextIndex);
+        }
+
+        function changeBanner(index) {
+            clearInterval(carouselInterval);
+            showBanner(index);
+            carouselInterval = setInterval(nextBanner, 6000);
+        }
+
+        // CONTROL DE CARGA INICIAL
+        window.addEventListener('load', () => {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 600);
+
+            if (localStorage.getItem('hideGnxNotice') !== 'true') {
+                noticeModal.style.display = 'flex';
+            }
+        });
+
+        function handleNotice(hideForever) {
+            if (hideForever) {
+                localStorage.setItem('hideGnxNotice', 'true');
+            }
+            noticeModal.style.display = 'none';
+        }
+
+        function scrollToSection(sectionId) {
+            const row = document.getElementById(sectionId);
+            if (row) {
+                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function openDetails(title, desc, poster, backdrop, contentType, contentData) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = desc;
+            document.getElementById('modalPoster').src = poster;
+            document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
+            
+            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro', 'cursor-custom-padrinos');
+
+            const lowerTitle = title.toLowerCase();
+            if (lowerTitle.includes('bob')) detailsModal.classList.add('cursor-custom-bob');
+            else if (lowerTitle.includes('peppa')) detailsModal.classList.add('cursor-custom-peppa');
+            else if (lowerTitle.includes('chavo')) detailsModal.classList.add('cursor-custom-chavo');
+            else if (lowerTitle.includes('pájaro') || lowerTitle.includes('pajaro')) detailsModal.classList.add('cursor-custom-pajaro');
+            else if (lowerTitle.includes('padrinos')) detailsModal.classList.add('cursor-custom-padrinos');
+
+            buildInteractiveArea(contentType, contentData);
+            detailsModal.style.display = 'flex';
+        }
+
+        function closeDetails() {
+            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro', 'cursor-custom-padrinos');
+            detailsModal.style.display = 'none';
+        }
+
+        function launchStream(url) {
+            playerTarget.innerHTML = ""; 
+            if (url.includes('mega.nz') || url.includes('youtube.com/embed') || url.includes('iframe')) {
+                playerTarget.innerHTML = `<iframe src="${url}" allowfullscreen style="width:100%; height:100%; background-color:#000; border:none;"></iframe>`;
+            } else {
+                playerTarget.innerHTML = `<video src="${url}" controls autoplay playsinline controlsList="nodownload" oncontextmenu="return false;" style="width:100%; height:100%; background-color:#000;"></video>`;
+            }
+            playerModal.style.display = 'flex';
+        }
+
+        function closePlayer() {
+            playerTarget.innerHTML = "";
+            playerModal.style.display = 'none';
+        }
+        
+        function buildInteractiveArea(contentType, contentData) {
+            modalInteractiveArea.innerHTML = "";
+            if (contentType === 'seasons') {
+                const listContainer = document.createElement('div');
+                listContainer.className = 'episodes-list-container';
+                contentData.forEach((season) => {
+                    const row = document.createElement('div');
+                    row.className = 'episode-row';
+                    row.innerHTML = `<span>📂 ${season.seasonName}</span><span class="episode-duration">Ver capítulos</span>`;
+                    row.onclick = () => buildInteractiveArea('series', season.episodes);
+                    listContainer.appendChild(row);
+                });
+                modalInteractiveArea.appendChild(listContainer);
+            } else if (contentType === 'series') {
+                const listContainer = document.createElement('div');
+                listContainer.className = 'episodes-list-container';
+                contentData.forEach((item) => {
+                    const row = document.createElement('div');
+                    row.className = 'episode-row';
+                    row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
+                    row.onclick = () => launchStream(item.url);
+                    listContainer.appendChild(row);
+                });
+                modalInteractiveArea.appendChild(listContainer);
+            } else {
+                modalInteractiveArea.innerHTML = `
+                    <div class="btn-group">
+                        <button class="btn btn-play" id="btnPlayMovie">▶ Ver Película</button>
+                        <button class="btn btn-trailer" id="btnPlayTrailer">🍿 Ver Trailer</button>
+                    </div>`;
+                document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData.videoUrl);
+                document.getElementById('btnPlayTrailer').onclick = () => launchStream(getEmbedUrl(contentData.trailerUrl));
+            }
+        }
+        
+        function getEmbedUrl(url) {
+            if (url.includes('youtu.be/')) return 'https://www.youtube.com/embed/' + url.split('youtu.be/')[1].split('?')[0];
+            if (url.includes('watch?v=')) return 'https://www.youtube.com/embed/' + url.split('watch?v=')[1].split('&')[0];
+            return url;
+        }
     </script>
+
+    <div class="details-modal" id="detailsModal">
+        <div class="details-container">
+            <button class="close-details" onclick="closeDetails()">✕</button>
+            <div class="details-banner" id="modalBg"></div>
+            <div class="details-content">
+                <img src="" class="details-poster" id="modalPoster">
+                <div class="details-info">
+                    <h2 id="modalTitle">Título</h2>
+                    <p id="modalDescription">Descripción...</p>
+                    <div id="modalInteractiveArea"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
