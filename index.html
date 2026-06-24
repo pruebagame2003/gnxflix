@@ -1025,6 +1025,7 @@
             else if (cleanQuery.includes('sing') || cleanQuery.includes('canta')) targetClass = "card-target-sing";
             else if (cleanQuery.includes('monster') || cleanQuery.includes('monstruos')) targetClass = "card-target-monsters";
             else if (cleanQuery.includes('toy') || cleanQuery.includes('story')) targetClass = "card-target-toy";
+            else if (cleanQuery.includes('padrino') || cleanQuery.includes('magico')) targetClass = "card-target-toy";
 
             if (targetClass !== "") {
                 const targets = document.querySelectorAll('.' + targetClass);
