@@ -772,15 +772,12 @@
 
             <!-- TOY STORY -->
             <div class="video-card card-target-toy" onclick="openDetails(
-                'Toy Story (Saga)', 
-                'Los juguetes de Andy, un niño de seis años, temen que haya llegado su hora y que un nuevo regalo de cumpleaños les sustituya en el corazón de su dueño. Woody, un vaquero que ha sido hasta ahora el juguete favorito de Andy, trata de tranquilizarlos hasta que aparece Buzz Lightyear.', 
+                'Toy Story', 
+                'Los juguetes de Andy, un niño de seis años, temen que haya llegado su hora y que un nuevo regalo de cumpleaños les sustituya en el corazón de su dueño. Woody, un vaquero que ha sido hasta ahora el juguete favorito de Andy, trata de tranquilizarlos hasta que aparece Buzz Lightyear, un héroe espacial dotado de todo tipo de avances tecnológicos. Woody es relegado a un segundo plano, pero su constante rivalidad se transformará en una gran amistad cuando ambos se pierden en la ciudad sin saber cómo volver a casa.', 
                 'https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg', 
                 'https://image.tmdb.org/t/p/original/wXTMod0lcLMtQy6Tz9yBP2wF4F1.jpg',
-                'series', 
-                [
-                    { name: '▶ Toy Story 1', url: 'https://www.dropbox.com/scl/fi/nirwdoubc75sl9sj5c6e6/Toy-Story-1.mp4?rlkey=ptw7mpd4890v49opy9ttrrm56&st=mv1xb20c&dl=1', time: '81 min' },
-                    { name: '▶ Toy Story 2', url: 'https://www.dropbox.com/scl/fi/8tt4y3ujnb52rztr3sq5k/TOY-STORY-2.mp4?rlkey=e7881d4v370hykem6owhpigep&dl=1', time: '92 min' }
-                ]
+                'movie',
+                { videoUrl: 'https://www.dropbox.com/scl/fi/nirwdoubc75sl9sj5c6e6/Toy-Story-1.mp4?rlkey=ptw7mpd4890v49opy9ttrrm56&st=mv1xb20c&dl=1', trailerUrl: 'https://youtu.be/VhCDgv4x_pU?si=zE0CsrFyH--82jUI' }
             )">
                 <img src="https://image.tmdb.org/t/p/original/jvn7wy3RSNEXnFSXLpH2of2LcV6.jpg" alt="Toy Story">
             </div>
@@ -1084,15 +1081,17 @@
             }
         }
 
-        // APERTURA INTELIGENTE DEL MODAL
+        // APERTURA INTELIGENTE DEL MODAL (CON INYECTOR DINÁMICO DE CURSORES LOCALES)
         function openDetails(title, desc, poster, backdrop, contentType, contentData) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
             document.getElementById('modalPoster').src = poster;
             document.getElementById('modalBg').style.backgroundImage = `url('${backdrop}')`;
             
+            // Limpiar clases de cursores previas del modal antes de abrir uno nuevo
             detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro');
 
+            // Detectar la maratón seleccionada y aplicarle el cursor a toda la ventana flotante
             const lowerTitle = title.toLowerCase();
             if (lowerTitle.includes('bob')) detailsModal.classList.add('cursor-custom-bob');
             else if (lowerTitle.includes('peppa')) detailsModal.classList.add('cursor-custom-peppa');
@@ -1103,22 +1102,36 @@
             detailsModal.style.display = 'flex';
         }
 
-        // CONSTRUCTOR DINÁMICO ACTUALIZADO (PARA EL DOBLE CLIC)
+        // CONVERSOR DINÁMICO DE URLS DE YOUTUBE PARA EMBED
+        function getEmbedUrl(url) {
+            if (url.includes('youtu.be/')) {
+                return 'https://www.youtube.com/embed/' + url.split('youtu.be/')[1].split('?')[0];
+            }
+            if (url.includes('watch?v=')) {
+                return 'https://www.youtube.com/embed/' + url.split('watch?v=')[1].split('&')[0];
+            }
+            return url;
+        }
+
+        // CONSTRUCTOR DINÁMICO DE INTERFAZ INTERNA
         function buildInteractiveArea(contentType, contentData) {
             modalInteractiveArea.innerHTML = "";
 
             if (contentType === 'seasons') {
-                // (Mantiene tu lógica de temporadas original)
                 const listContainer = document.createElement('div');
                 listContainer.className = 'episodes-list-container';
+
                 contentData.forEach((season) => {
                     const row = document.createElement('div');
                     row.className = 'episode-row';
                     row.innerHTML = `<span>📂 ${season.seasonName}</span><span class="episode-duration">Ver capítulos</span>`;
-                    row.onclick = () => buildInteractiveArea('series', season.episodes);
+                    row.onclick = () => {
+                        buildInteractiveArea('series', season.episodes);
+                    };
                     listContainer.appendChild(row);
                 });
                 modalInteractiveArea.appendChild(listContainer);
+
             } else if (contentType === 'series') {
                 const listContainer = document.createElement('div');
                 listContainer.className = 'episodes-list-container';
@@ -1127,20 +1140,11 @@
                     const row = document.createElement('div');
                     row.className = 'episode-row';
                     row.innerHTML = `<span>▶ ${item.name}</span><span class="episode-duration">${item.time}</span>`;
-                    
-                    // LÓGICA DEL DOBLE CLIC AQUÍ
-                    row.onclick = function() {
-                        if (this.dataset.selected === "true") {
-                            launchStream(item.url); // SEGUNDO CLIC: REPRODUCIR
-                        } else {
-                            document.querySelectorAll('.episode-row').forEach(r => r.dataset.selected = "false");
-                            this.dataset.selected = "true";
-                            document.getElementById('modalTitle').innerText = item.name; // PRIMER CLIC: ACTUALIZAR TÍTULO
-                        }
-                    };
+                    row.onclick = () => launchStream(item.url);
                     listContainer.appendChild(row);
                 });
                 modalInteractiveArea.appendChild(listContainer);
+
             } else {
                 modalInteractiveArea.innerHTML = `
                     <div class="btn-group">
@@ -1151,6 +1155,11 @@
                 document.getElementById('btnPlayMovie').onclick = () => launchStream(contentData.videoUrl);
                 document.getElementById('btnPlayTrailer').onclick = () => launchStream(getEmbedUrl(contentData.trailerUrl));
             }
+        }
+
+        function closeDetails() {
+            detailsModal.classList.remove('cursor-custom-bob', 'cursor-custom-peppa', 'cursor-custom-chavo', 'cursor-custom-pajaro');
+            detailsModal.style.display = 'none';
         }
 
         // REPRODUCTOR HÍBRIDO AVANZADO
