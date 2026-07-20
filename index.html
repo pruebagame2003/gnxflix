@@ -26,6 +26,26 @@
             scroll-behavior: smooth !important;
         }
 
+        /* Estilo para las tarjetas y las etiquetas de año */
+        .video-card {
+            position: relative; /* Ancla necesaria para la etiqueta flotante */
+        }
+
+        .movie-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
         /* --- PANTALLA DE CARGA (PRELOADER) --- */
         #preloader {
             position: fixed;
@@ -847,6 +867,7 @@
                     trailerUrl: 'https://youtu.be/9EYRSmbsqzY?si=D8PYwb8G1ozsHLng' 
                 }
             )">
+                <span class="movie-badge">2026</span>
                 <img src="https://image.tmdb.org/t/p/original/ur2yYTVGPkEDmLdoQ1Obm2RKXuU.jpg" alt="Los BackRooms">
             </div>
 
