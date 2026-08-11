@@ -30,12 +30,21 @@
         /* Estilo para las tarjetas y las etiquetas de año */
         .video-card {
             position: relative; /* Ancla necesaria para la etiqueta flotante */
+            min-width: 140px;
+            max-width: 140px;
+            height: 210px;
+            background-color: #222;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
+        /* --- NUEVO CÓDIGO DE ETIQUETAS DE CALIDAD Y AÑO --- */
         .movie-badge {
             position: absolute;
             top: 8px;
-            right: 8px;
             background: rgba(0, 0, 0, 0.75);
             color: #fff;
             font-size: 11px;
@@ -46,6 +55,19 @@
             z-index: 2;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        .year-badge { left: 8px; }
+        .quality-badge { right: 8px; }
+
+        .q-360p { background-color: #4a4a4a !important; color: #ccc; }
+        .q-720p { background-color: #4a90e2 !important; color: white; }
+        .q-1080p { 
+            background: linear-gradient(45deg, #ffd700, #ff8c00) !important; 
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+        /* ------------------------------------------------ */
 
         /* --- PANTALLA DE CARGA (PRELOADER) --- */
         #preloader {
@@ -973,7 +995,8 @@
                     trailerUrl: 'https://youtu.be/9EYRSmbsqzY?si=D8PYwb8G1ozsHLng' 
                 }
             )">
-                <span class="movie-badge">2026</span>
+                <span class="movie-badge year-badge">2026</span>
+                <span class="movie-badge quality-badge q-360p">360p</span>
                 <img src="https://image.tmdb.org/t/p/original/ur2yYTVGPkEDmLdoQ1Obm2RKXuU.jpg" alt="Los BackRooms">
             </div>
 
