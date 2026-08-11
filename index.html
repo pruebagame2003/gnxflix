@@ -622,6 +622,141 @@
             .btn { width: 100%; flex: none; }
             .episodes-list-container { max-height: 160px; }
         }
+
+        /* --- AQUÍ PEGAS LOS ESTILOS DEL CHAT --- */
+        #gnx-chat-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #e50914;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        #gnx-chat-btn:hover {
+            background-color: #f40612;
+            transform: scale(1.08);
+        }
+        #gnx-chat-box {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            width: 340px;
+            height: 480px;
+            background-color: #141414;
+            border: 1px solid #333;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .gnx-chat-header {
+            background-color: #1f1f1f;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .gnx-chat-header h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #e50914;
+        }
+        .gnx-chat-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .gnx-chat-close:hover { color: white; }
+        .gnx-chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #141414;
+        }
+        .gnx-msg-card {
+            background-color: #222;
+            padding: 10px;
+            border-radius: 8px;
+            position: relative;
+            border-left: 3px solid #e50914;
+        }
+        .gnx-msg-user {
+            font-size: 12px;
+            color: #aaa;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .gnx-msg-text {
+            font-size: 14px;
+            color: #fff;
+            word-break: break-word;
+            margin: 0;
+        }
+        .gnx-delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+        }
+        .gnx-msg-card:hover .gnx-delete-btn { display: block; }
+        .gnx-chat-input-area {
+            padding: 12px;
+            background-color: #1f1f1f;
+            border-top: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .gnx-chat-input-area input, .gnx-chat-input-area textarea {
+            background-color: #2b2b2b;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+            padding: 8px 10px;
+            font-size: 13px;
+            outline: none;
+            resize: none;
+        }
+        .gnx-chat-input-area input:focus, .gnx-chat-input-area textarea:focus {
+            border-color: #e50914;
+        }
+        .gnx-chat-input-area button {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .gnx-chat-input-area button:hover { background-color: #f40612; }
     </style>
 </head>
 <body>
@@ -1411,6 +1546,113 @@
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
         }
+    <!-- HTML del Chat -->
+    <button id="gnx-chat-btn" onclick="toggleGnxChat()">💬</button>
+
+    <div id="gnx-chat-box">
+        <div class="gnx-chat-header">
+            <h3>🎬 Pedidos de Películas</h3>
+            <button class="gnx-chat-close" onclick="toggleGnxChat()">✕</button>
+        </div>
+        <div class="gnx-chat-messages" id="gnxMessagesContainer"></div>
+        <div class="gnx-chat-input-area">
+            <input type="text" id="gnxUserName" placeholder="Tu apodo (ej. FanDeTerror)" maxlength="20">
+            <textarea id="gnxUserMsg" rows="2" placeholder="Pide tu película aquí..." maxlength="250"></textarea>
+            <button onclick="sendGnxMessage()">Enviar pedido</button>
+        </div>
+    </div>
+
+    <!-- Script de conexión con Firebase (Tu API ya configurada) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCf5aDa3FjfDLa-XQg99VpFHq4AXgjVTGc",
+        authDomain: "gnxflix-chat.firebaseapp.com",
+        projectId: "gnxflix-chat",
+        storageBucket: "gnxflix-chat.firebasestorage.app",
+        messagingSenderId: "583673911667",
+        appId: "1:583673911667:web:1a7ef992575dfe56530d06",
+        measurementId: "G-8K4D0GQ0PJ"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      window.toggleGnxChat = function() {
+          const box = document.getElementById('gnx-chat-box');
+          box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+      };
+
+      window.sendGnxMessage = async function() {
+          const nameInput = document.getElementById('gnxUserName');
+          const msgInput = document.getElementById('gnxUserMsg');
+
+          let name = nameInput.value.trim() || 'Anónimo';
+          let text = msgInput.value.trim();
+
+          if (!text) return;
+
+          try {
+              await addDoc(collection(db, "pelis_pedidos"), {
+                  usuario: name,
+                  mensaje: text,
+                  timestamp: serverTimestamp()
+              });
+              msgInput.value = '';
+          } catch (e) {
+              console.error("Error al enviar mensaje: ", e);
+              alert("Hubo un error al enviar tu pedido.");
+          }
+      };
+
+      const q = query(collection(db, "pelis_pedidos"), orderBy("timestamp", "asc"));
+      onSnapshot(q, (snapshot) => {
+          const container = document.getElementById('gnxMessagesContainer');
+          container.innerHTML = '';
+
+          const urlParams = new URLSearchParams(window.location.search);
+          const isAdmin = urlParams.get('admin') === 'gnxflix2026';
+
+          snapshot.forEach((docSnap) => {
+              const data = docSnap.data();
+              const msgId = docSnap.id;
+
+              const card = document.createElement('div');
+              card.className = 'gnx-msg-card';
+
+              let deleteBtnHTML = '';
+              if (isAdmin) {
+                  deleteBtnHTML = `<button class="gnx-delete-btn" onclick="deleteGnxMsg('${msgId}')">🗑️ Borrar</button>`;
+              }
+
+              card.innerHTML = `
+                  <div class="gnx-msg-user">${escapeHtml(data.usuario)}</div>
+                  <p class="gnx-msg-text">${escapeHtml(data.mensaje)}</p>
+                  ${deleteBtnHTML}
+              `;
+              container.appendChild(card);
+          });
+
+          container.scrollTop = container.scrollHeight;
+      });
+
+      window.deleteGnxMsg = async function(id) {
+          if (confirm("¿Estás seguro de eliminar este comentario?")) {
+              try {
+                  await deleteDoc(doc(db, "pelis_pedidos", id));
+              } catch (e) {
+                  console.error("Error al borrar:", e);
+              }
+          }
+      };
+
+      function escapeHtml(text) {
+          if (!text) return '';
+          return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
     </script>
+
 </body>
 </html>
