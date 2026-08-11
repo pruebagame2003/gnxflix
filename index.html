@@ -1546,7 +1546,9 @@
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
         }
-    <!-- HTML del Chat -->
+    </script>
+
+    <!-- HTML DEL CHAT (VA AQUÍ) -->
     <button id="gnx-chat-btn" onclick="toggleGnxChat()">💬</button>
 
     <div id="gnx-chat-box">
@@ -1556,13 +1558,13 @@
         </div>
         <div class="gnx-chat-messages" id="gnxMessagesContainer"></div>
         <div class="gnx-chat-input-area">
-            <input type="text" id="gnxUserName" placeholder="Tu apodo (ej. FanDeTerror)" maxlength="20">
+            <input type="text" id="gnxUserName" placeholder="Tu apodo..." maxlength="20">
             <textarea id="gnxUserMsg" rows="2" placeholder="Pide tu película aquí..." maxlength="250"></textarea>
             <button onclick="sendGnxMessage()">Enviar pedido</button>
         </div>
     </div>
 
-    <!-- Script de conexión con Firebase (Tu API ya configurada) -->
+    <!-- SCRIPT DE FIREBASE (VA AL FINAL) -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -1588,12 +1590,9 @@
       window.sendGnxMessage = async function() {
           const nameInput = document.getElementById('gnxUserName');
           const msgInput = document.getElementById('gnxUserMsg');
-
           let name = nameInput.value.trim() || 'Anónimo';
           let text = msgInput.value.trim();
-
           if (!text) return;
-
           try {
               await addDoc(collection(db, "pelis_pedidos"), {
                   usuario: name,
@@ -1601,58 +1600,50 @@
                   timestamp: serverTimestamp()
               });
               msgInput.value = '';
-          } catch (e) {
-              console.error("Error al enviar mensaje: ", e);
-              alert("Hubo un error al enviar tu pedido.");
-          }
+          } catch (e) { console.error(e); }
       };
 
       const q = query(collection(db, "pelis_pedidos"), orderBy("timestamp", "asc"));
       onSnapshot(q, (snapshot) => {
           const container = document.getElementById('gnxMessagesContainer');
+          if (!container) return;
           container.innerHTML = '';
-
           const urlParams = new URLSearchParams(window.location.search);
           const isAdmin = urlParams.get('admin') === 'gnxflix2026';
-
           snapshot.forEach((docSnap) => {
               const data = docSnap.data();
               const msgId = docSnap.id;
-
               const card = document.createElement('div');
               card.className = 'gnx-msg-card';
-
-              let deleteBtnHTML = '';
-              if (isAdmin) {
-                  deleteBtnHTML = `<button class="gnx-delete-btn" onclick="deleteGnxMsg('${msgId}')">🗑️ Borrar</button>`;
-              }
-
-              card.innerHTML = `
-                  <div class="gnx-msg-user">${escapeHtml(data.usuario)}</div>
-                  <p class="gnx-msg-text">${escapeHtml(data.mensaje)}</p>
-                  ${deleteBtnHTML}
-              `;
+              let deleteBtnHTML = isAdmin ? `<button class="gnx-delete-btn" onclick="deleteGnxMsg('${msgId}')">🗑️ Borrar</button>` : '';
+              card.innerHTML = `<div class="gnx-msg-user">${data.usuario}</div><p class="gnx-msg-text">${data.mensaje}</p>${deleteBtnHTML}`;
               container.appendChild(card);
           });
-
           container.scrollTop = container.scrollHeight;
       });
 
       window.deleteGnxMsg = async function(id) {
-          if (confirm("¿Estás seguro de eliminar este comentario?")) {
-              try {
-                  await deleteDoc(doc(db, "pelis_pedidos", id));
-              } catch (e) {
-                  console.error("Error al borrar:", e);
-              }
+          if (confirm("¿Borrar comentario?")) {
+              await deleteDoc(doc(db, "pelis_pedidos", id));
           }
       };
-
-      function escapeHtml(text) {
-          if (!text) return '';
-          return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      }
     </script>
+
+    <!-- AQUÍ PEGAS EL HTML DEL CHAT QUE TE DI -->
+    <button id="gnx-chat-btn" onclick="toggleGnxChat()">💬</button>
+
+    <div id="gnx-chat-box">
+        <div class="gnx-chat-header">
+            <h3>🎬 Pedidos de Películas</h3>
+            <button class="gnx-chat-close" onclick="toggleGnxChat()">✕</button>
+        </div>
+        <div class="gnx-chat-messages" id="gnxMessagesContainer"></div>
+        <div class="gnx-chat-input-area">
+            <input type="text" id="gnxUserName" placeholder="Tu apodo (ej. FanDeTerror)" maxlength="20">
+            <textarea id="gnxUserMsg" rows="2" placeholder="Pide tu película aquí..." maxlength="250"></textarea>
+            <button onclick="sendGnxMessage()">Enviar pedido</button>
+        </div>
+    </div>
 
 </body>
 </html>
