@@ -758,15 +758,20 @@
         }
         .gnx-msg-card-input-area button:hover { background-color: #f40612; }
 
-    /* Indicador de Activos y Visitas */
+    /* Indicador de Activos y Visitas Mejorado */
     .gnx-stats {
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 18px;
         color: #fff;
-        font-size: 12px;
+        font-size: 13px;
         font-family: sans-serif;
-        margin-right: 20px;
+        margin-left: 25px; /* Lo separa más del logo */
+        background-color: rgba(18, 18, 18, 0.85); /* Fondo oscuro elegante */
+        padding: 6px 14px;
+        border-radius: 10px; /* Bordes redondos */
+        border: 1.5px solid #ff1e1e; /* Borde rojo */
+        box-shadow: 0 0 10px rgba(255, 30, 30, 0.4); /* Brillo rojo sutil */
     }
     .gnx-status-dot {
         width: 8px;
@@ -774,11 +779,11 @@
         border-radius: 50%;
         background-color: #555;
         display: inline-block;
-        margin-right: 5px;
+        margin-right: 6px;
     }
     .gnx-status-dot.active {
-        background-color: #ff3e3e;
-        box-shadow: 0 0 8px #ff3e3e;
+        background-color: #ff1e1e;
+        box-shadow: 0 0 8px #ff1e1e;
         animation: pulse 1.5s infinite;
     }
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
