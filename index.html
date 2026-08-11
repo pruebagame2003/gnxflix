@@ -1616,14 +1616,15 @@
       });
 
       // --- 2. USUARIOS ACTIVOS EN TIEMPO REAL ---
-      const mySessionId = 'user_' + Math.random().toString(36.2);
+      const mySessionId = 'user_' + Math.random().toString(36).substring(2);
       const userStatusRef = ref(rdb, 'gnx_active_users/' + mySessionId);
       
       set(userStatusRef, true);
       onDisconnect(userStatusRef).remove();
 
       onValue(ref(rdb, 'gnx_active_users'), (snapshot) => {
-          const activeCount = snapshot.size || 0;
+          const val = snapshot.val();
+          const activeCount = val ? Object.keys(val).length : 0;
           const onlineEl = document.getElementById('gnx-online');
           const dotEl = document.getElementById('gnx-dot');
           
