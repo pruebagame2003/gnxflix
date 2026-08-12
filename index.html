@@ -1742,8 +1742,8 @@
             let flagSvg = "🌐"; // Por defecto
 
             if (timezone.includes("Guayaquil") || timezone.includes("Ecuador")) {
-                // Bandera de Ecuador (Franjas Amarilla, Azul, Roja)
-                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="600" fill="#ffdd00"/><rect y="300" width="900" height="300" fill="#0033a0"/><rect y="450" width="900" height="150" fill="#da291c"/></svg>`;
+                // Bandera de Ecuador con escudo minimalista estilizado
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="600" fill="#da291c"/><rect width="900" height="450" fill="#0033a0"/><rect width="900" height="300" fill="#ffdd00"/><ellipse cx="450" cy="300" rx="60" ry="80" fill="#ce1126"/><ellipse cx="450" cy="270" rx="40" ry="35" fill="#74acdf"/><path d="M 390 230 Q 450 180 510 230" stroke="#8b5a2b" stroke-width="15" fill="none" stroke-linecap="round"/><path d="M 360 270 Q 400 350 430 380" stroke="#fcd116" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M 540 270 Q 500 350 470 380" stroke="#fcd116" stroke-width="16" fill="none" stroke-linecap="round"/></svg>`;
             } else if (timezone.includes("Madrid") || timezone.includes("Spain")) {
                 // Bandera de España (Franjas Roja, Amarilla, Roja)
                 flagSvg = `<svg width="22" height="15" viewBox="0 0 750 500" style="border-radius:2px; vertical-align:middle;"><rect width="750" height="500" fill="#aa151b"/><rect y="125" width="750" height="250" fill="#f1bf00"/></svg>`;
