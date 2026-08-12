@@ -1646,6 +1646,7 @@
         // REPRODUCTOR HÍBRIDO AVANZADO
         function launchStream(url) {
             playerTarget.innerHTML = ""; 
+            document.getElementById('gnx-chat-btn').style.display = 'none'; // OCULTA BOTÓN
 
             if (url.includes('mega.nz') || url.includes('youtube.com/embed') || url.includes('iframe')) {
                 playerTarget.innerHTML = `
@@ -1671,6 +1672,7 @@
         function closePlayer() {
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
+            document.getElementById('gnx-chat-btn').style.display = 'flex'; // MUESTRA BOTÓN
         }
     </script>
 
