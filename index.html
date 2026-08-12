@@ -1717,9 +1717,11 @@
             document.getElementById('gnx-chat-btn').style.display = 'flex';
         }
 
-        // --- PEGA EL RELOJ AQUÍ DEBAJO ---
+        // --- RELOJ DINÁMICO INTERACTIVO CON HORA LOCAL, SALUDO Y BANDERA VECTORIAL ---
         function updateGnxClock() {
             const now = new Date();
+            
+            // 1. Obtener la hora local exacta del navegador en formato 12h
             let hours = now.getHours();
             const minutes = now.getMinutes();
             const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -1728,32 +1730,54 @@
             const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
             const timeString = `${hours}:${formattedMinutes} ${ampm}`;
 
+            // 2. Definir saludo automático según la hora
             const currentHour24 = now.getHours();
             let greeting = "¡Hola!";
             if (currentHour24 >= 5 && currentHour24 < 12) greeting = "¡Buenos Días!";
             else if (currentHour24 >= 12 && currentHour24 < 19) greeting = "¡Buenas Tardes!";
             else greeting = "¡Buenas Noches!";
 
+            // 3. Detectar zona horaria y asignar icono SVG vectorial de bandera a color
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-            let flag = "🌍";
+            let flagSvg = "🌐"; // Por defecto
 
-            if (timezone.includes("Guayaquil") || timezone.includes("Ecuador")) flag = "🇪🇨";
-            else if (timezone.includes("Madrid") || timezone.includes("Spain")) flag = "🇪🇸";
-            else if (timezone.includes("Mexico")) flag = "🇲🇽";
-            else if (timezone.includes("Argentina")) flag = "🇦🇷";
-            else if (timezone.includes("Bogota")) flag = "🇨🇴";
-            else if (timezone.includes("Lima")) flag = "🇵🇪";
-            else if (timezone.includes("Santiago")) flag = "🇨🇱";
-            else if (timezone.includes("Caracas")) flag = "🇻🇪";
-            else if (timezone.includes("US")) flag = "🇺🇸";
+            if (timezone.includes("Guayaquil") || timezone.includes("Ecuador")) {
+                // Bandera de Ecuador (Franjas Amarilla, Azul, Roja)
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="600" fill="#ffdd00"/><rect y="300" width="900" height="300" fill="#0033a0"/><rect y="450" width="900" height="150" fill="#da291c"/></svg>`;
+            } else if (timezone.includes("Madrid") || timezone.includes("Spain")) {
+                // Bandera de España (Franjas Roja, Amarilla, Roja)
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 750 500" style="border-radius:2px; vertical-align:middle;"><rect width="750" height="500" fill="#aa151b"/><rect y="125" width="750" height="250" fill="#f1bf00"/></svg>`;
+            } else if (timezone.includes("Mexico")) {
+                // Bandera de México (Verde, Blanco, Rojo simplificado)
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 500" style="border-radius:2px; vertical-align:middle;"><rect width="300" height="500" fill="#006341"/><rect x="300" width="300" height="500" fill="#ffffff"/><rect x="600" width="300" height="500" fill="#ce1126"/></svg>`;
+            } else if (timezone.includes("Argentina")) {
+                // Bandera de Argentina (Celeste, Blanco, Celeste)
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="600" fill="#74acdf"/><rect y="200" width="900" height="200" fill="#ffffff"/></svg>`;
+            } else if (timezone.includes("Colombia")) {
+                // Bandera de Colombia (Amarillo, Azul, Rojo)
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="600" fill="#fcd116"/><rect y="300" width="900" height="300" fill="#003893"/><rect y="450" width="900" height="150" fill="#ce1126"/></svg>`;
+            } else if (timezone.includes("Peru")) {
+                // Bandera de Perú (Rojo, Blanco, Rojo)
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="300" height="600" fill="#d91023"/><rect x="300" width="300" height="600" fill="#ffffff"/><rect x="600" width="300" height="600" fill="#d91023"/></svg>`;
+            } else if (timezone.includes("Chile")) {
+                // Bandera de Chile
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="600" fill="#d52b1e"/><rect y="300" width="900" height="300" fill="#ffffff"/><rect width="300" height="300" fill="#0039a6"/></svg>`;
+            } else if (timezone.includes("Venezuela")) {
+                // Bandera de Venezuela
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 600" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="600" fill="#cf142b"/><rect y="200" width="900" height="400" fill="#00247d"/><rect y="400" width="900" height="200" fill="#ffcc00"/></svg>`;
+            } else if (timezone.includes("US")) {
+                // Bandera de EE.UU. simplificada
+                flagSvg = `<svg width="22" height="15" viewBox="0 0 900 500" style="border-radius:2px; vertical-align:middle;"><rect width="900" height="500" fill="#b22234"/><rect y="38" width="900" height="38" fill="#ffffff"/><rect y="114" width="900" height="38" fill="#ffffff"/><rect y="190" width="900" height="38" fill="#ffffff"/><rect y="266" width="900" height="38" fill="#ffffff"/><rect y="342" width="900" height="38" fill="#ffffff"/><rect y="418" width="900" height="38" fill="#ffffff"/><rect width="360" height="268" fill="#3c3b6e"/></svg>`;
+            }
 
+            // Inyectar en el HTML
             const greetingEl = document.getElementById('gnxGreeting');
             const timeEl = document.getElementById('gnxTimeText');
             const flagEl = document.getElementById('gnxFlag');
 
             if (greetingEl) greetingEl.innerText = greeting;
             if (timeEl) timeEl.innerText = timeString;
-            if (flagEl) flagEl.innerText = flag;
+            if (flagEl) flagEl.innerHTML = flagSvg; // Usamos innerHTML para que dibuje el vector SVG
         }
 
         setInterval(updateGnxClock, 1000);
