@@ -1646,7 +1646,10 @@
         // REPRODUCTOR HÍBRIDO AVANZADO
         function launchStream(url) {
             playerTarget.innerHTML = ""; 
-            document.getElementById('gnx-chat-btn').style.display = 'none'; // OCULTA BOTÓN
+            
+            // OCULTA TANTO EL BOTÓN COMO LA CAJA DEL CHAT
+            document.getElementById('gnx-chat-btn').style.display = 'none';
+            document.getElementById('gnx-chat-box').style.display = 'none';
 
             if (url.includes('mega.nz') || url.includes('youtube.com/embed') || url.includes('iframe')) {
                 playerTarget.innerHTML = `
@@ -1665,14 +1668,15 @@
                            style="width:100%; height:100%; background-color:#000;">
                     </video>`;
             }
-                
             playerModal.style.display = 'flex';
         }
 
         function closePlayer() {
             playerTarget.innerHTML = "";
             playerModal.style.display = 'none';
-            document.getElementById('gnx-chat-btn').style.display = 'flex'; // MUESTRA BOTÓN
+            
+            // VUELVE A MOSTRAR EL BOTÓN AL SALIR
+            document.getElementById('gnx-chat-btn').style.display = 'flex';
         }
     </script>
 
