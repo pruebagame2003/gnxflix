@@ -820,6 +820,11 @@
     /* Ocultar en pantallas muy pequeñas para evitar amontonar la cabecera */
     @media (max-width: 950px) {
         #gnxClockWidget { display: none; }
+
+   /* Auto-scroll para contenedores de películas */
+   .cards-container {
+    position: relative;
+    scroll-behavior: auto !important; /* Desactivamos el smooth para que el scroll por mouse sea fluido */
     }
 </style>
 </head>
@@ -1987,6 +1992,38 @@
               await deleteDoc(doc(db, "pelis_pedidos", id));
           }
       };
+
+      // --- FUNCIÓN PARA AUTO-SCROLL CON MOUSE EN LAS FILAS DE PELÍCULAS ---
+      const containers = document.querySelectorAll('.cards-container');
+      containers.forEach(container => {
+          let scrollInterval;
+          const speed = 10; // Velocidad de desplazamiento
+
+          container.addEventListener('mousemove', (e) => {
+              const containerRect = container.getBoundingClientRect();
+              const mouseX = e.clientX - containerRect.left;
+              const width = containerRect.width;
+
+              // Si el mouse está en el 10% de la derecha
+              if (mouseX > width * 0.9) {
+                  if (!scrollInterval) scrollInterval = setInterval(() => { container.scrollLeft += speed; }, 20);
+              } 
+              // Si el mouse está en el 10% de la izquierda
+              else if (mouseX < width * 0.1) {
+                  if (!scrollInterval) scrollInterval = setInterval(() => { container.scrollLeft -= speed; }, 20);
+              } 
+              // Si está en el medio, detener
+              else {
+                  clearInterval(scrollInterval);
+                  scrollInterval = null;
+              }
+          });
+
+          container.addEventListener('mouseleave', () => {
+              clearInterval(scrollInterval);
+              scrollInterval = null;
+          });
+      });
     </script>
 
     <!-- AQUÍ PEGAS EL HTML DEL CHAT QUE TE DI -->
