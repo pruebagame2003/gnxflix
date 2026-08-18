@@ -2041,7 +2041,7 @@
         });
     });
 
-    // --- FUNCIÓN FINAL DE NOTIFICACIONES PUSH CON FIREBASE ---
+    // --- FUNCIÓN DEFINITIVA: PANEL CONECTADO A NOTIFICACIÓN NATIVA ---
     window.sendPushNotification = async function() {
         const title = document.getElementById('pushTitle').value.trim();
         const body = document.getElementById('pushMsg').value.trim();
@@ -2053,15 +2053,23 @@
         }
 
         try {
-            // Guardamos el aviso en una colección de Firebase para registrar la notificación
+            // 1. Guardar en Firebase (para registro)
             await addDoc(collection(db, "gnx_notifications"), {
                 titulo: title,
                 mensaje: body,
-                imagen: image || 'logo.png',
+                imagen: image || 'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg',
                 timestamp: serverTimestamp()
             });
 
-            alert("¡Notificación creada y registrada en Firebase con éxito!");
+            // 2. Disparar la notificación de forma inmediata en la PC del admin
+            if (Notification.permission === "granted") {
+                new Notification(title, {
+                    body: body,
+                    icon: image || 'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg'
+                });
+            }
+
+            alert("¡Éxito! Notificación enviada y registrada correctamente.");
             
             // Limpiar campos del panel
             document.getElementById('pushTitle').value = '';
