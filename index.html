@@ -1930,6 +1930,15 @@
       const db = getFirestore(app);
       const rdb = getDatabase(app);
 
+      // --- SOLICITUD DE PERMISOS NATIVOS ---
+      if ('Notification' in window) {
+          Notification.requestPermission().then(permission => {
+              if (permission === 'granted') {
+                  console.log('Permisos de notificación concedidos.');
+              }
+          });
+      }
+
       // --- 1. CONTADOR DE VISITAS TOTALES ---
       const visitCountRef = ref(rdb, 'gnx_stats/totalVisits');
       // Solo sumamos una visita por pestaña abierta usando sessionStorage para evitar spam al recargar
@@ -2041,19 +2050,19 @@
         });
     });
 
-    // --- FUNCIÓN DEFINITIVA: PANEL CONECTADO A NOTIFICACIÓN NATIVA ---
+    // --- FUNCIÓN DEFINITIVA: PANEL CONectado A NOTIFICACIÓN NATIVA ---
     window.sendPushNotification = async function() {
         const title = document.getElementById('pushTitle').value.trim();
         const body = document.getElementById('pushMsg').value.trim();
         const image = document.getElementById('pushImg').value.trim();
 
         if (!title || !body) {
-            alert("Por favor completa el título y el mensaje de la notificación.");
+            alert("Por favor completa el título y el mensaje.");
             return;
         }
 
         try {
-            // 1. Guardar en Firebase (para registro)
+            // 1. Guardar en Firebase
             await addDoc(collection(db, "gnx_notifications"), {
                 titulo: title,
                 mensaje: body,
@@ -2061,24 +2070,23 @@
                 timestamp: serverTimestamp()
             });
 
-            // 2. Disparar la notificación de forma inmediata en la PC del admin
+            // 2. Disparar notificación nativa inmediata si hay permiso
             if (Notification.permission === "granted") {
                 new Notification(title, {
                     body: body,
                     icon: image || 'https://image.tmdb.org/t/p/original/4CDkQMpNDTtVKwS0BBZw5RIXDtY.jpg'
                 });
+            } else {
+                alert("Notificación registrada en base de datos, pero el navegador bloqueó la alerta visual. Revisa los permisos.");
             }
 
-            alert("¡Éxito! Notificación enviada y registrada correctamente.");
-            
-            // Limpiar campos del panel
             document.getElementById('pushTitle').value = '';
             document.getElementById('pushMsg').value = '';
             document.getElementById('pushImg').value = '';
 
         } catch (error) {
-            console.error("Error al enviar notificación:", error);
-            alert("Hubo un error al enviar la notificación. Revisa la consola.");
+            console.error(error);
+            alert("Error al enviar.");
         }
     };
 </script>
