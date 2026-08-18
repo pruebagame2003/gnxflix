@@ -830,6 +830,15 @@
 </head>
 <body>
 
+    <!-- PANEL SECRETO PARA NOTIFICACIONES -->
+    <div id="adminPushPanel" style="display:none; background:#1c1c1c; padding:20px; border:2px solid #E50914; margin:10px 4%; border-radius:10px; color:white;">
+        <h3 style="margin-top:0; color:#E50914; font-family:'Fredoka One', sans-serif;">📡 Panel de Notificaciones Push</h3>
+        <input type="text" id="pushTitle" placeholder="Título (ej: ¡Nueva Película!)" style="width:100%; margin-bottom:10px; padding:10px; background:#2b2b2b; border:1px solid #444; color:white; border-radius:5px; box-sizing:border-box;"><br>
+        <input type="text" id="pushMsg" placeholder="Mensaje (ej: Ya disponible Frozen 2 en español)" style="width:100%; margin-bottom:10px; padding:10px; background:#2b2b2b; border:1px solid #444; color:white; border-radius:5px; box-sizing:border-box;"><br>
+        <input type="text" id="pushImg" placeholder="Link de la imagen o portada" style="width:100%; margin-bottom:15px; padding:10px; background:#2b2b2b; border:1px solid #444; color:white; border-radius:5px; box-sizing:border-box;"><br>
+        <button onclick="sendPushNotification()" style="background:#E50914; color:white; border:none; padding:10px 20px; font-weight:bold; border-radius:5px; cursor:pointer;">🚀 Enviar a todos</button>
+    </div>
+
     <div id="preloader">
         <div class="spinner"></div>
     </div>
@@ -1620,13 +1629,20 @@
             carouselInterval = setInterval(nextBanner, 6000);
         }
 
-        // CONTROL DE CARGA INICIAL
+        /// CONTROL DE CARGA INICIAL
         window.addEventListener('load', () => {
             preloader.style.opacity = '0';
             setTimeout(() => preloader.style.display = 'none', 600);
 
             if (localStorage.getItem('hideGnxNotice') !== 'true') {
                 noticeModal.style.display = 'flex';
+            }
+
+            // Detectar si eres admin para mostrar el panel secreto de notificaciones
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === 'codeuser2003') {
+                const adminPanel = document.getElementById('adminPushPanel');
+                if (adminPanel) adminPanel.style.display = 'block';
             }
         });
 
@@ -1994,37 +2010,70 @@
       };
 
       // --- FUNCIÓN PARA AUTO-SCROLL CON MOUSE EN LAS FILAS DE PELÍCULAS ---
-      const containers = document.querySelectorAll('.cards-container');
-      containers.forEach(container => {
-          let scrollInterval;
-          const speed = 10; // Velocidad de desplazamiento
+    const containers = document.querySelectorAll('.cards-container');
+    containers.forEach(container => {
+        let scrollInterval;
+        const speed = 10; // Velocidad de desplazamiento
 
-          container.addEventListener('mousemove', (e) => {
-              const containerRect = container.getBoundingClientRect();
-              const mouseX = e.clientX - containerRect.left;
-              const width = containerRect.width;
+        container.addEventListener('mousemove', (e) => {
+            const containerRect = container.getBoundingClientRect();
+            const mouseX = e.clientX - containerRect.left;
+            const width = containerRect.width;
 
-              // Si el mouse está en el 10% de la derecha
-              if (mouseX > width * 0.9) {
-                  if (!scrollInterval) scrollInterval = setInterval(() => { container.scrollLeft += speed; }, 20);
-              } 
-              // Si el mouse está en el 10% de la izquierda
-              else if (mouseX < width * 0.1) {
-                  if (!scrollInterval) scrollInterval = setInterval(() => { container.scrollLeft -= speed; }, 20);
-              } 
-              // Si está en el medio, detener
-              else {
-                  clearInterval(scrollInterval);
-                  scrollInterval = null;
-              }
-          });
+            // Si el mouse está en el 10% de la derecha
+            if (mouseX > width * 0.9) {
+                if (!scrollInterval) scrollInterval = setInterval(() => { container.scrollLeft += speed; }, 20);
+            } 
+            // Si el mouse está en el 10% de la izquierda
+            else if (mouseX < width * 0.1) {
+                if (!scrollInterval) scrollInterval = setInterval(() => { container.scrollLeft -= speed; }, 20);
+            } 
+            // Si está en el medio, detener
+            else {
+                clearInterval(scrollInterval);
+                scrollInterval = null;
+            }
+        });
 
-          container.addEventListener('mouseleave', () => {
-              clearInterval(scrollInterval);
-              scrollInterval = null;
-          });
-      });
-    </script>
+        container.addEventListener('mouseleave', () => {
+            clearInterval(scrollInterval);
+            scrollInterval = null;
+        });
+    });
+
+    // --- FUNCIÓN FINAL DE NOTIFICACIONES PUSH CON FIREBASE ---
+    window.sendPushNotification = async function() {
+        const title = document.getElementById('pushTitle').value.trim();
+        const body = document.getElementById('pushMsg').value.trim();
+        const image = document.getElementById('pushImg').value.trim();
+
+        if (!title || !body) {
+            alert("Por favor completa el título y el mensaje de la notificación.");
+            return;
+        }
+
+        try {
+            // Guardamos el aviso en una colección de Firebase para registrar la notificación
+            await addDoc(collection(db, "gnx_notifications"), {
+                titulo: title,
+                mensaje: body,
+                imagen: image || 'logo.png',
+                timestamp: serverTimestamp()
+            });
+
+            alert("¡Notificación creada y registrada en Firebase con éxito!");
+            
+            // Limpiar campos del panel
+            document.getElementById('pushTitle').value = '';
+            document.getElementById('pushMsg').value = '';
+            document.getElementById('pushImg').value = '';
+
+        } catch (error) {
+            console.error("Error al enviar notificación:", error);
+            alert("Hubo un error al enviar la notificación. Revisa la consola.");
+        }
+    };
+</script>
 
     <!-- AQUÍ PEGAS EL HTML DEL CHAT QUE TE DI -->
     <button id="gnx-chat-btn" onclick="toggleGnxChat()">💬</button>
